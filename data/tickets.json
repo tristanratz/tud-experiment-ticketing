@@ -1,0 +1,194 @@
+{
+  "tickets": [
+    {
+      "id": "T001",
+      "customer": "Jane Doe",
+      "email": "jane.doe@email.com",
+      "subject": "Cannot login to account",
+      "description": "I've been trying to log into my account for the past 2 hours but keep getting an 'Invalid credentials' error. I'm sure my password is correct because I saved it in my password manager. This is urgent as I need to access my order history.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "High",
+        "category": "Technical",
+        "assignment": "Tier 2",
+        "responseTemplate": "I understand how frustrating login issues can be. I've checked your account and it appears there may be a technical issue. I'm escalating this to our technical team who will reset your credentials and send you a password reset link within the next hour. You'll receive an email at jane.doe@email.com with instructions."
+      },
+      "scheduledAppearance": 0
+    },
+    {
+      "id": "T002",
+      "customer": "Michael Chen",
+      "email": "m.chen@company.com",
+      "subject": "Duplicate charge on credit card",
+      "description": "I was charged twice for order #45892. The first charge of $89.99 went through fine, but then I got another charge for the same amount 2 days later. I only ordered one item. Please refund the duplicate charge.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "High",
+        "category": "Billing",
+        "assignment": "Specialist",
+        "responseTemplate": "I sincerely apologize for the duplicate charge. I've reviewed your account and confirmed that you were indeed charged twice for order #45892. I'm processing a full refund of $89.99 to your credit card ending in the same numbers. You should see this refund within 3-5 business days. I've also added a $10 credit to your account for the inconvenience."
+      },
+      "scheduledAppearance": 90
+    },
+    {
+      "id": "T003",
+      "customer": "Sarah Williams",
+      "email": "sarah.w@email.com",
+      "subject": "Question about return policy",
+      "description": "Hi, I bought a sweater 3 weeks ago and it doesn't fit well. Do you accept returns after 30 days? The tag is still on and I have the receipt.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Low",
+        "category": "Order",
+        "assignment": "Tier 1",
+        "responseTemplate": "Thank you for reaching out! Good news - since you're within our 30-day return window and the item still has tags attached, you're eligible for a full refund. You can initiate the return through your account dashboard, or I can send you a prepaid return label via email. Which would you prefer?"
+      },
+      "scheduledAppearance": 180
+    },
+    {
+      "id": "T004",
+      "customer": "David Kumar",
+      "email": "d.kumar@email.com",
+      "subject": "Order never arrived",
+      "description": "I ordered a laptop case 2 weeks ago (order #45901) and the tracking shows it was delivered 5 days ago, but I never received it. I've checked with neighbors and my building's front desk - no one has it. What can you do about this?",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Urgent",
+        "category": "Order",
+        "assignment": "Specialist",
+        "responseTemplate": "I'm very sorry to hear your order hasn't arrived despite the tracking showing delivery. This is certainly concerning. I'm immediately opening an investigation with our shipping carrier and I'm also processing a replacement order that will ship today via expedited delivery at no charge. You should receive it within 2 business days. If the original package turns up, no need to return it - keep it with our compliments for the trouble."
+      },
+      "scheduledAppearance": 270
+    },
+    {
+      "id": "T005",
+      "customer": "Emily Rodriguez",
+      "email": "emily.r@email.com",
+      "subject": "Product recommendation needed",
+      "description": "I'm looking for a good wireless mouse for programming work. I spend 8-10 hours a day coding and need something ergonomic. Budget around $50-80. What do you recommend?",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Low",
+        "category": "Order",
+        "assignment": "Tier 1",
+        "responseTemplate": "Great question! For programming work with long hours, I'd recommend our ErgoTech Wireless Mouse Pro (model EM-500) at $69.99. It features a vertical ergonomic design that reduces wrist strain, has programmable buttons for shortcuts, and offers 3-month battery life. It's very popular among developers and has a 4.8/5 rating. Would you like me to send you a link to check it out?"
+      },
+      "scheduledAppearance": 360
+    },
+    {
+      "id": "T006",
+      "customer": "Robert Taylor",
+      "email": "rob.taylor@email.com",
+      "subject": "Account locked after failed login attempts",
+      "description": "My account got locked because I forgot my password and tried too many times. Now I can't access anything. I need to check on an urgent order that's supposed to arrive today. Please unlock it ASAP!",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "High",
+        "category": "Account",
+        "assignment": "Tier 2",
+        "responseTemplate": "I understand the urgency and I'm here to help. For security purposes, I need to verify your identity. Can you please confirm the billing address on file and the last 4 digits of the credit card used for your most recent order? Once verified, I'll immediately unlock your account and send you a password reset link. Your order #[number] is currently out for delivery and scheduled to arrive by 5 PM today."
+      },
+      "scheduledAppearance": 450
+    },
+    {
+      "id": "T007",
+      "customer": "Lisa Park",
+      "email": "lisa.park@email.com",
+      "subject": "Promotional code not working",
+      "description": "I have a 20% off code (SAVE20) from your email newsletter but it's not applying to my cart. I keep getting an error saying 'code invalid'. The email says it's valid until the end of this month. Can you help?",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Medium",
+        "category": "Technical",
+        "assignment": "Tier 1",
+        "responseTemplate": "I apologize for the trouble with the promotional code. I've checked and the SAVE20 code is indeed valid until the end of this month. The issue is that it only applies to items in the 'Electronics' category, and I see you have items from multiple categories in your cart. I can either: 1) Apply the code to eligible items, or 2) Manually apply a 15% discount to your entire order as a one-time courtesy. Which would you prefer?"
+      },
+      "scheduledAppearance": 540
+    },
+    {
+      "id": "T008",
+      "customer": "James Anderson",
+      "email": "j.anderson@email.com",
+      "subject": "Defective product received",
+      "description": "The headphones I received are defective - the left ear has no sound at all. I've tried them with multiple devices so it's definitely the product. This is really disappointing as they were expensive ($150). I want a replacement or refund.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "High",
+        "category": "Order",
+        "assignment": "Tier 2",
+        "responseTemplate": "I'm truly sorry that you received a defective product. That's absolutely not the experience we want you to have. I'm immediately processing a replacement order that will ship today via expedited shipping - you'll have it within 2 business days at no charge. I'm also including a prepaid return label for the defective unit, though there's no rush to send it back. As an apology, I'm applying a $20 credit to your account for the inconvenience."
+      },
+      "scheduledAppearance": 630
+    },
+    {
+      "id": "T009",
+      "customer": "Maria Garcia",
+      "email": "maria.g@email.com",
+      "subject": "Need to update shipping address",
+      "description": "I just placed order #45920 about 30 minutes ago but I realized I used my old address. I've recently moved. Can you change the shipping address to: 456 Oak Street, Apt 3B, Portland, OR 97201. Please hurry, I need this order!",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Urgent",
+        "category": "Order",
+        "assignment": "Tier 2",
+        "responseTemplate": "I'm on it! I've checked your order #45920 and fortunately it hasn't shipped yet. I've successfully updated the shipping address to 456 Oak Street, Apt 3B, Portland, OR 97201. The order will ship to this new address within the next 2 hours. I've also updated the address in your account profile so future orders will use the correct address. You'll receive a tracking number via email once it ships."
+      },
+      "scheduledAppearance": 720
+    },
+    {
+      "id": "T010",
+      "customer": "Thomas Lee",
+      "email": "thomas.lee@email.com",
+      "subject": "Website error during checkout",
+      "description": "I've been trying to complete my purchase for the last 20 minutes but I keep getting an error at checkout that says 'Payment processing failed'. I've tried 3 different credit cards and they all give the same error. I really want to buy these items before the sale ends today!",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Urgent",
+        "category": "Technical",
+        "assignment": "Specialist",
+        "responseTemplate": "I sincerely apologize for the checkout issues you're experiencing. This appears to be a technical problem on our end. To ensure you don't miss the sale, I can process your order manually right now over this support channel. Can you please provide the item numbers or names you want to purchase? I'll apply all current sale prices and process the payment securely. Alternatively, I can reserve the items at the sale price for 24 hours while our technical team resolves the website issue."
+      },
+      "scheduledAppearance": 810
+    }
+  ]
+}
