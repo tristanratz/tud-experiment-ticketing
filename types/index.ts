@@ -190,7 +190,7 @@ export interface SurveyResponse {
   trustInSelf: number; // 1-10 scale
   trustInDecisions: number; // 1-10 scale
   processEngagement: number; // 1-10 scale
-  comments?: string;
+  comments: string;
   completedAt: number;
 }
 

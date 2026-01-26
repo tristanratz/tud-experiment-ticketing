@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { ChatMessage, TicketWithStatus } from '@/types';
-import { aiMockService } from '@/lib/aiMock';
 import { tracking } from '@/lib/tracking';
 
 interface ChatAssistantProps {
@@ -14,12 +13,20 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Initialize with welcome message
-    const initialMessage = aiMockService.generateInitialChatMessage();
-    setMessages([initialMessage]);
+    setMessages([
+      {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content:
+          'Hello! I can answer questions using the knowledge base and help draft responses. What can I help with?',
+        timestamp: Date.now(),
+      },
+    ]);
   }, []);
 
   useEffect(() => {
@@ -37,27 +44,50 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
       timestamp: Date.now(),
     };
 
+    const outgoingMessages = [...messages, userMessage];
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    setError(null);
 
     // Track chat message
     tracking.chatMessageSent(input, currentTicket?.id);
 
-    // Simulate AI response delay
-    setTimeout(async () => {
-      const aiResponse = await aiMockService.generateChatResponse(input, currentTicket);
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: outgoingMessages,
+          currentTicket: currentTicket
+            ? {
+                id: currentTicket.id,
+                subject: currentTicket.subject,
+                description: currentTicket.description,
+              }
+            : null,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'Chat request failed');
+      }
 
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: aiResponse,
+        content: data.message,
         timestamp: Date.now(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to fetch response';
+      setError(message);
+    } finally {
       setIsLoading(false);
-    }, 800);
+    }
   };
 
   const handleDraftResponse = async () => {
@@ -67,29 +97,59 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
     }
 
     setIsLoading(true);
+    setError(null);
 
-    // Request draft response
-    const draftPrompt = `draft response for ${currentTicket.subject}`;
+    const draftPrompt = `Draft a customer response for ticket ${currentTicket.id} about: ${currentTicket.subject}.`;
     tracking.chatMessageSent(draftPrompt, currentTicket.id);
+    const userMessage: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: draftPrompt,
+      timestamp: Date.now(),
+    };
 
-    setTimeout(async () => {
-      const draft = aiMockService.generateCompleteResponse(currentTicket);
+    const outgoingMessages = [...messages, userMessage];
+    setMessages((prev) => [...prev, userMessage]);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: outgoingMessages,
+          currentTicket: currentTicket
+            ? {
+                id: currentTicket.id,
+                subject: currentTicket.subject,
+                description: currentTicket.description,
+              }
+            : null,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || 'Chat request failed');
+      }
 
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: `Here's a draft response for ticket ${currentTicket.id}:\n\n${draft}`,
+        content: `Here's a draft response for ticket ${currentTicket.id}:\n\n${data.message}`,
         timestamp: Date.now(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-      setIsLoading(false);
 
-      // Optionally insert into ticket detail if callback provided
       if (onInsertResponse) {
-        onInsertResponse(draft);
+        onInsertResponse(data.message);
       }
-    }, 1000);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to fetch response';
+      setError(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -155,6 +215,12 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
               </div>
             </div>
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded text-sm">
+            {error}
           </div>
         )}
 

@@ -1,0 +1,76 @@
+{
+  "questions": [
+    {
+      "id": "perceivedStress",
+      "type": "likert",
+      "text": "How stressful did you find the task?",
+      "description": "Rate your perceived stress level during the experiment",
+      "lowLabel": "Not at all stressful",
+      "highLabel": "Extremely stressful",
+      "required": true
+    },
+    {
+      "id": "decisionConfidence",
+      "type": "likert",
+      "text": "How confident are you in the decisions you made?",
+      "description": "Rate your confidence in the quality of your ticket decisions",
+      "lowLabel": "Not confident at all",
+      "highLabel": "Extremely confident",
+      "required": true
+    },
+    {
+      "id": "selfEfficacy",
+      "type": "likert",
+      "text": "How capable did you feel handling these support tickets?",
+      "description": "Rate your sense of self-efficacy during the task",
+      "lowLabel": "Not capable at all",
+      "highLabel": "Extremely capable",
+      "required": true
+    },
+    {
+      "id": "trustInSystem",
+      "type": "likert",
+      "text": "How much did you trust the support system/tools provided?",
+      "description": "Rate your trust in the assistance tools (if any were provided)",
+      "lowLabel": "Did not trust at all",
+      "highLabel": "Trusted completely",
+      "required": true
+    },
+    {
+      "id": "trustInSelf",
+      "type": "likert",
+      "text": "How much did you trust your own judgment?",
+      "description": "Rate your trust in your own decision-making abilities",
+      "lowLabel": "Did not trust at all",
+      "highLabel": "Trusted completely",
+      "required": true
+    },
+    {
+      "id": "trustInDecisions",
+      "type": "likert",
+      "text": "How much do you trust the final decisions made for each ticket?",
+      "description": "Rate your trust in the quality of the final outcomes",
+      "lowLabel": "Do not trust at all",
+      "highLabel": "Trust completely",
+      "required": true
+    },
+    {
+      "id": "processEngagement",
+      "type": "likert",
+      "text": "How engaged were you in the process?",
+      "description": "Rate your level of engagement and attention during the task",
+      "lowLabel": "Not engaged at all",
+      "highLabel": "Fully engaged",
+      "required": true
+    },
+    {
+      "id": "comments",
+      "type": "text",
+      "text": "Additional Comments",
+      "description": "Please share any additional feedback, thoughts, or observations about your experience",
+      "placeholder": "Your comments here...",
+      "rows": 6,
+      "required": true
+    }
+  ]
+}

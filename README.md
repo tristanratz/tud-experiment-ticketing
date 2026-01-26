@@ -95,6 +95,11 @@ tud-experiment-custom/
    NEXT_PUBLIC_POSTHOG_KEY=your_posthog_key_here
    NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
 
+   # OpenAI Configuration (required for AI Chat Assistant)
+   OPENAI_API_KEY=your_openai_api_key_here
+   # Optional model override (default: gpt-4o-mini)
+   OPENAI_MODEL=gpt-4o-mini
+
    # Admin key for data export (required)
    ADMIN_KEY=your_secret_admin_key_here
    ```
@@ -119,16 +124,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 Test different experimental groups by adding URL parameters:
 
-- Group 1 (Knowledge Base): `http://localhost:3000?group=1&timing=immediate`
-- Group 2 (Chat Assistant): `http://localhost:3000?group=2&timing=immediate`
-- Group 3 (AI Agent Confirm): `http://localhost:3000?group=3&timing=staggered`
-- Group 4 (AI Agent Auto): `http://localhost:3000?group=4&timing=staggered`
+- Group 1 (Knowledge Base): `http://localhost:3000?group=1&timing=immediate&participantId=TEST123`
+- Group 2 (Chat Assistant): `http://localhost:3000?group=2&timing=immediate&participantId=TEST123`
+- Group 3 (AI Agent Confirm): `http://localhost:3000?group=3&timing=staggered&participantId=TEST123`
+- Group 4 (AI Agent Auto): `http://localhost:3000?group=4&timing=staggered&participantId=TEST123`
 
 **URL Parameters:**
 - `group`: `1`, `2`, `3`, or `4` (**required** - validates experimental group assignment)
+- `participantId`: required participant identifier for session tracking
 - `timing`: `immediate` or `staggered` (optional, defaults to `immediate`)
 
-**Common Error:** Accessing `http://localhost:3000` without `?group=X` will show "Invalid access link" - this is intentional to simulate real research study links.
+**Common Error:** Accessing `http://localhost:3000` without `?group=X&participantId=...` will show "Invalid access link" - this is intentional to simulate real research study links.
 
 ### Production Build
 

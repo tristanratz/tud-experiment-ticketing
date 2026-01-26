@@ -67,6 +67,15 @@ export const knowledgeService = {
     return { title, html: html as string };
   },
 
+  // Read markdown as raw text for AI chat context
+  readMarkdownFileRaw(filePath: string): { title: string; content: string } {
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const { data, content } = matter(fileContents);
+    let title = data.title || this.extractTitle(content) || path.basename(filePath, '.md');
+    title = this.formatTitle(title);
+    return { title, content };
+  },
+
   // Extract title from markdown content
   extractTitle(markdown: string): string | null {
     const match = markdown.match(/^#\s+(.+)$/m);
@@ -119,5 +128,37 @@ export const knowledgeService = {
   getCategories(): string[] {
     const tree = this.buildKnowledgeTree();
     return tree.map(node => node.title);
+  },
+
+  // Gather raw knowledge documents for AI chat
+  getKnowledgeDocuments(): Array<{ id: string; title: string; content: string }> {
+    if (!fs.existsSync(KNOWLEDGE_BASE_PATH)) {
+      return [];
+    }
+
+    const documents: Array<{ id: string; title: string; content: string }> = [];
+
+    const readDocs = (dirPath: string, parentId: string = '') => {
+      const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+      for (const entry of entries) {
+        const fullPath = path.join(dirPath, entry.name);
+        const nodeId = parentId ? `${parentId}/${entry.name}` : entry.name;
+
+        if (entry.isDirectory()) {
+          readDocs(fullPath, nodeId);
+        } else if (entry.name.endsWith('.md')) {
+          const fileData = this.readMarkdownFileRaw(fullPath);
+          documents.push({
+            id: nodeId,
+            title: fileData.title,
+            content: fileData.content,
+          });
+        }
+      }
+    };
+
+    readDocs(KNOWLEDGE_BASE_PATH);
+
+    return documents.sort((a, b) => a.title.localeCompare(b.title));
   },
 };

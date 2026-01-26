@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import surveyConfig from '@/data/survey.json';
 
 const DATA_DIR = path.join(process.cwd(), 'data', 'collected');
 
@@ -17,6 +18,30 @@ export async function POST(request: NextRequest) {
     if (!participantId) {
       return NextResponse.json(
         { error: 'Missing participantId' },
+        { status: 400 }
+      );
+    }
+
+    const questions = surveyConfig.questions as Array<{
+      id: string;
+      type: 'likert' | 'text';
+      required?: boolean;
+    }>;
+
+    const missingFields = questions
+      .filter((question) => question.required)
+      .filter((question) => {
+        const value = surveyResponse[question.id];
+        if (question.type === 'likert') {
+          return typeof value !== 'number';
+        }
+        return !value || !String(value).trim();
+      })
+      .map((question) => question.id);
+
+    if (missingFields.length > 0) {
+      return NextResponse.json(
+        { error: 'Missing required fields', fields: missingFields },
         { status: 400 }
       );
     }

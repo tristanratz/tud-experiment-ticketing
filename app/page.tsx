@@ -12,8 +12,7 @@ function HomeContent() {
   const [agreed, setAgreed] = useState(false);
   const [group, setGroup] = useState<GroupType | null>(null);
   const [timingMode, setTimingMode] = useState<TimingMode>('immediate');
-  const [participantId, setParticipantId] = useState('');
-  const [autoParticipantId, setAutoParticipantId] = useState('');
+  const [participantId, setParticipantId] = useState<string | null>(null);
 
   useEffect(() => {
     // Initialize tracking
@@ -22,6 +21,7 @@ function HomeContent() {
     // Parse URL parameters
     const groupParam = searchParams.get('group') as GroupType;
     const timingParam = searchParams.get('timing') as TimingMode;
+    const participantParam = searchParams.get('participantId');
 
     if (groupParam && ['1', '2', '3', '4'].includes(groupParam)) {
       setGroup(groupParam);
@@ -31,27 +31,26 @@ function HomeContent() {
       setTimingMode(timingParam);
     }
 
+    if (participantParam) {
+      setParticipantId(participantParam.trim());
+    }
+
     // Check if already has session
     const existingSession = storage.getSession();
     if (existingSession) {
       router.push('/experiment');
     }
 
-    setAutoParticipantId(`P${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
   }, [searchParams, router]);
 
   const handleStart = () => {
-    if (!agreed || !group) return;
-
-    // Generate participant ID
-    const finalParticipantId = participantId.trim() || autoParticipantId
-      || `P${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    if (!agreed || !group || !participantId) return;
 
     // Initialize session
-    storage.initializeSession(finalParticipantId, group, timingMode);
+    storage.initializeSession(participantId, group, timingMode);
 
     // Track experiment start
-    tracking.experimentStarted(finalParticipantId, group, timingMode);
+    tracking.experimentStarted(participantId, group, timingMode);
 
     // Navigate to experiment
     router.push('/experiment');
@@ -137,18 +136,11 @@ function HomeContent() {
           <section>
             <h2 className="text-2xl font-semibold text-gray-800 mb-3">Participant ID</h2>
             <div className="bg-gray-50 border border-gray-200 p-4 rounded">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Optional custom ID
-              </label>
-              <input
-                type="text"
-                value={participantId}
-                onChange={(e) => setParticipantId(e.target.value)}
-                placeholder="Leave blank to auto-generate"
-                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              />
-              <p className="mt-2 text-sm text-gray-600">
-                Current ID: {participantId.trim() || autoParticipantId || 'Pending'}
+              <p className="text-sm text-gray-600 mb-2">
+                Your participant ID is provided via the study link.
+              </p>
+              <p className="font-mono text-lg font-semibold text-gray-800">
+                {participantId || 'Missing participantId parameter'}
               </p>
             </div>
           </section>
@@ -168,7 +160,7 @@ function HomeContent() {
             </label>
           </section>
 
-          {!group && (
+          {(!group || !participantId) && (
             <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
               <p className="text-red-700 font-medium">
                 Invalid access link. Please use the link provided to you.
@@ -178,14 +170,14 @@ function HomeContent() {
 
           <button
             onClick={handleStart}
-            disabled={!agreed || !group}
+            disabled={!agreed || !group || !participantId}
             className={`w-full py-4 px-6 rounded-lg text-lg font-semibold transition-all ${
-              agreed && group
+              agreed && group && participantId
                 ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
-            {agreed && group ? 'Start Experiment' : 'Please Accept Terms to Continue'}
+            {agreed && group && participantId ? 'Start Experiment' : 'Please Accept Terms to Continue'}
           </button>
 
           <p className="text-sm text-gray-500 text-center">
