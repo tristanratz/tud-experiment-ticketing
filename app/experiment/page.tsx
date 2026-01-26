@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
 import { ticketService } from '@/lib/tickets';
@@ -23,6 +23,14 @@ export default function ExperimentPage() {
   const [currentTicketId, setCurrentTicketId] = useState<string | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(EXPERIMENT_DURATION);
   const [loading, setLoading] = useState(true);
+  const lastRemainingRef = useRef<number | null>(null);
+  const expiredRef = useRef(false);
+  const ticketsRef = useRef<TicketWithStatus[]>([]);
+
+  const calculateRemaining = (startTime: number) => {
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    return Math.max(0, EXPERIMENT_DURATION - elapsed);
+  };
 
   // Initialize experiment
   useEffect(() => {
@@ -43,8 +51,7 @@ export default function ExperimentPage() {
     setTickets(initialTickets);
 
     // Calculate initial time remaining
-    const elapsed = Math.floor((Date.now() - sessionData.startTime) / 1000);
-    const remaining = Math.max(0, EXPERIMENT_DURATION - elapsed);
+    const remaining = calculateRemaining(sessionData.startTime);
     setTimeRemaining(remaining);
 
     // Track page view
@@ -58,34 +65,62 @@ export default function ExperimentPage() {
 
   // Timer countdown with warnings
   useEffect(() => {
-    if (!session || timeRemaining <= 0) return;
+    ticketsRef.current = tickets;
+  }, [tickets]);
 
-    // Track timer warnings at specific thresholds
-    if (timeRemaining === 300) {
-      tracking.timerWarning(300, '5min');
-    } else if (timeRemaining === 120) {
-      tracking.timerWarning(120, '2min');
-    } else if (timeRemaining === 60) {
-      tracking.timerWarning(60, '1min');
-    }
+  // Timer countdown with warnings
+  useEffect(() => {
+    if (!session) return;
 
-    const interval = setInterval(() => {
-      setTimeRemaining((prev) => {
-        const newTime = prev - 1;
-        if (newTime <= 0) {
-          // Time's up - track expiration and redirect to survey
-          clearInterval(interval);
-          const completedCount = tickets.filter(t => t.status === 'completed').length;
-          tracking.experimentTimeExpired(completedCount, tickets.length);
-          router.push('/survey');
-          return 0;
-        }
-        return newTime;
-      });
-    }, 1000);
+    expiredRef.current = false;
+    lastRemainingRef.current = null;
 
-    return () => clearInterval(interval);
-  }, [session, timeRemaining, router, tickets]);
+    const handleExpire = () => {
+      if (expiredRef.current) return;
+      expiredRef.current = true;
+      const completedCount = ticketsRef.current.filter(t => t.status === 'completed').length;
+      tracking.experimentTimeExpired(completedCount, ticketsRef.current.length);
+      router.push('/survey');
+    };
+
+    const maybeTrackWarning = (lastRemaining: number, remaining: number) => {
+      if (lastRemaining > 300 && remaining <= 300) {
+        tracking.timerWarning(300, '5min');
+      } else if (lastRemaining > 120 && remaining <= 120) {
+        tracking.timerWarning(120, '2min');
+      } else if (lastRemaining > 60 && remaining <= 60) {
+        tracking.timerWarning(60, '1min');
+      }
+    };
+
+    const updateRemaining = () => {
+      const remaining = calculateRemaining(session.startTime);
+      setTimeRemaining(remaining);
+
+      const lastRemaining = lastRemainingRef.current;
+      if (lastRemaining !== null) {
+        maybeTrackWarning(lastRemaining, remaining);
+      }
+      lastRemainingRef.current = remaining;
+
+      if (remaining <= 0) {
+        handleExpire();
+      }
+    };
+
+    updateRemaining();
+    const interval = setInterval(updateRemaining, 1000);
+    const handleVisibility = () => updateRemaining();
+
+    document.addEventListener('visibilitychange', handleVisibility);
+    window.addEventListener('focus', handleVisibility);
+
+    return () => {
+      clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      window.removeEventListener('focus', handleVisibility);
+    };
+  }, [session, router]);
 
   // Check for tickets to unlock (staggered mode)
   useEffect(() => {

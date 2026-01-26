@@ -12,6 +12,8 @@ function HomeContent() {
   const [agreed, setAgreed] = useState(false);
   const [group, setGroup] = useState<GroupType | null>(null);
   const [timingMode, setTimingMode] = useState<TimingMode>('immediate');
+  const [participantId, setParticipantId] = useState('');
+  const [autoParticipantId, setAutoParticipantId] = useState('');
 
   useEffect(() => {
     // Initialize tracking
@@ -34,19 +36,22 @@ function HomeContent() {
     if (existingSession) {
       router.push('/experiment');
     }
+
+    setAutoParticipantId(`P${Date.now()}-${Math.random().toString(36).slice(2, 9)}`);
   }, [searchParams, router]);
 
   const handleStart = () => {
     if (!agreed || !group) return;
 
     // Generate participant ID
-    const participantId = `P${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const finalParticipantId = participantId.trim() || autoParticipantId
+      || `P${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
     // Initialize session
-    storage.initializeSession(participantId, group, timingMode);
+    storage.initializeSession(finalParticipantId, group, timingMode);
 
     // Track experiment start
-    tracking.experimentStarted(participantId, group, timingMode);
+    tracking.experimentStarted(finalParticipantId, group, timingMode);
 
     // Navigate to experiment
     router.push('/experiment');
@@ -125,6 +130,25 @@ function HomeContent() {
               <p className="mt-2">
                 All data is anonymized and will only be used for academic research.
                 Your participation is voluntary and you may withdraw at any time.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-3">Participant ID</h2>
+            <div className="bg-gray-50 border border-gray-200 p-4 rounded">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Optional custom ID
+              </label>
+              <input
+                type="text"
+                value={participantId}
+                onChange={(e) => setParticipantId(e.target.value)}
+                placeholder="Leave blank to auto-generate"
+                className="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              />
+              <p className="mt-2 text-sm text-gray-600">
+                Current ID: {participantId.trim() || autoParticipantId || 'Pending'}
               </p>
             </div>
           </section>
