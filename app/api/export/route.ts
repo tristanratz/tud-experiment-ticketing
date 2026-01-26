@@ -3,6 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import { ticketService } from '@/lib/tickets';
 
+// Mark this route as dynamic since it uses search params
+export const dynamic = 'force-dynamic';
+
 const DATA_DIR = path.join(process.cwd(), 'data', 'collected');
 
 export async function GET(request: NextRequest) {

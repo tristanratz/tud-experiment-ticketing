@@ -16,9 +16,9 @@ export const tracking = {
       posthog.init(key, {
         api_host: host,
         loaded: (posthog) => {
-          if (process.env.NODE_ENV === 'development') {
+          // if (process.env.NODE_ENV === 'development') {
             posthog.opt_out_capturing(); // Don't track in development
-          }
+          // }
         },
       });
       initialized = true;
