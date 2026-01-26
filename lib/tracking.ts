@@ -32,9 +32,7 @@ export const tracking = {
         disable_persistence: false, // Keep persistence enabled
         sanitize_properties: null, // Don't sanitize properties - capture everything
         property_blacklist: [], // Don't blacklist any properties
-        xhr_headers: { // Include custom headers in XHR tracking
-          'X-Experiment-Platform': 'TUD-Ticket-System'
-        },
+        // Avoid custom headers to prevent CORS preflight failures.
         loaded: (posthog) => {
           // Only opt out in development if explicitly set
           if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_POSTHOG_DISABLE_IN_DEV === 'true') {
@@ -153,6 +151,10 @@ export const tracking = {
 
   surveyCompleted(surveyData: any): void {
     this.track('survey_completed', surveyData);
+  },
+
+  surveySubmitted(surveyData: any): void {
+    this.track('survey_submitted', surveyData);
   },
 
   // Additional comprehensive tracking methods

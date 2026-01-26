@@ -1,12 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
 
 export default function CompletePage() {
   const router = useRouter();
   const [participantId, setParticipantId] = useState<string | null>(null);
+  const [prolificRedirectUrl, setProlificRedirectUrl] = useState<string | null>(null);
   const [showContact, setShowContact] = useState(false);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -20,6 +21,7 @@ export default function CompletePage() {
     }
 
     setParticipantId(session.participantId);
+    setProlificRedirectUrl(session.prolificRedirectUrl ?? null);
 
     // Mark session as ended
     storage.updateSession({ endTime: Date.now() });
@@ -28,6 +30,15 @@ export default function CompletePage() {
       router.replace(window.location.pathname);
     }
   }, [router]);
+
+  const prolificCompletionUrl = useMemo(() => {
+    const url = new URL('https://app.prolific.co/submissions/complete');
+    url.searchParams.set('cc', 'COMPLETION_CODE_HERE');
+    if (prolificRedirectUrl) {
+      url.searchParams.set('redirect_url', prolificRedirectUrl);
+    }
+    return url.toString();
+  }, [prolificRedirectUrl]);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,7 +130,7 @@ export default function CompletePage() {
             You will receive your compensation once this step is complete.
           </p>
           <a
-            href="https://app.prolific.co/submissions/complete?cc=COMPLETION_CODE_HERE"
+            href={prolificCompletionUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold text-center"

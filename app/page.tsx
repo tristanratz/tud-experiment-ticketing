@@ -13,6 +13,7 @@ function HomeContent() {
   const [group, setGroup] = useState<GroupType | null>(null);
   const [timingMode, setTimingMode] = useState<TimingMode>('immediate');
   const [participantId, setParticipantId] = useState<string | null>(null);
+  const [prolificRedirectUrl, setProlificRedirectUrl] = useState<string | null>(null);
 
   useEffect(() => {
     // Initialize tracking
@@ -22,6 +23,7 @@ function HomeContent() {
     const groupParam = searchParams.get('group') as GroupType;
     const timingParam = searchParams.get('timing') as TimingMode;
     const participantParam = searchParams.get('participantId');
+    const redirectParam = searchParams.get('redirect');
 
     if (groupParam && ['1', '2', '3', '4'].includes(groupParam)) {
       setGroup(groupParam);
@@ -33,6 +35,10 @@ function HomeContent() {
 
     if (participantParam) {
       setParticipantId(participantParam.trim());
+    }
+
+    if (redirectParam) {
+      setProlificRedirectUrl(redirectParam.trim());
     }
 
     // Check if already has session
@@ -51,7 +57,7 @@ function HomeContent() {
     if (!agreed || !group || !participantId) return;
 
     // Initialize session
-    storage.initializeSession(participantId, group, timingMode);
+    storage.initializeSession(participantId, group, timingMode, prolificRedirectUrl ?? undefined);
 
     // Track experiment start
     tracking.experimentStarted(participantId, group, timingMode);

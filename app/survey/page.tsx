@@ -52,6 +52,9 @@ export default function SurveyPage() {
         body: JSON.stringify(response),
       });
 
+      // Track survey submission (after successful API request)
+      tracking.surveySubmitted(response);
+
       // Final data sync
       const traceBuffer = storage.getTraceBuffer();
       if (traceBuffer.length > 0) {

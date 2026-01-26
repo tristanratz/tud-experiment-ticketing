@@ -175,6 +175,7 @@ export interface SessionData {
   participantId: string;
   group: GroupType;
   timingMode: TimingMode;
+  prolificRedirectUrl?: string;
   startTime: number;
   endTime?: number;
   ticketResponses: TicketResponse[];

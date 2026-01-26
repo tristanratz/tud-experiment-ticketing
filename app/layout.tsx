@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import TrackingInitializer from '@/components/TrackingInitializer';
 
 export const metadata: Metadata = {
   title: 'Customer Support Ticket System - Research Study',
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <TrackingInitializer />
         {children}
       </body>
     </html>

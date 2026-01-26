@@ -74,12 +74,14 @@ export const storage = {
   initializeSession(
     participantId: string,
     group: '1' | '2' | '3' | '4',
-    timingMode: 'immediate' | 'staggered'
+    timingMode: 'immediate' | 'staggered',
+    prolificRedirectUrl?: string
   ): SessionData {
     const session: SessionData = {
       participantId,
       group,
       timingMode,
+      ...(prolificRedirectUrl ? { prolificRedirectUrl } : {}),
       startTime: Date.now(),
       ticketResponses: [],
       traceEvents: [],

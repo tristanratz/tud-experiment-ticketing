@@ -133,6 +133,10 @@ Test different experimental groups by adding URL parameters:
 - `group`: `1`, `2`, `3`, or `4` (**required** - validates experimental group assignment)
 - `participantId`: required participant identifier for session tracking
 - `timing`: `immediate` or `staggered` (optional, defaults to `immediate`)
+- `redirect`: optional URL to send participants back after Prolific completion (used as `redirect_url` on the completion link)
+
+Example with redirect:
+`http://localhost:3000?group=1&timing=immediate&participantId=TEST123&redirect=https%3A%2F%2Flocalhost%3A3000%2Fcomplete`
 
 **Common Error:** Accessing `http://localhost:3000` without `?group=X&participantId=...` will show "Invalid access link" - this is intentional to simulate real research study links.
 
