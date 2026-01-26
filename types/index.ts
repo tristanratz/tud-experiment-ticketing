@@ -141,6 +141,7 @@ export type TraceEventType =
   | 'knowledge_base_searched'
   // Survey events
   | 'survey_completed'
+  | 'survey_submitted'
   | 'survey_question_answered'
   // Sidebar interaction events
   | 'sidebar_section_focused'
