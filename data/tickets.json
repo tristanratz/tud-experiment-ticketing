@@ -1,49 +1,11 @@
 {
   "tickets": [
     {
-      "id": "T001",
-      "customer": "Jane Doe",
-      "email": "jane.doe@email.com",
-      "subject": "Cannot login to account",
-      "description": "I've been trying to log into my account for the past 2 hours but keep getting an 'Invalid credentials' error. I'm sure my password is correct because I saved it in my password manager. This is urgent as I need to access my order history.",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "High",
-        "category": "Technical",
-        "assignment": "Tier 2",
-        "responseTemplate": "I understand how frustrating login issues can be. I've checked your account and it appears there may be a technical issue. I'm escalating this to our technical team who will reset your credentials and send you a password reset link within the next hour. You'll receive an email at jane.doe@email.com with instructions."
-      },
-      "scheduledAppearance": 45
-    },
-    {
-      "id": "T002",
-      "customer": "Michael Chen",
-      "email": "m.chen@company.com",
-      "subject": "Duplicate charge on credit card",
-      "description": "I was charged twice for order #45892. The first charge of $89.99 went through fine, but then I got another charge for the same amount 2 days later. I only ordered one item. Please refund the duplicate charge.",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "High",
-        "category": "Billing",
-        "assignment": "Specialist",
-        "responseTemplate": "I sincerely apologize for the duplicate charge. I've reviewed your account and confirmed that you were indeed charged twice for order #45892. I'm processing a full refund of $89.99 to your credit card ending in the same numbers. You should see this refund within 3-5 business days. I've also added a $10 credit to your account for the inconvenience."
-      },
-      "scheduledAppearance": 90
-    },
-    {
-      "id": "T003",
-      "customer": "Sarah Williams",
-      "email": "sarah.w@email.com",
-      "subject": "Question about return policy",
-      "description": "Hi, I bought a sweater 3 weeks ago and it doesn't fit well. Do you accept returns after 30 days? The tag is still on and I have the receipt.",
+      "id": "1001",
+      "customer": "Keller, Jana",
+      "email": "jana.keller@example.com",
+      "subject": "Return request for over-ear headphones (missing packaging)",
+      "description": "Hallo ich habe vor 2 wochen Over Ear Kopfhöhrer bei Ihnen bestellt, mir gefällt der Klang aber nicht, deswegen möchte ich sie zurückschicken.\n\nDie Originalverpackung und die Tragetasche finde ich leider nicht mehr.\n\nKann ich die Kopfhörer trotzdem noch zurückschicken?",
       "decisionPoints": {
         "priority": ["Low", "Medium", "High", "Urgent"],
         "category": ["Technical", "Account", "Billing", "Order"],
@@ -51,56 +13,18 @@
       },
       "goldStandard": {
         "priority": "Low",
-        "category": "Order",
+        "category": "Rückgabe/Umtausch",
         "assignment": "Tier 1",
-        "responseTemplate": "Thank you for reaching out! Good news - since you're within our 30-day return window and the item still has tags attached, you're eligible for a full refund. You can initiate the return through your account dashboard, or I can send you a prepaid return label via email. Which would you prefer?"
+        "responseTemplate": "Rückgabe: In frist; 100% Preiserstattung abzgl. 25€ (Carry Case) und 10€ (Ear-Cushions wegen Benutzung); 10% Restocking Fee."
       },
-      "scheduledAppearance": 180
+      "scheduledAppearance": 5
     },
     {
-      "id": "T004",
-      "customer": "David Kumar",
-      "email": "d.kumar@email.com",
-      "subject": "Order never arrived",
-      "description": "I ordered a laptop case 2 weeks ago (order #45901) and the tracking shows it was delivered 5 days ago, but I never received it. I've checked with neighbors and my building's front desk - no one has it. What can you do about this?",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "Urgent",
-        "category": "Order",
-        "assignment": "Specialist",
-        "responseTemplate": "I'm very sorry to hear your order hasn't arrived despite the tracking showing delivery. This is certainly concerning. I'm immediately opening an investigation with our shipping carrier and I'm also processing a replacement order that will ship today via expedited delivery at no charge. You should receive it within 2 business days. If the original package turns up, no need to return it - keep it with our compliments for the trouble."
-      },
-      "scheduledAppearance": 270
-    },
-    {
-      "id": "T005",
-      "customer": "Emily Rodriguez",
-      "email": "emily.r@email.com",
-      "subject": "Product recommendation needed",
-      "description": "I'm looking for a good wireless mouse for programming work. I spend 8-10 hours a day coding and need something ergonomic. Budget around $50-80. What do you recommend?",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "Low",
-        "category": "Order",
-        "assignment": "Tier 1",
-        "responseTemplate": "Great question! For programming work with long hours, I'd recommend our ErgoTech Wireless Mouse Pro (model EM-500) at $69.99. It features a vertical ergonomic design that reduces wrist strain, has programmable buttons for shortcuts, and offers 3-month battery life. It's very popular among developers and has a 4.8/5 rating. Would you like me to send you a link to check it out?"
-      },
-      "scheduledAppearance": 360
-    },
-    {
-      "id": "T006",
-      "customer": "Robert Taylor",
-      "email": "rob.taylor@email.com",
-      "subject": "Account locked after failed login attempts",
-      "description": "My account got locked because I forgot my password and tried too many times. Now I can't access anything. I need to check on an urgent order that's supposed to arrive today. Please unlock it ASAP!",
+      "id": "1002",
+      "customer": "Schmidt, Tobias",
+      "email": "tobias.schmidt@example.com",
+      "subject": "Exchange request for in-ear headphones (DOA)",
+      "description": "Guten Tag,\n\nIch habe gestern meine  In-Ear Kopfhörer mit ANC erhalten, leider funktionieren sie scheinbar nicht richtig:\n\n- Das Ladecase lädt die Kopfhörer nicht\n- Die LED blinkt nur kurz und geht dann aus\n- Das Handy erkennt die Kopfhörer gar nicht\n\nIch würde die Kopfhörer deswegen gerne umtauschen, kein Refund.\n\nKönnen Sie mir sagen wie ich die Kopfhörer zurückzuschicken habe?",
       "decisionPoints": {
         "priority": ["Low", "Medium", "High", "Urgent"],
         "category": ["Technical", "Account", "Billing", "Order"],
@@ -108,18 +32,18 @@
       },
       "goldStandard": {
         "priority": "High",
-        "category": "Account",
+        "category": "Rückgabe/Umtausch",
         "assignment": "Tier 2",
-        "responseTemplate": "I understand the urgency and I'm here to help. For security purposes, I need to verify your identity. Can you please confirm the billing address on file and the last 4 digits of the credit card used for your most recent order? Once verified, I'll immediately unlock your account and send you a password reset link. Your order #[number] is currently out for delivery and scheduled to arrive by 5 PM today."
+        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
       },
-      "scheduledAppearance": 450
+      "scheduledAppearance": 11
     },
     {
-      "id": "T007",
-      "customer": "Lisa Park",
-      "email": "lisa.park@email.com",
-      "subject": "Promotional code not working",
-      "description": "I have a 20% off code (SAVE20) from your email newsletter but it's not applying to my cart. I keep getting an error saying 'code invalid'. The email says it's valid until the end of this month. Can you help?",
+      "id": "1003",
+      "customer": "Wagner, Lea",
+      "email": "lea.wagner@example.com",
+      "subject": "Repair request for anniversary over-ear headphones",
+      "description": "Hallo Support-Team,\nIch habe vor etwa 10 Monaten die anniversary Edition der Over-Ear Kopfhörer bei Ihnen gekauft. Nach einiger Zeit ist jetzt nur die linke Seite immer leiser als die Rechte. Außerdem treten gelegentlich Störgeräusche in Form von Kratzen und Rascheln in den Kopfhörern auf.\nIch habe das Gerät bereits mit verschiedenen Quellen getestet bin mir also sicher es müsste an den Kopfhörern liegen.\n\nKann ich die Kopfhörer nochmal umtauschen oder reparieren lassen?",
       "decisionPoints": {
         "priority": ["Low", "Medium", "High", "Urgent"],
         "category": ["Technical", "Account", "Billing", "Order"],
@@ -127,18 +51,37 @@
       },
       "goldStandard": {
         "priority": "Medium",
-        "category": "Technical",
-        "assignment": "Tier 1",
-        "responseTemplate": "I apologize for the trouble with the promotional code. I've checked and the SAVE20 code is indeed valid until the end of this month. The issue is that it only applies to items in the 'Electronics' category, and I see you have items from multiple categories in your cart. I can either: 1) Apply the code to eligible items, or 2) Manually apply a 15% discount to your entire order as a one-time courtesy. Which would you prefer?"
+        "category": "Reparatur",
+        "assignment": "Specialist",
+        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
       },
-      "scheduledAppearance": 540
+      "scheduledAppearance": 20
     },
     {
-      "id": "T008",
-      "customer": "James Anderson",
-      "email": "j.anderson@email.com",
-      "subject": "Defective product received",
-      "description": "The headphones I received are defective - the left ear has no sound at all. I've tried them with multiple devices so it's definitely the product. This is really disappointing as they were expensive ($150). I want a replacement or refund.",
+      "id": "1004",
+      "customer": "Baumann, Erik",
+      "email": "erik.baumann@example.com",
+      "subject": "Return request for large speakers (pickup, packaging, fees)",
+      "description": "Sehr geehrte Damen und Herren,\n\nich habe vor drei Wochen ein Paar High-End Lautsprecher (Produktnummer 4.3) bei Ihnen bestellt. Leider passen sie optisch doch nicht in mein Wohnzimmer, weshalb ich gern vom Widerruf Gebrauch machen möchte.\n\nIch wohne in der Schweiz und hätte folgende Fragen:\n\nWie läuft der Rückversand bei so großen Lautsprechern ab? Organisieren Sie eine Abholung per Spedition?\n\nDer Originalkarton ist noch vorhanden – ist das ausreichend verpackt?\n\nFallen bei der Rückgabe irgendwelche Gebühren an?\n\nVielen Dank für Ihre Unterstützung.\n\nFreundliche Grüße\n[Name]",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Medium",
+        "category": "Umtausch/Rückgabe",
+        "assignment": "Tier 1",
+        "responseTemplate": "Rückgabe: In Frist; Vollerstattung mit Originalkarton; 15% Restocking Fee."
+      },
+      "scheduledAppearance": 32
+    },
+    {
+      "id": "1005",
+      "customer": "Neumann, Pia",
+      "email": "pia.neumann@example.com",
+      "subject": "Return request with missing eartips (fraud suspicion)",
+      "description": "Hallo,\n\nich möchte gerne meine In-Ear Headphones Wireless mit ANC  zuruckgeben. Ich habe sie vor etwa drei Wochen erhalten.\n\nDie Kopfhörer sind im Prinzip noch neu und ungeöffnet/ungetragen, aber ich habe sie kurz ausprobiert und festgestellt, dass mir die mitgelieferten Eartips nicht passen. Ich habe deshalb andere Eartips verwendet, die ich noch zu Hause hatte.\n\nLeider sind mir beim Aufräumen die Original-Eartips abhandengekommen, ich kann sie also nicht mehr mitsenden. Das Ladecase und das USB-C-Kabel habe ich noch.\n\nIch würde gern von meinem 30-tägigen Rückgaberecht Gebrauch machen und bitte um eine volle Rückerstattung des Kaufpreises.\n\nKönnen Sie mir dafür bitte ein Rücksendelabel schicken?\n\nViele Grüße",
       "decisionPoints": {
         "priority": ["Low", "Medium", "High", "Urgent"],
         "category": ["Technical", "Account", "Billing", "Order"],
@@ -146,49 +89,106 @@
       },
       "goldStandard": {
         "priority": "High",
-        "category": "Order",
-        "assignment": "Tier 2",
-        "responseTemplate": "I'm truly sorry that you received a defective product. That's absolutely not the experience we want you to have. I'm immediately processing a replacement order that will ship today via expedited shipping - you'll have it within 2 business days at no charge. I'm also including a prepaid return label for the defective unit, though there's no rush to send it back. As an apology, I'm applying a $20 credit to your account for the inconvenience."
-      },
-      "scheduledAppearance": 630
-    },
-    {
-      "id": "T009",
-      "customer": "Maria Garcia",
-      "email": "maria.g@email.com",
-      "subject": "Need to update shipping address",
-      "description": "I just placed order #45920 about 30 minutes ago but I realized I used my old address. I've recently moved. Can you change the shipping address to: 456 Oak Street, Apt 3B, Portland, OR 97201. Please hurry, I need this order!",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "Urgent",
-        "category": "Order",
-        "assignment": "Tier 2",
-        "responseTemplate": "I'm on it! I've checked your order #45920 and fortunately it hasn't shipped yet. I've successfully updated the shipping address to 456 Oak Street, Apt 3B, Portland, OR 97201. The order will ship to this new address within the next 2 hours. I've also updated the address in your account profile so future orders will use the correct address. You'll receive a tracking number via email once it ships."
-      },
-      "scheduledAppearance": 720
-    },
-    {
-      "id": "T010",
-      "customer": "Thomas Lee",
-      "email": "thomas.lee@email.com",
-      "subject": "Website error during checkout",
-      "description": "I've been trying to complete my purchase for the last 20 minutes but I keep getting an error at checkout that says 'Payment processing failed'. I've tried 3 different credit cards and they all give the same error. I really want to buy these items before the sale ends today!",
-      "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
-      },
-      "goldStandard": {
-        "priority": "Urgent",
-        "category": "Technical",
+        "category": "Betrugsverdacht",
         "assignment": "Specialist",
-        "responseTemplate": "I sincerely apologize for the checkout issues you're experiencing. This appears to be a technical problem on our end. To ensure you don't miss the sale, I can process your order manually right now over this support channel. Can you please provide the item numbers or names you want to purchase? I'll apply all current sale prices and process the payment securely. Alternatively, I can reserve the items at the sale price for 24 hours while our technical team resolves the website issue."
+        "responseTemplate": "Eskalation: Begründung: Betrugsverdacht aufgrund von widersprüchlichem Aussagen und falscher Bestellung."
       },
-      "scheduledAppearance": 810
+      "scheduledAppearance": 40
+    },
+    {
+      "id": "1006",
+      "customer": "Fischer, Daniel",
+      "email": "daniel.fischer@example.com",
+      "subject": "Repair request for anniversary over-ear headphones (out of return window)",
+      "description": "Sehr geehrtes Service-Team,\nich habe vor knapp vier Wochen die Over-Ear Headphones Wireless, Produktnummer 1.1 (Anniversary Edition), bei Ihnen gekauft.\nLeider habe ich nun festgestellt, dass der rechte Kopfhörer gelegentlich Aussetzer hat. Optisch sind die Kopfhörer einwandfrei, Zubehör ist vollständig vorhanden.\nDa es sich um eine limitierte Edition handelt, wollte ich fragen, ob ein Austausch möglich ist oder ob ich alternativ eine Rückerstattung erhalten kann.\nVielen Dank im Voraus.\nMit freundlichen Grüßen\n[Name]",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Medium",
+        "category": "Reparatur",
+        "assignment": "Specialist",
+        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
+      },
+      "scheduledAppearance": 55
+    },
+    {
+      "id": "1007",
+      "customer": "Lenz, Marie",
+      "email": "marie.lenz@example.com",
+      "subject": "Missing mini-case, request for partial refund",
+      "description": "Hallo Support,\nich habe meine In-Ear Kabelkopfhörer mit Mikrofon vor etwa 10 Tagen erhalten.\nDie Kopfhörer gefallen mir grundsätzlich, allerdings fehlt mir das Mini-Case.\nIch würde die Kopfhörer gern behalten, aber einen Teil des Kaufpreises erstattet bekommen.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Low",
+        "category": "Rückgabe/Umtausch",
+        "assignment": "Tier 1",
+        "responseTemplate": "Keep & Partial: Teilrefund 5€ (wegen fehlendem Mini-Case)."
+      },
+      "scheduledAppearance": 66
+    },
+    {
+      "id": "1008",
+      "customer": "Kuhn, Felix",
+      "email": "felix.kuhn@example.com",
+      "subject": "Battery degradation on in-ear headphones (warranty)",
+      "description": "Sehr geehrtes Team,\nich habe vor 8 Monaten In-Ear Kopfhörer Wireless ohne ANC bei Ihnen gekauft.\nNun entlädt sich der Akku sehr schnell und die Laufzeit beträgt nur noch ca. 30 Minuten.\nIch würde gerne wissen, ob ich einen Austausch oder eine Rückerstattung erhalten kann.",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Medium",
+        "category": "Umatusch/Rückgabe",
+        "assignment": "Tier 2",
+        "responseTemplate": "Umtausch: Garantiefall; keine Reparatur möglich. Alternativ Rückgabe: Garantiefall; Teilerstattung nach Zeitwert inkl. Versand."
+      },
+      "scheduledAppearance": 73
+    },
+    {
+      "id": "1009",
+      "customer": "Hartmann, Sabine",
+      "email": "sabine.hartmann@example.com",
+      "subject": "Damaged speaker on arrival (DOA)",
+      "description": "Hallo Support-Team,\nich habe vor 2 Tagen meine Standlautsprecher Signature erhalten.\nLeider ist einer der Lautsprecher beim Auspacken beschädigt gewesen.\nDas Gehäuse weist eine deutliche Delle auf.\nWie gehen wir hier weiter vor?",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "High",
+        "category": "Rückgabe/Umtausch",
+        "assignment": "Tier 2",
+        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
+      },
+      "scheduledAppearance": 91
+    },
+    {
+      "id": "1010",
+      "customer": "Roth, Lukas",
+      "email": "lukas.roth@example.com",
+      "subject": "Return request for opened silicone ear-tips",
+      "description": "Hallo,\nich habe mir Silikon Ear-Tips bei Ihnen bestellt und die Verpackung geöffnet.\nLeider passen sie nicht und ich würde sie gern zurückschicken.\nIst das möglich?",
+      "decisionPoints": {
+        "priority": ["Low", "Medium", "High", "Urgent"],
+        "category": ["Technical", "Account", "Billing", "Order"],
+        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+      },
+      "goldStandard": {
+        "priority": "Low",
+        "category": "Rückgabe/Umtausch",
+        "assignment": "Tier 1",
+        "responseTemplate": "Rückgabe: abgelehnt; Begründung dokumentieren: Hygieneartikel. Kulanz wegen geringem Warenwert: Keep & Partial, Vollerstattung."
+      },
+      "scheduledAppearance": 101
     }
   ]
 }

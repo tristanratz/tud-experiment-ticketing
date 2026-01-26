@@ -12,7 +12,7 @@ interface ProcessBarProps {
 export default function ProcessBar({ tickets, currentTicketId, timeRemaining }: ProcessBarProps) {
   const completedCount = tickets.filter(t => t.status === 'completed').length;
   const inProgressCount = tickets.filter(t => t.status === 'in-progress').length;
-  const totalTickets = tickets.length;
+  const totalTickets = tickets.length; // Show total including locked tickets
 
   const minutes = Math.floor(timeRemaining / 60);
   const seconds = timeRemaining % 60;

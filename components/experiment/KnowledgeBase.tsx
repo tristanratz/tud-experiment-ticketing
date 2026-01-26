@@ -160,7 +160,7 @@ export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col sticky top-24">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
       {/* Header */}
       <div className="bg-indigo-600 text-white px-4 py-3 rounded-t-lg flex items-center justify-between">
         <div className="flex items-center space-x-2">

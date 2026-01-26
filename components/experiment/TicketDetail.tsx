@@ -89,7 +89,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 max-h-[calc(100vh-200px)] overflow-y-auto">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full overflow-y-auto flex flex-col">
       {/* Header */}
       <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-4 sticky top-0 z-10">
         <div className="flex items-center justify-between">
@@ -108,7 +108,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
         </div>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Error Messages */}
         {errors.length > 0 && (
           <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">

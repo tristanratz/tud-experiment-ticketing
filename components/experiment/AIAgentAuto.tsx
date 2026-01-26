@@ -88,9 +88,9 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-6 py-4">
+      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold">Autonomous AI Agent</h2>
@@ -107,7 +107,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
         </div>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Processing Animation */}
         {isProcessing && (
           <div className="border-2 border-emerald-200 rounded-lg p-8 bg-emerald-50 text-center">

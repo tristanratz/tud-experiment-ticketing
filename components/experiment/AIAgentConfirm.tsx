@@ -108,9 +108,9 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
   const progress = (steps.filter(s => s.status !== 'pending').length / steps.length) * 100;
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-4">
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold">AI Agent Processing</h2>
@@ -141,7 +141,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
         </div>
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Steps Overview */}
         <div className="grid grid-cols-5 gap-2">
           {steps.map((step, index) => (

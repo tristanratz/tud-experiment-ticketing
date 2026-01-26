@@ -8,6 +8,9 @@ interface TicketOverviewProps {
 }
 
 export default function TicketOverview({ tickets, onSelectTicket }: TicketOverviewProps) {
+  // Filter out locked tickets - only show available, in-progress, and completed
+  const visibleTickets = tickets.filter(ticket => ticket.status !== 'locked');
+
   const getStatusBadge = (status: TicketWithStatus['status']) => {
     const badges = {
       locked: 'bg-gray-200 text-gray-600',
@@ -38,16 +41,17 @@ export default function TicketOverview({ tickets, onSelectTicket }: TicketOvervi
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-      <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col overflow-hidden">
+      <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex-shrink-0">
         <h2 className="text-xl font-bold text-gray-800">Ticket Queue</h2>
         <p className="text-sm text-gray-600 mt-1">
           Select a ticket to start working on it
         </p>
       </div>
 
-      <div className="divide-y divide-gray-200 max-h-[calc(100vh-200px)] overflow-y-auto">
-        {tickets.map((ticket) => (
+      <div className="divide-y divide-gray-200 flex-1 overflow-y-auto">
+        {visibleTickets.length > 0 ? (
+          visibleTickets.map((ticket) => (
           <div
             key={ticket.id}
             onClick={() => ticket.status !== 'locked' && ticket.status !== 'completed' && onSelectTicket(ticket.id)}
@@ -104,7 +108,16 @@ export default function TicketOverview({ tickets, onSelectTicket }: TicketOvervi
               </div>
             )}
           </div>
-        ))}
+          ))
+        ) : (
+          <div className="text-center py-12 px-4">
+            <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 className="text-lg font-semibold text-gray-700 mb-2">No Tickets Available Yet</h3>
+            <p className="text-sm text-gray-500">New tickets will appear shortly. Please wait...</p>
+          </div>
+        )}
       </div>
     </div>
   );

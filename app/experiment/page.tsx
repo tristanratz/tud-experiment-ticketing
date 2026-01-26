@@ -170,13 +170,16 @@ export default function ExperimentPage() {
     // Go back to overview
     setCurrentTicketId(null);
 
-    // Check if all tickets completed
-    const allCompleted = tickets.every(
+    // Check if all AVAILABLE tickets are completed (exclude locked tickets)
+    // Don't finish if there are still locked tickets that will appear later
+    const hasLockedTickets = tickets.some((t) => t.status === 'locked');
+    const allAvailableCompleted = tickets.every(
       (t) => t.id === response.ticketId || t.status === 'completed' || t.status === 'locked'
     );
 
-    if (allCompleted) {
-      // All available tickets completed - go to survey
+    // Only finish if all available tickets are done AND no locked tickets remain
+    if (allAvailableCompleted && !hasLockedTickets) {
+      // All tickets completed - go to survey
       setTimeout(() => {
         router.push('/survey');
       }, 1000);
@@ -272,31 +275,35 @@ export default function ExperimentPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Process Bar */}
-      <ProcessBar
-        tickets={tickets}
-        currentTicketId={currentTicketId}
-        timeRemaining={timeRemaining}
-      />
+    <div className="h-screen bg-gray-100 flex flex-col overflow-hidden">
+      {/* Process Bar - Fixed height */}
+      <div className="flex-shrink-0">
+        <ProcessBar
+          tickets={tickets}
+          currentTicketId={currentTicketId}
+          timeRemaining={timeRemaining}
+        />
+      </div>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Sidebar - Group-specific content */}
-          <div className="lg:col-span-1 max-h-[calc(100vh-200px)]">
-            {renderSidebar()}
-          </div>
+      {/* Main Content - Scrollable area */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto px-4 py-6 h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full">
+            {/* Left Sidebar - Group-specific content */}
+            <div className="lg:col-span-1 h-full overflow-hidden">
+              {renderSidebar()}
+            </div>
 
-          {/* Main Content Area */}
-          <div className="lg:col-span-2">
-            {renderMainContent()}
+            {/* Main Content Area */}
+            <div className="lg:col-span-2 h-full overflow-hidden">
+              {renderMainContent()}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Emergency Exit */}
-      <div className="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 right-4 z-50">
         <button
           onClick={() => {
             if (confirm('Are you sure you want to end the experiment early?')) {
