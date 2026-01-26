@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SurveyResponse } from '@/types';
+import { tracking } from '@/lib/tracking';
 
 interface SurveyFormProps {
   participantId: string;
@@ -37,6 +38,14 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
     };
 
     onSubmit(response);
+  };
+
+  // Helper to create tracked change handlers
+  const createTrackedHandler = (questionId: string, questionText: string, setter: (value: number) => void) => {
+    return (value: number) => {
+      setter(value);
+      tracking.surveyQuestionAnswered(questionId, questionText, value, Date.now());
+    };
   };
 
   const renderLikertScale = (
@@ -83,7 +92,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           perceivedStress,
-          setPerceivedStress,
+          createTrackedHandler('perceived_stress', 'How stressful did you find the task?', setPerceivedStress),
           'Not at all stressful',
           'Extremely stressful'
         )}
@@ -99,7 +108,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           decisionConfidence,
-          setDecisionConfidence,
+          createTrackedHandler('decision_confidence', 'How confident are you in the decisions you made?', setDecisionConfidence),
           'Not confident at all',
           'Extremely confident'
         )}
@@ -115,7 +124,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           selfEfficacy,
-          setSelfEfficacy,
+          createTrackedHandler('self_efficacy', 'How capable did you feel handling these support tickets?', setSelfEfficacy),
           'Not capable at all',
           'Extremely capable'
         )}
@@ -131,7 +140,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           trustInSystem,
-          setTrustInSystem,
+          createTrackedHandler('trust_in_system', 'How much did you trust the support system/tools provided?', setTrustInSystem),
           'Did not trust at all',
           'Trusted completely'
         )}
@@ -147,7 +156,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           trustInSelf,
-          setTrustInSelf,
+          createTrackedHandler('trust_in_self', 'How much did you trust your own judgment?', setTrustInSelf),
           'Did not trust at all',
           'Trusted completely'
         )}
@@ -163,7 +172,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           trustInDecisions,
-          setTrustInDecisions,
+          createTrackedHandler('trust_in_decisions', 'How much do you trust the final decisions made for each ticket?', setTrustInDecisions),
           'Do not trust at all',
           'Trust completely'
         )}
@@ -179,7 +188,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
         </p>
         {renderLikertScale(
           processEngagement,
-          setProcessEngagement,
+          createTrackedHandler('process_engagement', 'How engaged were you in the process?', setProcessEngagement),
           'Not engaged at all',
           'Fully engaged'
         )}

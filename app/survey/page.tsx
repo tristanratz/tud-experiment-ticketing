@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
-import { tracking } from '@/lib/tracking';
+import { tracking, trackPagePerformance } from '@/lib/tracking';
 import { ticketService } from '@/lib/tickets';
 import SurveyForm from '@/components/survey/SurveyForm';
 import { SurveyResponse } from '@/types';
@@ -28,6 +28,12 @@ export default function SurveyPage() {
     const metrics = ticketService.calculatePerformanceMetrics(session.ticketResponses);
     setPerformanceData(metrics);
 
+    // Track page view
+    tracking.pageViewed('survey', 'experiment');
+
+    // Track page performance
+    trackPagePerformance('survey');
+
     setLoading(false);
   }, [router]);
 
@@ -46,20 +52,39 @@ export default function SurveyPage() {
       // Final data sync
       const traceBuffer = storage.getTraceBuffer();
       if (traceBuffer.length > 0) {
-        await fetch('/api/trace-data', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            participantId: response.participantId,
-            events: traceBuffer,
-          }),
-        });
+        try {
+          const syncResponse = await fetch('/api/trace-data', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              participantId: response.participantId,
+              events: traceBuffer,
+            }),
+          });
+
+          if (syncResponse.ok) {
+            tracking.dataSynced(traceBuffer.length, 'final');
+            storage.clearTraceBuffer();
+          } else {
+            throw new Error(`Final sync failed with status: ${syncResponse.status}`);
+          }
+        } catch (syncError) {
+          const errorMessage = syncError instanceof Error ? syncError.message : 'Unknown error';
+          tracking.dataSyncFailed(errorMessage, traceBuffer.length);
+          console.error('Failed final data sync:', syncError);
+          // Don't block navigation on final sync failure
+        }
       }
 
       // Navigate to completion page
       router.push('/complete');
     } catch (error) {
       console.error('Failed to submit survey:', error);
+      tracking.applicationError(
+        'Survey submission failed',
+        error instanceof Error ? error.stack : undefined,
+        { participantId: response.participantId }
+      );
       alert('There was an error submitting your survey. Please try again.');
     }
   };

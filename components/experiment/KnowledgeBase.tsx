@@ -118,7 +118,7 @@ export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
 
   const displayTree = searchQuery ? filterNodes(knowledgeTree, searchQuery) : knowledgeTree;
 
-  // Auto-expand search results
+  // Auto-expand search results and track search
   useEffect(() => {
     if (searchQuery) {
       const allNodeIds = new Set<string>();
@@ -130,6 +130,13 @@ export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
       };
       collectIds(displayTree);
       setExpandedNodes(allNodeIds);
+
+      // Track knowledge base search with debounce
+      const searchTimeout = setTimeout(() => {
+        tracking.knowledgeBaseSearched(searchQuery, displayTree.length, Date.now());
+      }, 500); // Debounce 500ms to avoid tracking every keystroke
+
+      return () => clearTimeout(searchTimeout);
     }
   }, [searchQuery, displayTree]);
 

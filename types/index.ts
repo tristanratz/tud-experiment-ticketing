@@ -101,19 +101,67 @@ export interface MouseMoveEvent {
 
 // Trace Data
 export type TraceEventType =
+  // Core experiment events
   | 'experiment_started'
+  | 'experiment_paused'
+  | 'experiment_resumed'
+  | 'experiment_time_expired'
+  // Ticket events
   | 'ticket_opened'
   | 'ticket_closed'
+  | 'ticket_view_duration'
+  | 'ticket_list_filtered'
+  | 'ticket_list_sorted'
+  // Decision events
   | 'decision_made'
+  | 'decision_changed'
+  | 'first_decision_timing'
+  | 'dropdown_opened'
+  | 'dropdown_closed'
+  // Mouse tracking
   | 'mouse_click'
   | 'mouse_move'
+  // Customer response events
   | 'customer_response_sent'
+  | 'response_text_changed'
+  // AI agent events
+  | 'ai_agent_started'
+  | 'ai_agent_completed'
+  | 'ai_agent_step_viewed'
   | 'ai_step_accepted'
   | 'ai_step_rejected'
   | 'ai_step_edited'
+  // Chat events
   | 'chat_message_sent'
+  | 'chat_response_copied'
+  | 'chat_response_inserted'
+  // Knowledge base events
   | 'knowledge_base_opened'
-  | 'survey_completed';
+  | 'knowledge_base_searched'
+  // Survey events
+  | 'survey_completed'
+  | 'survey_question_answered'
+  // Sidebar interaction events
+  | 'sidebar_section_focused'
+  | 'sidebar_interaction_started'
+  | 'sidebar_interaction_ended'
+  // Page navigation
+  | 'page_viewed'
+  | 'page_performance'
+  // Timer events
+  | 'timer_warning'
+  // Rage click detection
+  | 'rage_click_detected'
+  // Data sync events
+  | 'data_synced'
+  | 'data_sync_failed'
+  // Form validation
+  | 'form_validation_error'
+  // Focus and attention tracking
+  | 'window_focus_changed'
+  | 'tab_visibility_changed'
+  // Error tracking
+  | 'application_error';
 
 export interface TraceEvent {
   type: TraceEventType;

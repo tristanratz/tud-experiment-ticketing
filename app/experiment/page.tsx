@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
 import { ticketService } from '@/lib/tickets';
-import { tracking, useMouseTracking } from '@/lib/tracking';
+import { tracking, useMouseTracking, useGlobalTracking, trackPagePerformance } from '@/lib/tracking';
 import { TicketWithStatus, TicketResponse, SessionData } from '@/types';
 import ProcessBar from '@/components/experiment/ProcessBar';
 import TicketOverview from '@/components/experiment/TicketOverview';
@@ -47,19 +47,36 @@ export default function ExperimentPage() {
     const remaining = Math.max(0, EXPERIMENT_DURATION - elapsed);
     setTimeRemaining(remaining);
 
+    // Track page view
+    tracking.pageViewed('experiment', 'home');
+
+    // Track page performance
+    trackPagePerformance('experiment');
+
     setLoading(false);
   }, [router]);
 
-  // Timer countdown
+  // Timer countdown with warnings
   useEffect(() => {
     if (!session || timeRemaining <= 0) return;
+
+    // Track timer warnings at specific thresholds
+    if (timeRemaining === 300) {
+      tracking.timerWarning(300, '5min');
+    } else if (timeRemaining === 120) {
+      tracking.timerWarning(120, '2min');
+    } else if (timeRemaining === 60) {
+      tracking.timerWarning(60, '1min');
+    }
 
     const interval = setInterval(() => {
       setTimeRemaining((prev) => {
         const newTime = prev - 1;
         if (newTime <= 0) {
-          // Time's up - redirect to survey
+          // Time's up - track expiration and redirect to survey
           clearInterval(interval);
+          const completedCount = tickets.filter(t => t.status === 'completed').length;
+          tracking.experimentTimeExpired(completedCount, tickets.length);
           router.push('/survey');
           return 0;
         }
@@ -68,7 +85,7 @@ export default function ExperimentPage() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [session, timeRemaining, router]);
+  }, [session, timeRemaining, router, tickets]);
 
   // Check for tickets to unlock (staggered mode)
   useEffect(() => {
@@ -93,6 +110,12 @@ export default function ExperimentPage() {
     return cleanup;
   }, []);
 
+  // Global tracking (focus, visibility, errors)
+  useEffect(() => {
+    const cleanup = useGlobalTracking(currentTicketId || undefined);
+    return cleanup;
+  }, [currentTicketId]);
+
   // Data sync to server (every 30 seconds)
   useEffect(() => {
     if (!session) return;
@@ -101,7 +124,7 @@ export default function ExperimentPage() {
       const traceBuffer = storage.getTraceBuffer();
       if (traceBuffer.length > 0) {
         try {
-          await fetch('/api/trace-data', {
+          const response = await fetch('/api/trace-data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -109,9 +132,17 @@ export default function ExperimentPage() {
               events: traceBuffer,
             }),
           });
-          storage.clearTraceBuffer();
+
+          if (response.ok) {
+            tracking.dataSynced(traceBuffer.length, 'auto');
+            storage.clearTraceBuffer();
+          } else {
+            throw new Error(`Sync failed with status: ${response.status}`);
+          }
         } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           console.error('Failed to sync trace data:', error);
+          tracking.dataSyncFailed(errorMessage, traceBuffer.length);
         }
       }
     }, 30000); // 30 seconds
@@ -124,6 +155,7 @@ export default function ExperimentPage() {
       ticketService.updateTicketStatus(prevTickets, ticketId, 'in-progress')
     );
     setCurrentTicketId(ticketId);
+    tracking.ticketOpened(ticketId, Date.now());
   };
 
   const handleCompleteTicket = (response: TicketResponse) => {
