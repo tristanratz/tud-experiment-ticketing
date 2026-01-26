@@ -1,4 +1,4 @@
-# Code of Conduct
+# 02 Code of Conduct
 
 ## Serviceprinzipien
 - Freundlich, klar, loesungsorientiert.

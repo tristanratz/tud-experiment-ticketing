@@ -1,4 +1,4 @@
-# Einleitung
+# 01 Einleitung
 
 Diese Knowledgebase dient als kompakte Arbeitsgrundlage fuer den Service. Sie fasst Produktdaten, Garantie- und Rueckgaberegeln sowie typische Servicefaelle zusammen.
 
