@@ -17,7 +17,7 @@
         "assignment": "Tier 2",
         "responseTemplate": "I understand how frustrating login issues can be. I've checked your account and it appears there may be a technical issue. I'm escalating this to our technical team who will reset your credentials and send you a password reset link within the next hour. You'll receive an email at jane.doe@email.com with instructions."
       },
-      "scheduledAppearance": 0
+      "scheduledAppearance": 45
     },
     {
       "id": "T002",

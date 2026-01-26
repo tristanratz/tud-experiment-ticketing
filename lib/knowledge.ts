@@ -58,7 +58,11 @@ export const knowledgeService = {
     let title = data.title || this.extractTitle(content) || path.basename(filePath, '.md');
     title = this.formatTitle(title);
 
-    const html = marked(content);
+    // Configure marked for better HTML output (using GFM for better markdown support)
+    const html = marked(content, {
+      breaks: true, // Convert line breaks to <br>
+      gfm: true, // Enable GitHub Flavored Markdown
+    });
 
     return { title, html: html as string };
   },
