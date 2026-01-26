@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 import { ticketService } from '@/lib/tickets';
 
 // Mark this route as dynamic since it uses search params
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'collected');
+const DATA_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'tud-experiment', 'collected')
+  : path.join(process.cwd(), 'data', 'collected');
 
 export async function GET(request: NextRequest) {
   try {

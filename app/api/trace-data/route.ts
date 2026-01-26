@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'collected');
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
+const DATA_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'tud-experiment', 'collected')
+  : path.join(process.cwd(), 'data', 'collected');
 
 // Ensure data directory exists
 if (!fs.existsSync(DATA_DIR)) {
