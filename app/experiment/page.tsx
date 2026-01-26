@@ -41,6 +41,10 @@ export default function ExperimentPage() {
       return;
     }
 
+    if (typeof window !== 'undefined' && window.location.search) {
+      router.replace(window.location.pathname);
+    }
+
     setSession(sessionData);
 
     // Initialize tickets
@@ -80,7 +84,7 @@ export default function ExperimentPage() {
       expiredRef.current = true;
       const completedCount = ticketsRef.current.filter(t => t.status === 'completed').length;
       tracking.experimentTimeExpired(completedCount, ticketsRef.current.length);
-      router.push(`/survey?participantId=${encodeURIComponent(session.participantId)}`);
+      router.push('/survey');
     };
 
     const maybeTrackWarning = (lastRemaining: number, remaining: number) => {
@@ -216,7 +220,7 @@ export default function ExperimentPage() {
     if (allAvailableCompleted && !hasLockedTickets) {
       // All tickets completed - go to survey
       setTimeout(() => {
-        router.push(`/survey?participantId=${encodeURIComponent(session.participantId)}`);
+        router.push('/survey');
       }, 1000);
     }
   };
@@ -342,7 +346,7 @@ export default function ExperimentPage() {
         <button
           onClick={() => {
             if (confirm('Are you sure you want to end the experiment early?')) {
-              router.push(`/survey?participantId=${encodeURIComponent(session.participantId)}`);
+              router.push('/survey');
             }
           }}
           className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors text-sm shadow-lg"

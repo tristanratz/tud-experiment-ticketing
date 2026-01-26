@@ -51,10 +51,16 @@ export const tracking = {
 
   // Track custom event (both PostHog and local storage)
   track(eventType: TraceEvent['type'], data: any = {}): void {
+    const session = storage.getSession();
+    const withParticipant = { ...data };
+    if (session?.participantId && !('participantId' in withParticipant)) {
+      withParticipant.participantId = session.participantId;
+    }
+
     const event: TraceEvent = {
       type: eventType,
       timestamp: Date.now(),
-      data,
+      data: withParticipant,
     };
 
     // Store locally
@@ -62,7 +68,7 @@ export const tracking = {
 
     // Send to PostHog
     if (initialized) {
-      posthog.capture(eventType, data);
+      posthog.capture(eventType, withParticipant);
     }
   },
 
@@ -124,8 +130,19 @@ export const tracking = {
 
   chatMessageSent(message: string, ticketId?: string): void {
     this.track('chat_message_sent', {
+      message,
       messageLength: message.length,
       ticketId,
+      timestamp: Date.now(),
+    });
+  },
+
+  chatMessageReceived(message: string, ticketId?: string, source?: 'assistant' | 'system'): void {
+    this.track('chat_message_received', {
+      message,
+      messageLength: message.length,
+      ticketId,
+      source: source || 'assistant',
       timestamp: Date.now(),
     });
   },

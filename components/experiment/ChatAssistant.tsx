@@ -18,15 +18,17 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
 
   useEffect(() => {
     // Initialize with welcome message
+    const welcomeMessage =
+      'Hello! I can answer questions using the knowledge base and help draft responses. What can I help with?';
     setMessages([
       {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content:
-          'Hello! I can answer questions using the knowledge base and help draft responses. What can I help with?',
+        content: welcomeMessage,
         timestamp: Date.now(),
       },
     ]);
+    tracking.chatMessageReceived(welcomeMessage, undefined, 'system');
   }, []);
 
   useEffect(() => {
@@ -82,6 +84,7 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+      tracking.chatMessageReceived(data.message, currentTicket?.id, 'assistant');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to fetch response';
       setError(message);
@@ -140,6 +143,7 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
+      tracking.chatMessageReceived(assistantMessage.content, currentTicket.id, 'assistant');
 
       if (onInsertResponse) {
         onInsertResponse(data.message);

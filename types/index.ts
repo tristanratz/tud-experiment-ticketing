@@ -133,6 +133,7 @@ export type TraceEventType =
   | 'ai_step_edited'
   // Chat events
   | 'chat_message_sent'
+  | 'chat_message_received'
   | 'chat_response_copied'
   | 'chat_response_inserted'
   // Knowledge base events

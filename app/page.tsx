@@ -39,8 +39,12 @@ function HomeContent() {
     const existingSession = storage.getSession();
     if (existingSession) {
       router.push('/experiment');
+      return;
     }
 
+    if (searchParams.toString()) {
+      router.replace('/');
+    }
   }, [searchParams, router]);
 
   const handleStart = () => {

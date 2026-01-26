@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
 import { tracking, trackPagePerformance } from '@/lib/tracking';
 import { ticketService } from '@/lib/tickets';
@@ -10,27 +10,26 @@ import { SurveyResponse } from '@/types';
 
 export default function SurveyPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [performanceData, setPerformanceData] = useState<any>(null);
 
   useEffect(() => {
     const session = storage.getSession();
-    const participantParam = searchParams.get('participantId');
-
-    if (!session && !participantParam) {
+    if (!session) {
       router.push('/');
       return;
     }
 
-    setParticipantId(participantParam || session?.participantId || null);
+    setParticipantId(session.participantId);
 
-    if (session) {
-      // Calculate performance metrics
-      const metrics = ticketService.calculatePerformanceMetrics(session.ticketResponses);
-      setPerformanceData(metrics);
+    if (typeof window !== 'undefined' && window.location.search) {
+      router.replace(window.location.pathname);
     }
+
+    // Calculate performance metrics
+    const metrics = ticketService.calculatePerformanceMetrics(session.ticketResponses);
+    setPerformanceData(metrics);
 
     // Track page view
     tracking.pageViewed('survey', 'experiment');
@@ -39,7 +38,7 @@ export default function SurveyPage() {
     trackPagePerformance('survey');
 
     setLoading(false);
-  }, [router, searchParams]);
+  }, [router]);
 
   const handleSubmit = async (response: SurveyResponse) => {
     try {

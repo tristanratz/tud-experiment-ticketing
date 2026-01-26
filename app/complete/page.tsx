@@ -23,6 +23,10 @@ export default function CompletePage() {
 
     // Mark session as ended
     storage.updateSession({ endTime: Date.now() });
+
+    if (typeof window !== 'undefined' && window.location.search) {
+      router.replace(window.location.pathname);
+    }
   }, [router]);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
