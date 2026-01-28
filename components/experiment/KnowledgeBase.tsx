@@ -6,9 +6,10 @@ import { tracking } from '@/lib/tracking';
 
 interface KnowledgeBaseProps {
   onClose?: () => void;
+  variant?: 'standalone' | 'embedded';
 }
 
-export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
+export default function KnowledgeBase({ onClose, variant = 'standalone' }: KnowledgeBaseProps) {
   const [knowledgeTree, setKnowledgeTree] = useState<KnowledgeNode[]>([]);
   const [selectedNode, setSelectedNode] = useState<KnowledgeNode | null>(null);
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
@@ -150,7 +151,7 @@ export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex items-center justify-center">
+      <div className={`${variant === 'embedded' ? '' : 'bg-white rounded-lg shadow-sm border border-gray-200'} h-full flex items-center justify-center`}>
         <div className="text-center">
           <div className="spinner mx-auto mb-3"></div>
           <p className="text-sm text-gray-600">Loading knowledge base...</p>
@@ -159,38 +160,57 @@ export default function KnowledgeBase({ onClose }: KnowledgeBaseProps) {
     );
   }
 
+  const containerClassName = variant === 'embedded'
+    ? 'h-full flex flex-col'
+    : 'bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col';
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
-      {/* Header */}
-      <div className="bg-indigo-600 text-white px-4 py-3 rounded-t-lg flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          {selectedNode && (
-            <button
-              onClick={handleBack}
-              className="text-white hover:bg-indigo-700 p-1 rounded transition-colors"
-              title="Back to navigation"
-            >
+    <div className={containerClassName}>
+      {variant !== 'embedded' && (
+        <div className="bg-indigo-600 text-white px-4 py-3 rounded-t-lg flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            {selectedNode && (
+              <button
+                onClick={handleBack}
+                className="text-white hover:bg-indigo-700 p-1 rounded transition-colors"
+                title="Back to navigation"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+            <h3 className="text-lg font-semibold">
+              {selectedNode ? selectedNode.title : 'Knowledge Base'}
+            </h3>
+          </div>
+          {onClose && (
+            <button onClick={onClose} className="text-white hover:text-indigo-200 transition-colors">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           )}
-          <h3 className="text-lg font-semibold">
-            {selectedNode ? selectedNode.title : 'Knowledge Base'}
-          </h3>
         </div>
-        {onClose && (
-          <button onClick={onClose} className="text-white hover:text-indigo-200 transition-colors">
+      )}
+      {variant === 'embedded' && selectedNode && (
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-gray-200">
+          <button
+            onClick={handleBack}
+            className="text-gray-600 hover:text-indigo-600 p-1 rounded transition-colors"
+            title="Back to navigation"
+          >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-        )}
-      </div>
+          <h3 className="text-sm font-semibold text-gray-800">{selectedNode.title}</h3>
+        </div>
+      )}
 
       {/* Search - Only show when not viewing an article */}
       {!selectedNode && (
-        <div className="p-4 border-b border-gray-200">
+        <div className={`p-4 ${variant === 'embedded' ? 'border-b border-gray-200' : 'border-b border-gray-200'}`}>
           <div className="relative">
             <input
               type="text"

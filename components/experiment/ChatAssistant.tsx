@@ -7,9 +7,14 @@ import { tracking } from '@/lib/tracking';
 interface ChatAssistantProps {
   currentTicket?: TicketWithStatus;
   onInsertResponse?: (response: string) => void;
+  variant?: 'standalone' | 'embedded';
 }
 
-export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatAssistantProps) {
+export default function ChatAssistant({
+  currentTicket,
+  onInsertResponse,
+  variant = 'standalone',
+}: ChatAssistantProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -163,26 +168,31 @@ export default function ChatAssistant({ currentTicket, onInsertResponse }: ChatA
     }
   };
 
+  const containerClassName = variant === 'embedded'
+    ? 'h-full flex flex-col'
+    : 'bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col';
+
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col">
-      {/* Header */}
-      <div className="bg-indigo-600 text-white px-4 py-3 rounded-t-lg">
-        <div className="flex items-center">
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
-          <h3 className="text-lg font-semibold">AI Chat Assistant</h3>
+    <div className={containerClassName}>
+      {variant !== 'embedded' && (
+        <div className="bg-indigo-600 text-white px-4 py-3 rounded-t-lg">
+          <div className="flex items-center">
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            <h3 className="text-lg font-semibold">AI Chat Assistant</h3>
+          </div>
+          <p className="text-xs text-indigo-200 mt-1">
+            Ask questions about policies or request help drafting responses
+          </p>
         </div>
-        <p className="text-xs text-indigo-200 mt-1">
-          Ask questions about policies or request help drafting responses
-        </p>
-      </div>
+      )}
 
       {/* Current Ticket Context */}
       {currentTicket && (
-        <div className="bg-indigo-50 px-4 py-2 border-b border-indigo-100 text-sm">
-          <span className="text-indigo-700 font-medium">Working on:</span>
-          <span className="text-indigo-900 ml-2">
+        <div className={`px-4 py-2 border-b text-sm ${variant === 'embedded' ? 'bg-gray-50 border-gray-200' : 'bg-indigo-50 border-indigo-100'}`}>
+          <span className={`${variant === 'embedded' ? 'text-gray-600' : 'text-indigo-700'} font-medium`}>Working on:</span>
+          <span className={`${variant === 'embedded' ? 'text-gray-800' : 'text-indigo-900'} ml-2`}>
             {currentTicket.id} - {currentTicket.subject}
           </span>
         </div>

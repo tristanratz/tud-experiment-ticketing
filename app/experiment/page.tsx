@@ -26,6 +26,7 @@ export default function ExperimentPage() {
   const [timeRemaining, setTimeRemaining] = useState(EXPERIMENT_DURATION);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [sidebarTab, setSidebarTab] = useState<'knowledge' | 'assistant'>('assistant');
   const lastRemainingRef = useRef<number | null>(null);
   const expiredRef = useRef(false);
   const ticketsRef = useRef<TicketWithStatus[]>([]);
@@ -56,6 +57,9 @@ export default function ExperimentPage() {
     }
 
     setSession(sessionData);
+    if (sessionData.group !== '1') {
+      setSidebarTab('assistant');
+    }
 
     // Initialize tickets
     const initialTickets = ticketService.initializeTicketsWithStatus(
@@ -308,23 +312,34 @@ export default function ExperimentPage() {
       return <KnowledgeBase />;
     }
 
-    if (session.group === '2') {
-      return <ChatAssistant currentTicket={currentTicket} />;
-    }
+    const tabs = [
+      { id: 'knowledge', label: 'Knowledge Base' },
+      { id: 'assistant', label: 'AI Assistant' },
+    ] as const;
 
-    // Groups 3 and 4 don't need a sidebar (AI agents are in main content)
     return (
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-24">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">
-          {session.group === '3' ? 'AI Agent Assistant' : 'Autonomous AI Agent'}
-        </h3>
-        <p className="text-sm text-gray-600">
-          {session.group === '3'
-            ? 'The AI agent will guide you through each ticket step-by-step. Review and approve each decision.'
-            : 'The AI agent will process tickets automatically. Review and approve the complete solution.'}
-        </p>
-        <div className="mt-4 text-xs text-gray-500">
-          Group: {session.group} | Mode: {session.timingMode}
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col overflow-hidden">
+        <div className="flex border-b border-gray-200">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSidebarTab(tab.id)}
+              className={`flex-1 px-4 py-3 text-sm font-semibold transition-colors ${
+                sidebarTab === tab.id
+                  ? 'bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600'
+                  : 'text-gray-600 hover:text-indigo-600'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+        <div className="flex-1 overflow-hidden">
+          {sidebarTab === 'knowledge' ? (
+            <KnowledgeBase variant="embedded" />
+          ) : (
+            <ChatAssistant currentTicket={currentTicket} variant="embedded" />
+          )}
         </div>
       </div>
     );

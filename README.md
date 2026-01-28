@@ -7,9 +7,9 @@ A web-based experimental platform for research on ticket system interfaces with 
 ### Four Experimental Groups
 
 1. **Group 1 - Knowledge Base**: Left sidebar with hierarchical, collapsible knowledge base
-2. **Group 2 - AI Chat Assistant**: Left sidebar with AI chat for answering questions and drafting responses
-3. **Group 3 - AI Agents with Confirmation**: Step-by-step AI agent execution with participant confirmation
-4. **Group 4 - Autonomous AI Agents**: Fully automated AI processing with final approval only
+2. **Group 2 - Knowledge Base + AI Assistant**: Sidebar tabs let participants switch between the knowledge base and AI chat
+3. **Group 3 - Knowledge Base + AI Assistant**: Same sidebar tabs, plus AI agent step-by-step confirmation in the main pane
+4. **Group 4 - Knowledge Base + AI Assistant**: Same sidebar tabs, plus autonomous AI agent processing in the main pane
 
 ### Core Functionality
 

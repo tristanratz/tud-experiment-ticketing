@@ -41,17 +41,17 @@ Open your browser and test each experimental group:
 http://localhost:3000?group=1&timing=immediate
 ```
 
-**Group 2 - AI Chat Assistant:**
+**Group 2 - Knowledge Base + AI Assistant (tabs):**
 ```
 http://localhost:3000?group=2&timing=immediate
 ```
 
-**Group 3 - AI Agent (Step Confirmation):**
+**Group 3 - Knowledge Base + AI Assistant (tabs) + AI Agent (Step Confirmation):**
 ```
 http://localhost:3000?group=3&timing=staggered
 ```
 
-**Group 4 - Autonomous AI Agent:**
+**Group 4 - Knowledge Base + AI Assistant (tabs) + Autonomous AI Agent:**
 ```
 http://localhost:3000?group=4&timing=immediate
 ```
