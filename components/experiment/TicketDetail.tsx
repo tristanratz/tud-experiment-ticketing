@@ -3,6 +3,7 @@
 import { TicketWithStatus, TicketResponse } from '@/types';
 import { useState, useEffect } from 'react';
 import { tracking } from '@/lib/tracking';
+import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 
 interface TicketDetailProps {
   ticket: TicketWithStatus;
@@ -95,9 +96,9 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold">{ticket.id}: {ticket.subject}</h2>
-            <p className="text-indigo-100 text-sm mt-1">
-              Customer: {ticket.customer} ({ticket.email})
-            </p>
+            <div className="text-indigo-100 text-sm mt-1">
+              <CustomerDetailsHover ticket={ticket} />
+            </div>
           </div>
           <button
             onClick={onBack}

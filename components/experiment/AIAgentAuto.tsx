@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { TicketWithStatus, AIAgentStep, TicketResponse } from '@/types';
 import { aiMockService } from '@/lib/aiMock';
+import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 import { tracking } from '@/lib/tracking';
 
 interface AIAgentAutoProps {
@@ -97,6 +98,14 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
             <p className="text-emerald-100 text-sm mt-1">
               {ticket.id}: {ticket.subject}
             </p>
+            <div className="text-emerald-100 text-sm mt-1">
+              <CustomerDetailsHover
+                ticket={ticket}
+                labelClassName="text-sm text-emerald-100"
+                emailClassName="text-emerald-200"
+                iconClassName="inline-flex h-5 w-5 items-center justify-center rounded-full border border-emerald-200 text-xs text-emerald-100"
+              />
+            </div>
           </div>
           <button
             onClick={onBack}

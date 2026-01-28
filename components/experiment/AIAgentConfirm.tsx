@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { TicketWithStatus, AIAgentStep, TicketResponse } from '@/types';
 import { aiMockService } from '@/lib/aiMock';
+import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 import { tracking } from '@/lib/tracking';
 
 interface AIAgentConfirmProps {
@@ -117,6 +118,14 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
             <p className="text-purple-100 text-sm mt-1">
               {ticket.id}: {ticket.subject}
             </p>
+            <div className="text-purple-100 text-sm mt-1">
+              <CustomerDetailsHover
+                ticket={ticket}
+                labelClassName="text-sm text-purple-100"
+                emailClassName="text-purple-200"
+                iconClassName="inline-flex h-5 w-5 items-center justify-center rounded-full border border-purple-200 text-xs text-purple-100"
+              />
+            </div>
           </div>
           <button
             onClick={onBack}

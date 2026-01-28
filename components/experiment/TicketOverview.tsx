@@ -1,6 +1,7 @@
 'use client';
 
 import { TicketWithStatus } from '@/types';
+import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 
 interface TicketOverviewProps {
   tickets: TicketWithStatus[];
@@ -83,19 +84,14 @@ export default function TicketOverview({ tickets, onSelectTicket }: TicketOvervi
 
             <h3 className="font-semibold text-gray-800 mb-1">{ticket.subject}</h3>
 
-            <div className="flex items-center space-x-4 text-sm text-gray-600 mb-2">
-              <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                {ticket.customer}
-              </span>
-              <span className="flex items-center">
-                <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                {ticket.email}
-              </span>
+            <div className="text-sm text-gray-600 mb-2">
+              <CustomerDetailsHover
+                ticket={ticket}
+                labelClassName="text-sm text-gray-600"
+                nameClassName="font-medium text-gray-800"
+                emailClassName="text-gray-500"
+                iconClassName="inline-flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 text-xs text-gray-500"
+              />
             </div>
 
             <p className="text-sm text-gray-700 line-clamp-2">

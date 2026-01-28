@@ -3,10 +3,28 @@ export type GroupType = '1' | '2' | '3' | '4';
 export type TimingMode = 'immediate' | 'staggered';
 
 // Ticket System
+export interface CustomerCase {
+  id: string;
+  type: string;
+  status?: string;
+  date?: string;
+  summary?: string;
+}
+
+export interface CustomerDetails {
+  name?: string;
+  birthDate?: string;
+  email?: string;
+  caseCount?: number;
+  caseTypes?: string[];
+  previousCases?: CustomerCase[];
+}
+
 export interface Ticket {
   id: string;
   customer: string;
   email: string;
+  customerDetails?: CustomerDetails;
   subject: string;
   description: string;
   decisionPoints: {

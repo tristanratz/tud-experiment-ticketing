@@ -5,190 +5,553 @@
       "customer": "Keller, Jana",
       "email": "jana.keller@example.com",
       "subject": "Return request for over-ear headphones (missing packaging)",
-      "description": "Hallo ich habe vor 2 wochen Over Ear Kopfhöhrer bei Ihnen bestellt, mir gefällt der Klang aber nicht, deswegen möchte ich sie zurückschicken.\n\nDie Originalverpackung und die Tragetasche finde ich leider nicht mehr.\n\nKann ich die Kopfhörer trotzdem noch zurückschicken?",
+      "description": "Hallo ich habe vor 2 wochen Over Ear Kopfh\u00f6hrer bei Ihnen bestellt, mir gef\u00e4llt der Klang aber nicht, deswegen m\u00f6chte ich sie zur\u00fcckschicken.\n\nDie Originalverpackung und die Tragetasche finde ich leider nicht mehr.\n\nKann ich die Kopfh\u00f6rer trotzdem noch zur\u00fcckschicken?",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Low",
-        "category": "Rückgabe/Umtausch",
+        "category": "R\u00fcckgabe/Umtausch",
         "assignment": "Tier 1",
-        "responseTemplate": "Rückgabe: In frist; 100% Preiserstattung abzgl. 25€ (Carry Case) und 10€ (Ear-Cushions wegen Benutzung); 10% Restocking Fee."
+        "responseTemplate": "R\u00fcckgabe: In frist; 100% Preiserstattung abzgl. 25\u20ac (Carry Case) und 10\u20ac (Ear-Cushions wegen Benutzung); 10% Restocking Fee."
       },
-      "scheduledAppearance": 5
+      "scheduledAppearance": 5,
+      "customerDetails": {
+        "name": "Jana Keller",
+        "birthDate": "1993-02-18",
+        "email": "jana.keller@example.com",
+        "caseCount": 2,
+        "caseTypes": [
+          "Return",
+          "Order"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1187",
+            "type": "Order",
+            "status": "Resolved",
+            "date": "2023-11-03",
+            "summary": "Delivery delayed, shipping refunded."
+          },
+          {
+            "id": "C-1044",
+            "type": "Return",
+            "status": "Resolved",
+            "date": "2022-08-16",
+            "summary": "Return of unopened item."
+          }
+        ]
+      }
     },
     {
       "id": "1002",
       "customer": "Schmidt, Tobias",
       "email": "tobias.schmidt@example.com",
       "subject": "Exchange request for in-ear headphones (DOA)",
-      "description": "Guten Tag,\n\nIch habe gestern meine  In-Ear Kopfhörer mit ANC erhalten, leider funktionieren sie scheinbar nicht richtig:\n\n- Das Ladecase lädt die Kopfhörer nicht\n- Die LED blinkt nur kurz und geht dann aus\n- Das Handy erkennt die Kopfhörer gar nicht\n\nIch würde die Kopfhörer deswegen gerne umtauschen, kein Refund.\n\nKönnen Sie mir sagen wie ich die Kopfhörer zurückzuschicken habe?",
+      "description": "Guten Tag,\n\nIch habe gestern meine  In-Ear Kopfh\u00f6rer mit ANC erhalten, leider funktionieren sie scheinbar nicht richtig:\n\n- Das Ladecase l\u00e4dt die Kopfh\u00f6rer nicht\n- Die LED blinkt nur kurz und geht dann aus\n- Das Handy erkennt die Kopfh\u00f6rer gar nicht\n\nIch w\u00fcrde die Kopfh\u00f6rer deswegen gerne umtauschen, kein Refund.\n\nK\u00f6nnen Sie mir sagen wie ich die Kopfh\u00f6rer zur\u00fcckzuschicken habe?",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "High",
-        "category": "Rückgabe/Umtausch",
+        "category": "R\u00fcckgabe/Umtausch",
         "assignment": "Tier 2",
-        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
+        "responseTemplate": "DOA: Austausch inkl. Versandkosten\u00fcbernahme."
       },
-      "scheduledAppearance": 11
+      "scheduledAppearance": 11,
+      "customerDetails": {
+        "name": "Tobias Schmidt",
+        "birthDate": "1987-09-04",
+        "email": "tobias.schmidt@example.com",
+        "caseCount": 1,
+        "caseTypes": [
+          "Technical"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1212",
+            "type": "Technical",
+            "status": "Resolved",
+            "date": "2023-04-21",
+            "summary": "Pairing issue with in-ear headphones."
+          }
+        ]
+      }
     },
     {
       "id": "1003",
       "customer": "Wagner, Lea",
       "email": "lea.wagner@example.com",
       "subject": "Repair request for anniversary over-ear headphones",
-      "description": "Hallo Support-Team,\nIch habe vor etwa 10 Monaten die anniversary Edition der Over-Ear Kopfhörer bei Ihnen gekauft. Nach einiger Zeit ist jetzt nur die linke Seite immer leiser als die Rechte. Außerdem treten gelegentlich Störgeräusche in Form von Kratzen und Rascheln in den Kopfhörern auf.\nIch habe das Gerät bereits mit verschiedenen Quellen getestet bin mir also sicher es müsste an den Kopfhörern liegen.\n\nKann ich die Kopfhörer nochmal umtauschen oder reparieren lassen?",
+      "description": "Hallo Support-Team,\nIch habe vor etwa 10 Monaten die anniversary Edition der Over-Ear Kopfh\u00f6rer bei Ihnen gekauft. Nach einiger Zeit ist jetzt nur die linke Seite immer leiser als die Rechte. Au\u00dferdem treten gelegentlich St\u00f6rger\u00e4usche in Form von Kratzen und Rascheln in den Kopfh\u00f6rern auf.\nIch habe das Ger\u00e4t bereits mit verschiedenen Quellen getestet bin mir also sicher es m\u00fcsste an den Kopfh\u00f6rern liegen.\n\nKann ich die Kopfh\u00f6rer nochmal umtauschen oder reparieren lassen?",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Medium",
         "category": "Reparatur",
         "assignment": "Specialist",
-        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
+        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur m\u00f6glich wegen Anniversary."
       },
-      "scheduledAppearance": 20
+      "scheduledAppearance": 20,
+      "customerDetails": {
+        "name": "Lea Wagner",
+        "birthDate": "1990-12-11",
+        "email": "lea.wagner@example.com",
+        "caseCount": 3,
+        "caseTypes": [
+          "Repair",
+          "Warranty"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1098",
+            "type": "Warranty",
+            "status": "Resolved",
+            "date": "2022-10-09",
+            "summary": "Battery replacement for portable speaker."
+          },
+          {
+            "id": "C-1303",
+            "type": "Repair",
+            "status": "Open",
+            "date": "2024-01-18",
+            "summary": "Left channel distortion on over-ear headphones."
+          }
+        ]
+      }
     },
     {
       "id": "1004",
       "customer": "Baumann, Erik",
       "email": "erik.baumann@example.com",
       "subject": "Return request for large speakers (pickup, packaging, fees)",
-      "description": "Sehr geehrte Damen und Herren,\n\nich habe vor drei Wochen ein Paar High-End Lautsprecher (Produktnummer 4.3) bei Ihnen bestellt. Leider passen sie optisch doch nicht in mein Wohnzimmer, weshalb ich gern vom Widerruf Gebrauch machen möchte.\n\nIch wohne in der Schweiz und hätte folgende Fragen:\n\nWie läuft der Rückversand bei so großen Lautsprechern ab? Organisieren Sie eine Abholung per Spedition?\n\nDer Originalkarton ist noch vorhanden – ist das ausreichend verpackt?\n\nFallen bei der Rückgabe irgendwelche Gebühren an?\n\nVielen Dank für Ihre Unterstützung.\n\nFreundliche Grüße\n[Name]",
+      "description": "Sehr geehrte Damen und Herren,\n\nich habe vor drei Wochen ein Paar High-End Lautsprecher (Produktnummer 4.3) bei Ihnen bestellt. Leider passen sie optisch doch nicht in mein Wohnzimmer, weshalb ich gern vom Widerruf Gebrauch machen m\u00f6chte.\n\nIch wohne in der Schweiz und h\u00e4tte folgende Fragen:\n\nWie l\u00e4uft der R\u00fcckversand bei so gro\u00dfen Lautsprechern ab? Organisieren Sie eine Abholung per Spedition?\n\nDer Originalkarton ist noch vorhanden \u2013 ist das ausreichend verpackt?\n\nFallen bei der R\u00fcckgabe irgendwelche Geb\u00fchren an?\n\nVielen Dank f\u00fcr Ihre Unterst\u00fctzung.\n\nFreundliche Gr\u00fc\u00dfe\n[Name]",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Medium",
-        "category": "Umtausch/Rückgabe",
+        "category": "Umtausch/R\u00fcckgabe",
         "assignment": "Tier 1",
-        "responseTemplate": "Rückgabe: In Frist; Vollerstattung mit Originalkarton; 15% Restocking Fee."
+        "responseTemplate": "R\u00fcckgabe: In Frist; Vollerstattung mit Originalkarton; 15% Restocking Fee."
       },
-      "scheduledAppearance": 32
+      "scheduledAppearance": 32,
+      "customerDetails": {
+        "name": "Erik Baumann",
+        "birthDate": "1984-06-22",
+        "email": "erik.baumann@example.com",
+        "caseCount": 2,
+        "caseTypes": [
+          "Return",
+          "Shipping"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1120",
+            "type": "Shipping",
+            "status": "Resolved",
+            "date": "2023-03-30",
+            "summary": "Freight delivery scheduling issue."
+          },
+          {
+            "id": "C-1156",
+            "type": "Return",
+            "status": "Resolved",
+            "date": "2023-07-12",
+            "summary": "Return of floor speaker set."
+          }
+        ]
+      }
     },
     {
       "id": "1005",
       "customer": "Neumann, Pia",
       "email": "pia.neumann@example.com",
       "subject": "Return request with missing eartips (fraud suspicion)",
-      "description": "Hallo,\n\nich möchte gerne meine In-Ear Headphones Wireless mit ANC  zuruckgeben. Ich habe sie vor etwa drei Wochen erhalten.\n\nDie Kopfhörer sind im Prinzip noch neu und ungeöffnet/ungetragen, aber ich habe sie kurz ausprobiert und festgestellt, dass mir die mitgelieferten Eartips nicht passen. Ich habe deshalb andere Eartips verwendet, die ich noch zu Hause hatte.\n\nLeider sind mir beim Aufräumen die Original-Eartips abhandengekommen, ich kann sie also nicht mehr mitsenden. Das Ladecase und das USB-C-Kabel habe ich noch.\n\nIch würde gern von meinem 30-tägigen Rückgaberecht Gebrauch machen und bitte um eine volle Rückerstattung des Kaufpreises.\n\nKönnen Sie mir dafür bitte ein Rücksendelabel schicken?\n\nViele Grüße",
+      "description": "Hallo,\n\nich m\u00f6chte gerne meine In-Ear Headphones Wireless mit ANC  zuruckgeben. Ich habe sie vor etwa drei Wochen erhalten.\n\nDie Kopfh\u00f6rer sind im Prinzip noch neu und unge\u00f6ffnet/ungetragen, aber ich habe sie kurz ausprobiert und festgestellt, dass mir die mitgelieferten Eartips nicht passen. Ich habe deshalb andere Eartips verwendet, die ich noch zu Hause hatte.\n\nLeider sind mir beim Aufr\u00e4umen die Original-Eartips abhandengekommen, ich kann sie also nicht mehr mitsenden. Das Ladecase und das USB-C-Kabel habe ich noch.\n\nIch w\u00fcrde gern von meinem 30-t\u00e4gigen R\u00fcckgaberecht Gebrauch machen und bitte um eine volle R\u00fcckerstattung des Kaufpreises.\n\nK\u00f6nnen Sie mir daf\u00fcr bitte ein R\u00fccksendelabel schicken?\n\nViele Gr\u00fc\u00dfe",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "High",
         "category": "Betrugsverdacht",
         "assignment": "Specialist",
-        "responseTemplate": "Eskalation: Begründung: Betrugsverdacht aufgrund von widersprüchlichem Aussagen und falscher Bestellung."
+        "responseTemplate": "Eskalation: Begr\u00fcndung: Betrugsverdacht aufgrund von widerspr\u00fcchlichem Aussagen und falscher Bestellung."
       },
-      "scheduledAppearance": 40
+      "scheduledAppearance": 40,
+      "customerDetails": {
+        "name": "Pia Neumann",
+        "birthDate": "1996-01-30",
+        "email": "pia.neumann@example.com",
+        "caseCount": 4,
+        "caseTypes": [
+          "Return",
+          "Billing",
+          "Fraud Review"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1201",
+            "type": "Billing",
+            "status": "Resolved",
+            "date": "2023-09-02",
+            "summary": "Duplicate charge reversed."
+          },
+          {
+            "id": "C-1268",
+            "type": "Return",
+            "status": "Resolved",
+            "date": "2023-12-05",
+            "summary": "Return with missing accessory, partial refund."
+          }
+        ]
+      }
     },
     {
       "id": "1006",
       "customer": "Fischer, Daniel",
       "email": "daniel.fischer@example.com",
       "subject": "Repair request for anniversary over-ear headphones (out of return window)",
-      "description": "Sehr geehrtes Service-Team,\nich habe vor knapp vier Wochen die Over-Ear Headphones Wireless, Produktnummer 1.1 (Anniversary Edition), bei Ihnen gekauft.\nLeider habe ich nun festgestellt, dass der rechte Kopfhörer gelegentlich Aussetzer hat. Optisch sind die Kopfhörer einwandfrei, Zubehör ist vollständig vorhanden.\nDa es sich um eine limitierte Edition handelt, wollte ich fragen, ob ein Austausch möglich ist oder ob ich alternativ eine Rückerstattung erhalten kann.\nVielen Dank im Voraus.\nMit freundlichen Grüßen\n[Name]",
+      "description": "Sehr geehrtes Service-Team,\nich habe vor knapp vier Wochen die Over-Ear Headphones Wireless, Produktnummer 1.1 (Anniversary Edition), bei Ihnen gekauft.\nLeider habe ich nun festgestellt, dass der rechte Kopfh\u00f6rer gelegentlich Aussetzer hat. Optisch sind die Kopfh\u00f6rer einwandfrei, Zubeh\u00f6r ist vollst\u00e4ndig vorhanden.\nDa es sich um eine limitierte Edition handelt, wollte ich fragen, ob ein Austausch m\u00f6glich ist oder ob ich alternativ eine R\u00fcckerstattung erhalten kann.\nVielen Dank im Voraus.\nMit freundlichen Gr\u00fc\u00dfen\n[Name]",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Medium",
         "category": "Reparatur",
         "assignment": "Specialist",
-        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
+        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur m\u00f6glich wegen Anniversary."
       },
-      "scheduledAppearance": 55
+      "scheduledAppearance": 55,
+      "customerDetails": {
+        "name": "Daniel Fischer",
+        "birthDate": "1982-03-08",
+        "email": "daniel.fischer@example.com",
+        "caseCount": 2,
+        "caseTypes": [
+          "Repair",
+          "Warranty"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1173",
+            "type": "Warranty",
+            "status": "Resolved",
+            "date": "2023-05-19",
+            "summary": "Warranty claim for headband crack."
+          }
+        ]
+      }
     },
     {
       "id": "1007",
       "customer": "Lenz, Marie",
       "email": "marie.lenz@example.com",
       "subject": "Missing mini-case, request for partial refund",
-      "description": "Hallo Support,\nich habe meine In-Ear Kabelkopfhörer mit Mikrofon vor etwa 10 Tagen erhalten.\nDie Kopfhörer gefallen mir grundsätzlich, allerdings fehlt mir das Mini-Case.\nIch würde die Kopfhörer gern behalten, aber einen Teil des Kaufpreises erstattet bekommen.",
+      "description": "Hallo Support,\nich habe meine In-Ear Kabelkopfh\u00f6rer mit Mikrofon vor etwa 10 Tagen erhalten.\nDie Kopfh\u00f6rer gefallen mir grunds\u00e4tzlich, allerdings fehlt mir das Mini-Case.\nIch w\u00fcrde die Kopfh\u00f6rer gern behalten, aber einen Teil des Kaufpreises erstattet bekommen.",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Low",
-        "category": "Rückgabe/Umtausch",
+        "category": "R\u00fcckgabe/Umtausch",
         "assignment": "Tier 1",
-        "responseTemplate": "Keep & Partial: Teilrefund 5€ (wegen fehlendem Mini-Case)."
+        "responseTemplate": "Keep & Partial: Teilrefund 5\u20ac (wegen fehlendem Mini-Case)."
       },
-      "scheduledAppearance": 66
+      "scheduledAppearance": 66,
+      "customerDetails": {
+        "name": "Marie Lenz",
+        "birthDate": "1991-10-27",
+        "email": "marie.lenz@example.com",
+        "caseCount": 1,
+        "caseTypes": [
+          "Order"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1281",
+            "type": "Order",
+            "status": "Resolved",
+            "date": "2023-12-20",
+            "summary": "Order address correction."
+          }
+        ]
+      }
     },
     {
       "id": "1008",
       "customer": "Kuhn, Felix",
       "email": "felix.kuhn@example.com",
       "subject": "Battery degradation on in-ear headphones (warranty)",
-      "description": "Sehr geehrtes Team,\nich habe vor 8 Monaten In-Ear Kopfhörer Wireless ohne ANC bei Ihnen gekauft.\nNun entlädt sich der Akku sehr schnell und die Laufzeit beträgt nur noch ca. 30 Minuten.\nIch würde gerne wissen, ob ich einen Austausch oder eine Rückerstattung erhalten kann.",
+      "description": "Sehr geehrtes Team,\nich habe vor 8 Monaten In-Ear Kopfh\u00f6rer Wireless ohne ANC bei Ihnen gekauft.\nNun entl\u00e4dt sich der Akku sehr schnell und die Laufzeit betr\u00e4gt nur noch ca. 30 Minuten.\nIch w\u00fcrde gerne wissen, ob ich einen Austausch oder eine R\u00fcckerstattung erhalten kann.",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Medium",
-        "category": "Umatusch/Rückgabe",
+        "category": "Umatusch/R\u00fcckgabe",
         "assignment": "Tier 2",
-        "responseTemplate": "Umtausch: Garantiefall; keine Reparatur möglich. Alternativ Rückgabe: Garantiefall; Teilerstattung nach Zeitwert inkl. Versand."
+        "responseTemplate": "Umtausch: Garantiefall; keine Reparatur m\u00f6glich. Alternativ R\u00fcckgabe: Garantiefall; Teilerstattung nach Zeitwert inkl. Versand."
       },
-      "scheduledAppearance": 73
+      "scheduledAppearance": 73,
+      "customerDetails": {
+        "name": "Felix Kuhn",
+        "birthDate": "1989-07-19",
+        "email": "felix.kuhn@example.com",
+        "caseCount": 2,
+        "caseTypes": [
+          "Warranty",
+          "Technical"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1239",
+            "type": "Technical",
+            "status": "Resolved",
+            "date": "2023-06-11",
+            "summary": "Bluetooth dropout troubleshooting."
+          }
+        ]
+      }
     },
     {
       "id": "1009",
       "customer": "Hartmann, Sabine",
       "email": "sabine.hartmann@example.com",
       "subject": "Damaged speaker on arrival (DOA)",
-      "description": "Hallo Support-Team,\nich habe vor 2 Tagen meine Standlautsprecher Signature erhalten.\nLeider ist einer der Lautsprecher beim Auspacken beschädigt gewesen.\nDas Gehäuse weist eine deutliche Delle auf.\nWie gehen wir hier weiter vor?",
+      "description": "Hallo Support-Team,\nich habe vor 2 Tagen meine Standlautsprecher Signature erhalten.\nLeider ist einer der Lautsprecher beim Auspacken besch\u00e4digt gewesen.\nDas Geh\u00e4use weist eine deutliche Delle auf.\nWie gehen wir hier weiter vor?",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "High",
-        "category": "Rückgabe/Umtausch",
+        "category": "R\u00fcckgabe/Umtausch",
         "assignment": "Tier 2",
-        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
+        "responseTemplate": "DOA: Austausch inkl. Versandkosten\u00fcbernahme."
       },
-      "scheduledAppearance": 91
+      "scheduledAppearance": 91,
+      "customerDetails": {
+        "name": "Sabine Hartmann",
+        "birthDate": "1979-05-06",
+        "email": "sabine.hartmann@example.com",
+        "caseCount": 3,
+        "caseTypes": [
+          "Order",
+          "Return"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1107",
+            "type": "Order",
+            "status": "Resolved",
+            "date": "2023-02-14",
+            "summary": "Order status clarification."
+          },
+          {
+            "id": "C-1311",
+            "type": "Return",
+            "status": "Resolved",
+            "date": "2024-02-02",
+            "summary": "Return for cosmetic damage."
+          }
+        ]
+      }
     },
     {
       "id": "1010",
       "customer": "Roth, Lukas",
       "email": "lukas.roth@example.com",
       "subject": "Return request for opened silicone ear-tips",
-      "description": "Hallo,\nich habe mir Silikon Ear-Tips bei Ihnen bestellt und die Verpackung geöffnet.\nLeider passen sie nicht und ich würde sie gern zurückschicken.\nIst das möglich?",
+      "description": "Hallo,\nich habe mir Silikon Ear-Tips bei Ihnen bestellt und die Verpackung ge\u00f6ffnet.\nLeider passen sie nicht und ich w\u00fcrde sie gern zur\u00fcckschicken.\nIst das m\u00f6glich?",
       "decisionPoints": {
-        "priority": ["Low", "Medium", "High", "Urgent"],
-        "category": ["Technical", "Account", "Billing", "Order"],
-        "assignment": ["Tier 1", "Tier 2", "Specialist"]
+        "priority": [
+          "Low",
+          "Medium",
+          "High",
+          "Urgent"
+        ],
+        "category": [
+          "Technical",
+          "Account",
+          "Billing",
+          "Order"
+        ],
+        "assignment": [
+          "Tier 1",
+          "Tier 2",
+          "Specialist"
+        ]
       },
       "goldStandard": {
         "priority": "Low",
-        "category": "Rückgabe/Umtausch",
+        "category": "R\u00fcckgabe/Umtausch",
         "assignment": "Tier 1",
-        "responseTemplate": "Rückgabe: abgelehnt; Begründung dokumentieren: Hygieneartikel. Kulanz wegen geringem Warenwert: Keep & Partial, Vollerstattung."
+        "responseTemplate": "R\u00fcckgabe: abgelehnt; Begr\u00fcndung dokumentieren: Hygieneartikel. Kulanz wegen geringem Warenwert: Keep & Partial, Vollerstattung."
       },
-      "scheduledAppearance": 101
+      "scheduledAppearance": 101,
+      "customerDetails": {
+        "name": "Lukas Roth",
+        "birthDate": "1994-02-02",
+        "email": "lukas.roth@example.com",
+        "caseCount": 1,
+        "caseTypes": [
+          "Return"
+        ],
+        "previousCases": [
+          {
+            "id": "C-1299",
+            "type": "Return",
+            "status": "Resolved",
+            "date": "2024-01-05",
+            "summary": "Return inquiry for ear tips."
+          }
+        ]
+      }
     }
   ]
 }
