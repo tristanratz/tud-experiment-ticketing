@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import MobileLockout from '@/components/MobileLockout';
+import { isLikelyMobile } from '@/lib/device';
 import { storage } from '@/lib/storage';
 import { ticketService } from '@/lib/tickets';
 import { tracking, useMouseTracking, useGlobalTracking, trackPagePerformance } from '@/lib/tracking';
@@ -23,6 +25,7 @@ export default function ExperimentPage() {
   const [currentTicketId, setCurrentTicketId] = useState<string | null>(null);
   const [timeRemaining, setTimeRemaining] = useState(EXPERIMENT_DURATION);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const lastRemainingRef = useRef<number | null>(null);
   const expiredRef = useRef(false);
   const ticketsRef = useRef<TicketWithStatus[]>([]);
@@ -34,6 +37,13 @@ export default function ExperimentPage() {
 
   // Initialize experiment
   useEffect(() => {
+    const mobile = isLikelyMobile();
+    setIsMobile(mobile);
+    if (mobile) {
+      setLoading(false);
+      return;
+    }
+
     const sessionData = storage.getSession();
 
     if (!sessionData) {
@@ -145,18 +155,21 @@ export default function ExperimentPage() {
 
   // Mouse tracking
   useEffect(() => {
+    if (isMobile) return;
     const cleanup = useMouseTracking();
     return cleanup;
-  }, []);
+  }, [isMobile]);
 
   // Global tracking (focus, visibility, errors)
   useEffect(() => {
+    if (isMobile) return;
     const cleanup = useGlobalTracking(currentTicketId || undefined);
     return cleanup;
-  }, [currentTicketId]);
+  }, [currentTicketId, isMobile]);
 
   // Data sync to server (every 30 seconds)
   useEffect(() => {
+    if (isMobile) return;
     if (!session) return;
 
     const syncInterval = setInterval(async () => {
@@ -187,7 +200,7 @@ export default function ExperimentPage() {
     }, 30000); // 30 seconds
 
     return () => clearInterval(syncInterval);
-  }, [session]);
+  }, [session, isMobile]);
 
   const handleSelectTicket = (ticketId: string) => {
     setTickets((prevTickets) =>
@@ -237,6 +250,10 @@ export default function ExperimentPage() {
     }
     setCurrentTicketId(null);
   };
+
+  if (isMobile) {
+    return <MobileLockout />;
+  }
 
   if (loading || !session) {
     return (

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import MobileLockout from '@/components/MobileLockout';
+import { isLikelyMobile } from '@/lib/device';
 import { storage } from '@/lib/storage';
 import { tracking, trackPagePerformance } from '@/lib/tracking';
 import { ticketService } from '@/lib/tickets';
@@ -13,8 +15,16 @@ export default function SurveyPage() {
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [performanceData, setPerformanceData] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const mobile = isLikelyMobile();
+    setIsMobile(mobile);
+    if (mobile) {
+      setLoading(false);
+      return;
+    }
+
     const session = storage.getSession();
     if (!session) {
       router.push('/');
@@ -94,6 +104,10 @@ export default function SurveyPage() {
       alert('There was an error submitting your survey. Please try again.');
     }
   };
+
+  if (isMobile) {
+    return <MobileLockout />;
+  }
 
   if (loading || !participantId) {
     return (

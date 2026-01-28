@@ -2,6 +2,8 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import MobileLockout from '@/components/MobileLockout';
+import { isLikelyMobile } from '@/lib/device';
 import { storage } from '@/lib/storage';
 import { tracking } from '@/lib/tracking';
 import { GroupType, TimingMode } from '@/types';
@@ -14,10 +16,17 @@ function HomeContent() {
   const [timingMode, setTimingMode] = useState<TimingMode>('immediate');
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [prolificRedirectUrl, setProlificRedirectUrl] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Initialize tracking
     tracking.init();
+
+    const mobile = isLikelyMobile();
+    setIsMobile(mobile);
+    if (mobile) {
+      return;
+    }
 
     // Parse URL parameters
     const groupParam = searchParams.get('group') as GroupType;
@@ -75,6 +84,10 @@ function HomeContent() {
     };
     return descriptions[g] || '';
   };
+
+  if (isMobile) {
+    return <MobileLockout />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">

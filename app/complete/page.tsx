@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import MobileLockout from '@/components/MobileLockout';
+import { isLikelyMobile } from '@/lib/device';
 import { storage } from '@/lib/storage';
 
 export default function CompletePage() {
@@ -11,8 +13,15 @@ export default function CompletePage() {
   const [showContact, setShowContact] = useState(false);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const mobile = isLikelyMobile();
+    setIsMobile(mobile);
+    if (mobile) {
+      return;
+    }
+
     const session = storage.getSession();
 
     if (!session) {
@@ -66,6 +75,10 @@ export default function CompletePage() {
     storage.clearSession();
     router.push('/');
   };
+
+  if (isMobile) {
+    return <MobileLockout />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
