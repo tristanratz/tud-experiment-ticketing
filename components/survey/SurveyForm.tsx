@@ -108,7 +108,8 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
     value: number | null,
     onChange: (value: number) => void,
     lowLabel: string,
-    highLabel: string
+    highLabel: string,
+    questionText: string
   ) => {
     return (
       <div className="space-y-3">
@@ -118,6 +119,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
               key={num}
               type="button"
               onClick={() => onChange(num)}
+              title={`Select ${num} for: ${questionText}`}
               className={`w-12 h-12 rounded-lg border-2 font-semibold transition-all ${
                 value === num
                   ? 'bg-indigo-600 text-white border-indigo-600 scale-110'
@@ -171,7 +173,8 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
                   : null,
                 (value) => handleLikertChange(question, value),
                 question.lowLabel || '',
-                question.highLabel || ''
+                question.highLabel || '',
+                question.text
               )
             ) : (
               <textarea
@@ -190,6 +193,7 @@ export default function SurveyForm({ participantId, onSubmit }: SurveyFormProps)
                 }}
                 rows={question.rows || 4}
                 placeholder={question.placeholder || ''}
+                title={`Enter your response for: ${question.text}`}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
             )}

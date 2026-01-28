@@ -174,6 +174,7 @@ function HomeContent() {
                 type="checkbox"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
+                title="Confirm you have read and consent to the study terms"
                 className="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
               />
               <span className="text-gray-700 leading-relaxed">

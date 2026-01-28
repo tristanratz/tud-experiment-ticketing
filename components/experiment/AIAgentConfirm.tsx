@@ -227,6 +227,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
               type="text"
               value={editValue}
               onChange={(e) => setEditValue(e.target.value)}
+              title="Edit the AI's decision for this step"
               className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
             />
 
@@ -279,6 +280,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
                 value={customerResponse}
                 onChange={(e) => setCustomerResponse(e.target.value)}
                 rows={6}
+                title="Review and edit the customer response before completing"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm"
               />
             </div>

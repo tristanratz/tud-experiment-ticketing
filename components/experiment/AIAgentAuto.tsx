@@ -171,6 +171,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                     <select
                       value={getDecisionValue('Determine Priority')}
                       onChange={(e) => updateDecisionValue('Determine Priority', e.target.value)}
+                      title="Adjust the priority level if needed"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                     >
                       {ticket.decisionPoints.priority.map(opt => (
@@ -193,6 +194,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                     <select
                       value={getDecisionValue('Categorize Issue')}
                       onChange={(e) => updateDecisionValue('Categorize Issue', e.target.value)}
+                      title="Adjust the issue category if needed"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                     >
                       {ticket.decisionPoints.category.map(opt => (
@@ -215,6 +217,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                     <select
                       value={getDecisionValue('Assign to Team')}
                       onChange={(e) => updateDecisionValue('Assign to Team', e.target.value)}
+                      title="Adjust the assignment team if needed"
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
                     >
                       {ticket.decisionPoints.assignment.map(opt => (
@@ -261,6 +264,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                     value={customerResponse}
                     onChange={(e) => setCustomerResponse(e.target.value)}
                     rows={8}
+                    title="Edit the draft response before approval"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-sans text-sm"
                   />
                   <button

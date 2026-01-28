@@ -155,6 +155,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
               <select
                 value={priority}
                 onChange={(e) => handleDecisionChange('priority', e.target.value)}
+                title="Select the urgency level for this ticket"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="">Select priority...</option>
@@ -172,6 +173,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
               <select
                 value={category}
                 onChange={(e) => handleDecisionChange('category', e.target.value)}
+                title="Select the category that best matches the issue"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="">Select category...</option>
@@ -189,6 +191,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
               <select
                 value={assignment}
                 onChange={(e) => handleDecisionChange('assignment', e.target.value)}
+                title="Select the team that should handle this ticket"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               >
                 <option value="">Select assignment...</option>
@@ -212,6 +215,7 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
             value={customerResponse}
             onChange={(e) => setCustomerResponse(e.target.value)}
             placeholder="Type your response to the customer here..."
+            title="Write a professional response to the customer"
             rows={8}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 font-sans"
           />

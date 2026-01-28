@@ -217,6 +217,7 @@ export default function KnowledgeBase({ onClose, variant = 'standalone' }: Knowl
               placeholder="Search knowledge base..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              title="Search the knowledge base by keyword"
               className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
             />
             <svg
