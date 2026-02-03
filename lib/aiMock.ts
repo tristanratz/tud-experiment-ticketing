@@ -35,8 +35,8 @@ export const aiMockService = {
       {
         stepNumber: decisionSteps.length + 2,
         stepName: 'Draft Customer Response',
-        decision: 'Response drafted',
-        reasoning: 'I\'ve prepared a professional and empathetic response addressing the customer\'s concerns.',
+        decision: ticket.goldStandard.responseTemplate,
+        reasoning: 'Drafted a professional and empathetic response based on the ticket context and policy.',
         status: 'pending',
         stepType: 'response',
       },
@@ -46,6 +46,76 @@ export const aiMockService = {
   // Generate complete response for autonomous mode (Group 4)
   generateCompleteResponse(ticket: Ticket): string {
     return ticket.goldStandard.responseTemplate;
+  },
+
+  // Generate default outcome fields for autonomous mode (Group 4)
+  generateOutcomeFields(ticket: Ticket, outcomeId?: string): Record<string, string | boolean> {
+    const responseText = ticket.goldStandard.responseTemplate;
+    const lower = responseText.toLowerCase();
+    const fields: Record<string, string | boolean> = {};
+
+    if (!outcomeId) return fields;
+
+    const formatAmount = (value: number) => {
+      const rounded = Math.round(value * 100) / 100;
+      return `${rounded.toFixed(2)} EUR`;
+    };
+    const refundByTicketId: Record<string, { refund: number; comment: string; keepPartial?: boolean }> = {
+      '1001': {
+        refund: 149.95 - 25 - 10 - (149.95 * 0.10),
+        comment: 'Return within window. Deductions: 25.00 EUR (carry case) + 10.00 EUR (ear cushions) + 10% restocking fee (14.995 EUR → 15.00 EUR).',
+      },
+      '1004': {
+        refund: 1399.95 - (1399.95 * 0.15),
+        comment: 'Return within window. Original box required. Restocking fee: 15% of 1,399.95 EUR = 209.9925 EUR → 209.99 EUR.',
+      },
+      '1007': {
+        refund: 5,
+        comment: 'Keep & Partial: refund 5.00 EUR for missing mini case.',
+        keepPartial: true,
+      },
+    };
+
+    switch (outcomeId) {
+      case 'return-possible': {
+        const refundPreset = refundByTicketId[ticket.id];
+        if (refundPreset) {
+          fields.refundAmount = formatAmount(refundPreset.refund);
+          fields.comment = refundPreset.comment;
+          fields.keepPartial = refundPreset.keepPartial ?? lower.includes('keep & partial');
+        } else {
+          fields.refundAmount = responseText;
+          fields.comment = 'Processed per policy based on ticket details.';
+          fields.keepPartial = lower.includes('keep & partial');
+        }
+        break;
+      }
+      case 'return-not-possible': {
+        fields.internalReason = responseText;
+        break;
+      }
+      case 'exchange-doa':
+      case 'exchange-warranty':
+      case 'repair-warranty': {
+        fields.defectDocumentation = ticket.description.split('\n').slice(0, 5).join(' ').trim();
+        break;
+      }
+      case 'repair-paid': {
+        fields.costEstimate = 'Cost estimate to be provided after inspection.';
+        fields.defectDocumentation = ticket.description.split('\n').slice(0, 5).join(' ').trim();
+        break;
+      }
+      case 'exchange-not-possible':
+      case 'repair-not-possible':
+      case 'escalation': {
+        fields.internalReason = responseText;
+        break;
+      }
+      default:
+        break;
+    }
+
+    return fields;
   },
 
   // Chat Assistant - Answer knowledge base questions (Group 2)

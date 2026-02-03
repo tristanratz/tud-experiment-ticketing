@@ -1,4 +1,4 @@
-# Service Tickets:
+# Service Tickets
 
 ## Ticket ID:
 
@@ -6,43 +6,43 @@
 
 ## Customer Request Message:
 
-Hallo ich habe vor 2 wochen Over Ear Kopfhöhrer bei Ihnen bestellt, mir gefällt der Klang aber nicht, deswegen möchte ich sie zurückschicken.
+Hi, about two weeks ago I ordered over-ear headphones from you. I do not like the sound, so I would like to return them.
 
-Die Originalverpackung und die Tragetasche finde ich leider nicht mehr.
+I can no longer find the original packaging or the carry case.
 
-Kann ich die Kopfhörer trotzdem noch zurückschicken?
+Can I still return the headphones?
 
-## Order Informations:
+## Order Information:
 
-Datum: in-Frist
+Date: within window
 
-Bestellübersicht: 1x Over-Ear Headphones Wireless (Produktnr. 1.0)
+Order summary: 1x Over-Ear Wireless Headphones (Product No. 1.0)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie: 
+## Category:
 
-Rückgabe/Umtausch
+Return/Exchange
 
 ## Solution Action:
 
-Rückgabe: 
+Return:
 
-- In frist  
-- 100% Preiserstattung abzgl. 25€ (Carry Case) und 10€ (Ear-Cushions wegen Benutzung)  
-- 10% Restocking Fee
+- Within window
+- 100% refund minus 25 EUR (carry case) and 10 EUR (ear cushions due to use)
+- 10% restocking fee
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
 ## Ticket ID:
 
@@ -50,41 +50,41 @@ Rückgabe:
 
 ## Customer Request Message:
 
-Guten Tag,
+Good day,
 
-Ich habe gestern meine  In-Ear Kopfhörer mit ANC erhalten, leider funktionieren sie scheinbar nicht richtig:
+I received my in-ear headphones with ANC yesterday, but they do not seem to work properly:
 
-\-          	Das Ladecase lädt die Kopfhörer nicht  
-\-          	Die LED blinkt nur kurz und geht dann aus  
-\-          	Das Handy erkennt die Kopfhörer gar nicht
+- The charging case does not charge the headphones
+- The LED blinks briefly and then turns off
+- The phone does not detect the headphones at all
 
-Ich würde die Kopfhörer deswegen gerne umtauschen, kein Refund.
+I would like to exchange the headphones, not get a refund.
 
-Können Sie mir sagen wie ich die Kopfhörer zurückzuschicken habe?
+Can you tell me how to send the headphones back?
 
-## Order Informations:
+## Order Information:
 
-Datum: in Frist
+Date: within window
 
-Bestellübersicht: 1x In-Ear Kopfhörer Wireless (Produktnr. 2.1)
+Order summary: 1x In-Ear Wireless Headphones (Product No. 2.1)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie: 
+## Category:
 
-Rückgabe/Umtausch
+Return/Exchange
 
 ## Solution Action:
 
-DOA: 
+DOA:
 
-- Austausch inkl. Versandkostenübernahme
+- Exchange with shipping covered
 
-## 
+##
 
 ## Ticket ID:
 
@@ -92,39 +92,39 @@ DOA:
 
 ## Customer Request Message:
 
-Hallo Support-Team,  
-Ich habe vor etwa 10 Monaten die anniversary Edition der Over-Ear Kopfhörer bei Ihnen gekauft. Nach einiger Zeit ist jetzt nur die linke Seite immer leiser als die Rechte. Außerdem treten gelegentlich Störgeräusche in Form von Kratzen und Rascheln in den Kopfhörern auf.  
-Ich habe das Gerät bereits mit verschiedenen Quellen getestet bin mir also sicher es müsste an den Kopfhörern liegen.
+Hello support team,
+I bought the anniversary edition of the over-ear headphones from you about 10 months ago. After some time, only the left side has become quieter than the right. I also occasionally hear scratchy and rustling noises in the headphones.
+I have tested the device with multiple sources, so I am sure the issue is with the headphones.
 
-Kann ich die Kopfhörer nochmal umtauschen oder reparieren lassen?
+Can I exchange or repair the headphones?
 
-## Order Informations:
+## Order Information:
 
-Datum: in Frist
+Date: within window
 
-Bestellübersicht: 1x Standlautsprecher Signature (Produktnr. 4.2), 1x Anniversary Over-Ear Headphones Wireless (Produktnr. 1.1)
+Order summary: 1x Signature floor speakers (Product No. 4.2), 1x Anniversary Over-Ear Wireless Headphones (Product No. 1.1)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Reparatur
+Repair
 
 ## Solution Action:
 
-Reparatur:
+Repair:
 
-- Garantiefall  
-- Defekt Dokumentieren und weiterleiten  
-- Nur Reparatur mgl. Wegen Anniversary
+- Warranty case
+- Document defect and forward
+- Repair only due to Anniversary Edition
 
-## 
+##
 
-## 
+##
 
 ## Ticket ID:
 
@@ -132,46 +132,46 @@ Reparatur:
 
 ## Customer Request Message:
 
-Sehr geehrte Damen und Herren,
+Dear Sir or Madam,
 
-ich habe vor drei Wochen ein Paar High-End Lautsprecher (Produktnummer 4.3) bei Ihnen bestellt. Leider passen sie optisch doch nicht in mein Wohnzimmer, weshalb ich gern vom Widerruf Gebrauch machen möchte.
+Three weeks ago I ordered a pair of high-end speakers (product number 4.3) from you. Unfortunately, they do not fit visually in my living room, so I would like to exercise my right of withdrawal.
 
-Ich wohne in der Schweiz und hätte folgende Fragen:
+I live in Switzerland and have the following questions:
 
-Wie läuft der Rückversand bei so großen Lautsprechern ab? Organisieren Sie eine Abholung per Spedition?
+How does the return shipment work for such large speakers? Do you arrange a freight pickup?
 
-Der Originalkarton ist noch vorhanden – ist das ausreichend verpackt?
+The original box is still available - is that sufficient packaging?
 
-Fallen bei der Rückgabe irgendwelche Gebühren an?
+Are there any fees for the return?
 
-Vielen Dank für Ihre Unterstützung.
+Thank you for your support.
 
-Freundliche Grüße  
-\[Name\]
+Kind regards
+[Name]
 
-## Order Informations: 
+## Order Information:
 
-Datum: in Frist
+Date: within window
 
-Bestellübersicht: 1x Standlautsprecher Reference (4.3), 1x Lautsprecherkabel
+Order summary: 1x Reference floor speakers (4.3), 1x Speaker cable
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Umtausch/Rückgabe
+Exchange/Return
 
 ## Solution Action:
 
-Rückgabe: 
+Return:
 
-- In Frist  
-- Vollerstattung mit Originalkarton  
-- 15% Restocking Fee
+- Within window
+- Full refund with original box
+- 15% restocking fee
 
 ## Ticket ID:
 
@@ -179,45 +179,45 @@ Rückgabe:
 
 ## Customer Request Message:
 
-Hallo,
+Hello,
 
-ich möchte gerne meine In-Ear Headphones Wireless mit ANC  zurückgeben. Ich habe sie vor etwa drei Wochen erhalten.
+I would like to return my in-ear wireless headphones with ANC. I received them about three weeks ago.
 
-Die Kopfhörer sind im Prinzip noch neu und ungeöffnet/ungetragen, aber ich habe sie kurz ausprobiert und festgestellt, dass mir die mitgelieferten Eartips nicht passen. Ich habe deshalb andere Eartips verwendet, die ich noch zu Hause hatte.
+The headphones are basically new and unopened/unworn, but I tried them briefly and noticed that the included ear tips do not fit me. I therefore used other ear tips I already had at home.
 
-Leider sind mir beim Aufräumen die Original-Eartips abhandengekommen, ich kann sie also nicht mehr mitsenden. Das Ladecase und das USB-C-Kabel habe ich noch.
+Unfortunately, I misplaced the original ear tips while tidying up, so I can no longer send them back. I still have the charging case and the USB-C cable.
 
-Ich würde gern von meinem 30-tägigen Rückgaberecht Gebrauch machen und bitte um eine volle Rückerstattung des Kaufpreises.
+I would like to exercise my 30-day return right and request a full refund of the purchase price.
 
-Können Sie mir dafür bitte ein Rücksendelabel schicken?
+Could you please send me a return label?
 
-Viele Grüße
+Best regards
 
-## Order Informations:
+## Order Information:
 
-Date: in Frist
+Date: within window
 
-Bestellübersicht: 1x In-Ear Kabelkopfhörer (3.0)
+Order summary: 1x In-Ear Wired Earphones (3.0)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie: 
+## Category:
 
-Betrugsverdacht
+Fraud suspected
 
 ## Solution Action:
 
-Eskalation:
+Escalation:
 
-- Begründung: Betrugsverdacht aufgrund von widersprüchlichem Aussagen und falscher Bestellung
+- Reason: suspected fraud due to contradictory statements and incorrect order
 
-## 
+##
 
-## 
+##
 
 ## Ticket ID:
 
@@ -225,39 +225,39 @@ Eskalation:
 
 ## Customer Request Message:
 
-Sehr geehrtes Service-Team,  
-ich habe vor knapp vier Wochen die Over-Ear Headphones Wireless, Produktnummer 1.1 (Anniversary Edition), bei Ihnen gekauft.  
-Leider habe ich nun festgestellt, dass der rechte Kopfhörer gelegentlich Aussetzer hat. Optisch sind die Kopfhörer einwandfrei, Zubehör ist vollständig vorhanden.  
-Da es sich um eine limitierte Edition handelt, wollte ich fragen, ob ein Austausch möglich ist oder ob ich alternativ eine Rückerstattung erhalten kann.  
-Vielen Dank im Voraus.  
-Mit freundlichen Grüßen  
-\[Name\]
+Dear service team,
+I purchased the over-ear wireless headphones, product number 1.1 (Anniversary Edition), from you just under four weeks ago.
+Unfortunately, I have now noticed that the right earcup occasionally cuts out. The headphones look perfect and all accessories are present.
+Since this is a limited edition, I wanted to ask whether an exchange is possible or whether I could alternatively receive a refund.
+Thank you in advance.
+Kind regards
+[Name]
 
-## Order Informations:
+## Order Information:
 
-Date: not in Frist
+Date: not within window
 
-Bestellübersicht: 1x Anniversary Over-Ear Headphones Wireless (Produktnr. 1.1)
+Order summary: 1x Anniversary Over-Ear Wireless Headphones (Product No. 1.1)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Reparatur
+Repair
 
 ## Solution Action:
 
-Reparatur:
+Repair:
 
-- Garantiefall  
-- Defekt Dokumentieren und weiterleiten  
-- Nur Reparatur mgl. Wegen Anniversary
+- Warranty case
+- Document defect and forward
+- Repair only due to Anniversary Edition
 
-## 
+##
 
 ## Ticket ID:
 
@@ -265,44 +265,44 @@ Reparatur:
 
 ## Customer Request Message:
 
-Hallo Support,  
-ich habe meine In-Ear Kabelkopfhörer mit Mikrofon vor etwa 10 Tagen erhalten.  
-Die Kopfhörer gefallen mir grundsätzlich, allerdings fehlt mir das Mini-Case.  
-Ich würde die Kopfhörer gern behalten, aber einen Teil des Kaufpreises erstattet bekommen.
+Hello support,
+I received my in-ear wired headphones with microphone about 10 days ago.
+I like the headphones overall, but the mini-case is missing.
+I would like to keep the headphones but receive a partial refund.
 
-## Order Informations:
+## Order Information:
 
-Datum: In-Frist
+Date: within window
 
-Bestellübersicht: 1x In-Ear Kabelkopfhörer mit Mikrofon (Produktnr. 3.1)
+Order summary: 1x In-Ear Wired Earphones with microphone (Product No. 3.1)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Rückgabe/Umtausch
+Return/Exchange
 
 ## Solution Action:
 
 Keep & Partial:
 
-- Teilrefund: 5€ (wegen fehlendem Mini-Case)
+- Partial refund: 5 EUR (missing mini-case)
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
 ## Ticket ID:
 
@@ -310,37 +310,37 @@ Keep & Partial:
 
 ## Customer Request Message:
 
-Sehr geehrtes Team,  
-ich habe vor 8 Monaten In-Ear Kopfhörer Wireless ohne ANC bei Ihnen gekauft.  
-Nun entlädt sich der Akku sehr schnell und die Laufzeit beträgt nur noch ca. 30 Minuten.  
-Ich würde gerne wissen, ob ich einen Austausch oder eine Rückerstattung erhalten kann.
+Dear team,
+I bought in-ear wireless headphones without ANC from you about 8 months ago.
+Now the battery drains very quickly and the runtime is only about 30 minutes.
+I would like to know whether I can get an exchange or a refund.
 
-## Order Informations:
+## Order Information:
 
-Datum: Garantiezeit  
-Bestellübersicht: 1x In-Ear Kopfhörer Wireless (Produktnr. 2.0)
+Date: warranty period
+Order summary: 1x In-Ear Wireless Headphones (Product No. 2.0)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Umatusch/Rückgabe:
+Exchange/Return
 
 ## Solution Action:
 
-Umtausch:
+Exchange:
 
-- Garantiefall  
-- Keine Reparatur mgl.
+- Warranty case
+- No repair possible
 
-Alternativ Rückgabe:
+Alternative return:
 
-- Garantiefall  
-- Teilerstattung nach Zeitwert inkl. Versand
+- Warranty case
+- Partial refund based on time value incl. shipping
 
 ## Ticket ID:
 
@@ -348,46 +348,46 @@ Alternativ Rückgabe:
 
 ## Customer Request Message:
 
-Hallo Support-Team,  
-ich habe vor 2 Tagen meine Standlautsprecher Signature erhalten.  
-Leider ist einer der Lautsprecher beim Auspacken beschädigt gewesen.  
-Das Gehäuse weist eine deutliche Delle auf.  
-Wie gehen wir hier weiter vor?
+Hello support team,
+I received my Signature floor speakers two days ago.
+Unfortunately, one of the speakers was damaged during unpacking.
+The cabinet has a noticeable dent.
+How should we proceed?
 
-## Order Informations:
+## Order Information:
 
-Datum: in Frist  
-Bestellübersicht: 1x Standlautsprecher Signature (Produktnr. 4.2)
+Date: within window
+Order summary: 1x Signature floor speakers (Product No. 4.2)
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Rückgabe/Umtausch
+Return/Exchange
 
 ## Solution Action:
 
-DOA: 
+DOA:
 
-- Austausch inkl. Versandkostenübernahme
+- Exchange with shipping covered
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
-## 
+##
 
 ## Ticket ID:
 
@@ -395,34 +395,33 @@ DOA:
 
 ## Customer Request Message:
 
-Hallo,  
-ich habe mir Silikon Ear-Tips bei Ihnen bestellt und die Verpackung geöffnet.  
-Leider passen sie nicht und ich würde sie gern zurückschicken.  
-Ist das möglich?
+Hello,
+I ordered silicone ear tips from you and opened the packaging.
+Unfortunately, they do not fit and I would like to return them.
+Is that possible?
 
-## Order Informations:
+## Order Information:
 
-Datum: in Frist  
-Bestellübersicht: 1x Silikon Ear-Tips
+Date: within window
+Order summary: 1x Silicone ear tips
 
-## Customer-Informations:
+## Customer Information:
 
-Name: XXX,XXX
+Name: XXX, XXX
 
-## Goldstandard:
+## Gold Standard:
 
-## Kategorie:
+## Category:
 
-Rückgabe/Umtausch
+Return/Exchange
 
 ## Solution Action:
 
-Rückgabe:
+Return:
 
-- Rückgabe abgelehnt  
-- Begründung Dokumentieren: Hygieneartikel
+- Return declined
+- Document reason: hygiene item
 
-Kulanz wegen geringem Warenwert:
+Goodwill for low item value:
 
-- Keep & Partial: Vollerstattung
-
+- Keep & Partial: full refund

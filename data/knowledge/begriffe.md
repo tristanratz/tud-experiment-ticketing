@@ -1,25 +1,25 @@
-# 03 Begriffe
+# 03 Terms
 
 ## DOA (Dead on Arrival)
-Defekt direkt bei Ankunft. Loesung: Austausch oder voller Refund inkl. Versand.
+Defective on arrival. Resolution: exchange or full refund incl. shipping.
 
-## Widerruf / Rueckgabe
-Rueckgabe innerhalb der Frist. Ware muss unbenutzt und vollstaendig sein, sofern nicht anders geregelt.
+## Withdrawal / Return
+Return within the window. Items must be unused and complete unless otherwise specified.
 
 ## Restocking Fee
-Gebuehr fuer geoeffnete oder benutzte Ware (z. B. 10% oder 15% je Produktkategorie).
+Fee for opened or used items (e.g., 10% or 15% depending on product category).
 
 ## Keep & Partial
-Kunde behaelt die Ware und erhaelt einen Teilrefund, wenn Ruecksendung unverhaeltnismaessig ist oder kleinere Maengel vorliegen.
+Customer keeps the item and receives a partial refund when a return is disproportionate or minor defects are present.
 
-## Teilrefund nach Zeitwert
-Erstattung anteilig nach Nutzungsdauer, typischerweise im Garantiefall ohne Reparaturmoeglichkeit.
+## Partial Refund Based on Time Value
+Pro-rated refund based on usage duration, typically in warranty cases without repair options.
 
-## Garantie
-Leistung fuer Produktions- oder Materialfehler innerhalb der Garantiezeit. Reparatur oder Austausch je Produktregel.
+## Warranty
+Coverage for manufacturing or material defects within the warranty period. Repair or exchange per product rules.
 
-## Hygieneartikel
-Artikel wie Ear-Tips oder Ear-Cushions. Nach Benutzung oder Oeffnung keine Rueckgabe moeglich.
+## Hygiene Item
+Items such as ear tips or ear cushions. No return after use or opening.
 
-## Kulanz
-Freiwillige Erstattung oder Loesung aus Kundenbindung, bis 10 EUR im Ermessen des Service Agents.
+## Goodwill
+Voluntary refund or solution for customer retention, up to 10 EUR at the service agent's discretion.

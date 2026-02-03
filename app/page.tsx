@@ -113,7 +113,7 @@ function HomeContent() {
               <li>For each ticket, you will:
                 <ul className="list-circle list-inside ml-6 mt-1 space-y-1">
                   <li>Read the customer&apos;s issue</li>
-                  <li>Follow the decision tree to classify the request</li>
+                  <li>Use the service workflow tool to classify the request</li>
                   <li>Fill the action fields for the chosen outcome</li>
                   <li>Write a response to the customer</li>
                 </ul>

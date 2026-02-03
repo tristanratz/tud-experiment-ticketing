@@ -1,16 +1,16 @@
-# 01 Einleitung
+# 01 Introduction
 
-Diese Knowledgebase dient als kompakte Arbeitsgrundlage fuer den Service. Sie fasst Produktdaten, Garantie- und Rueckgaberegeln sowie typische Servicefaelle zusammen.
+This knowledge base is a compact working reference for service agents. It summarizes product data, warranty and return rules, and typical service cases.
 
-## Zielgruppe
-- Service Agents und Teamleitungen
-- Fokus: schnelle, konsistente Entscheidungen bei Rueckgabe, Austausch, Reparatur und Kulanz
+## Audience
+- Service agents and team leads
+- Focus: fast, consistent decisions on returns, exchanges, repairs, and goodwill
 
-## Anwendungsrahmen
-- Informationen gelten fuer Bestellungen mit Zustellung innerhalb der EU, sofern nicht anders angegeben.
-- Bei Abweichungen zwischen Kundenkommunikation und Systemdaten gilt die Systemdatenlage.
-- Fuer Sonderfaelle (z. B. internationale Ruecksendungen, Speditionsabholung) immer Ruecksprache mit Teamleitung.
+## Scope of Use
+- Information applies to orders delivered within the EU unless otherwise stated.
+- If there are discrepancies between customer communication and system data, rely on system data.
+- For special cases (e.g., international returns, freight pickup), always coordinate with a team lead.
 
-## Dokumentpflege
-- Preise und Regelungen regelmaessig mit dem Produktkatalog abgleichen.
-- Aenderungen im Serviceprozess in den jeweiligen Produktkapiteln nachtragen.
+## Document Maintenance
+- Regularly reconcile prices and rules with the product catalog.
+- Record service process changes in the relevant product sections.

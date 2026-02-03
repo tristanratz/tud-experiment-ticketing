@@ -1,112 +1,112 @@
-# Knowledgebase:
+# Knowledge Base
 
-## Einleitung
+## Introduction
 
 ## Code of Conduct
 
-Bis 10€ Erstattung Kulanzspielraum des Service Agents
+Up to 10 EUR refund as goodwill at the service agent's discretion.
 
-## Produkte
+## Products
 
-### Over-Ear Headphones Wireless
+### Over-Ear Wireless Headphones
 
-Produktnummer: 1.0 (Standard) 149.95€; 1.1 (Anniversary Edition, limitiert) 249,95€
+Product number: 1.0 (Standard) 149.95 EUR; 1.1 (Anniversary Edition, limited) 249.95 EUR
 
-Lieferumfang: Headphones, Ladekabel, Carry-Case, Ear-Cushions
+Box contents: Headphones, charging cable, carry case, ear cushions
 
-Garantie: 12 Monate, Reparatur und Austausch; bei 1.1 nur Reparatur
+Warranty: 12 months, repair and exchange; for 1.1 only repair
 
-Rückgabefrist: 30 Tage ab Zustellung, unbenutzt, vollständig
+Return window: 30 days from delivery, unused, complete
 
-Keep & Partial: nur bei optischen Mängeln bis 30%
+Keep & Partial: only for cosmetic issues up to 30%
 
-Restocking Fee: 10% bei geöffnetem Widerruf
+Restocking fee: 10% for opened returns
 
-DOA: Austausch oder voller Refund inkl. Versand
+DOA: exchange or full refund incl. shipping
 
-Zubehör fehlt?: Ladekabel \-3€, Carry-Case \-25€, Ear-Cushions \-10€ (Hygiene Artikel, bei Benutzung immer Abziehen)
+Missing accessories? Charging cable -3 EUR, carry case -25 EUR, ear cushions -10 EUR (hygiene item, always deduct if used)
 
-### In-Ear Kopfhörer Wireless
+### In-Ear Wireless Headphones
 
-Produktnummer: 2.0 (ohne ANC) 44,95€; 2.1 (mit ANC) 74,95€
+Product number: 2.0 (without ANC) 44.95 EUR; 2.1 (with ANC) 74.95 EUR
 
-Lieferumfang: Kopfhörer, Ladecase , Ladekabel, Austauschbare Ear-Tips
+Box contents: earphones, charging case, charging cable, replaceable ear tips
 
-Garantie: 12 Monate; Austausch oder Teilrefund nach Zeitwert; keine Reparatur
+Warranty: 12 months; exchange or partial refund based on time value; no repair
 
-Rückgabefrist: 30 Tage ab Zustellung, unbenutzt, vollständig
+Return window: 30 days from delivery, unused, complete
 
-Keep & Partial: Bis 40%
+Keep & Partial: up to 40%
 
-Restocking Fee: keine Restocking Fee
+Restocking fee: none
 
-DOA: Austausch oder Refund inkl. Versand
+DOA: exchange or refund incl. shipping
 
-Zubehör fehlt?: Ladekabel \-3€, Ladecase \-10€, Ear-Tips \-3€ (Hygiene Artikel, bei Benutzung immer Abziehen)
+Missing accessories? Charging cable -3 EUR, charging case -10 EUR, ear tips -3 EUR (hygiene item, always deduct if used)
 
-### In-Ear Kabelkopfhörer
+### In-Ear Wired Earphones
 
-Produktnummer: 3.0 (ohne Mikrofon) 14,95€, 3.1 (mit Mikrofon) 19,95€
+Product number: 3.0 (without microphone) 14.95 EUR, 3.1 (with microphone) 19.95 EUR
 
-Lieferumfang: Kabelkopfhörer, Mini-Case, Austauschbare Ear-Tips
+Box contents: wired earphones, mini case, replaceable ear tips
 
-Garantie: 12 Monate; keine Reparatur
+Warranty: 12 months; no repair
 
-Rückgabefrist: 14 Tage nach Zustellung, unbenutzt, vollständig
+Return window: 14 days after delivery, unused, complete
 
-Keep & Partial: bis 75%
+Keep & Partial: up to 75%
 
-Restocking Fee: keine Restocking Fee
+Restocking fee: none
 
-DOA: Austausch oder Refund inkl. Versand
+DOA: exchange or refund incl. shipping
 
-Zubehör fehlt?: Mini-Case \-5€, Ear-Tips \-3€ (Hygiene Artikel, bei Benutzung immer Abziehen)
+Missing accessories? Mini case -5 EUR, ear tips -3 EUR (hygiene item, always deduct if used)
 
-### Standlautsprecher
+### Floorstanding Speakers
 
-Produktnummer: 4.1 (Essence) 399,95€, 4.2 (Signature) 799.95€,   
-4.3 (Reference) 1.399.95€
+Product number: 4.1 (Essence) 399.95 EUR, 4.2 (Signature) 799.95 EUR,\
+4.3 (Reference) 1,399.95 EUR
 
-Lieferumfang: 2x Standlautsprecher
+Box contents: 2x floorstanding speakers
 
-Garantie: 2 Jahre, 4.1 & 4.2 Reparatur und Austausch mgl.; 4.3 nur Reparatur mgl. 
+Warranty: 2 years; 4.1 & 4.2 repair and exchange possible; 4.3 repair only
 
-Rückgabefrist: 30 Tage nach Zustellung, nur mit Originalkarton
+Return window: 30 days after delivery, only with original box
 
-Keep & Partial: kein Keep & Partial
+Keep & Partial: not possible
 
-Restocking Fee: 15% bei geöffnetem Widerruf
+Restocking fee: 15% for opened returns
 
-DOA: Austausch oder Refund inkl. Versand
+DOA: exchange or refund incl. shipping
 
-Zubehör fehlt?: ohne Originalkarton keine Rückgabe möglich
+Missing accessories? Without original box, return not possible
 
-### Wasserdichte Bluetooth-Box
+### Waterproof Bluetooth Speaker
 
-Produktnummer: 5 \- 104,95€
+Product number: 5 - 104.95 EUR
 
-Lieferumfang: Bluetooth-Box, Ladekabel
+Box contents: Bluetooth speaker, charging cable
 
-Garantie: 12 Monate, Wasserschaden nur bei IP Konformer Nutzung
+Warranty: 12 months, water damage covered only with IP-compliant use
 
-Rückgabefrist: 30 Tage nach Zustellung, vollständig
+Return window: 30 days after delivery, complete
 
-Keep & Partial: Bis 25%
+Keep & Partial: up to 25%
 
-Restocking Fee: 10% bei geöffnetem Widerruf
+Restocking fee: 10% for opened returns
 
-DOA: Austausch oder Refund inkl. Versand
+DOA: exchange or refund incl. shipping
 
-Zubehör fehlt?: Ladekabel \-3€
+Missing accessories? Charging cable -3 EUR
 
-### Zubehör Teile
+### Accessories
 
-Lautsprecherkabel: 39,95€, Widerruf bis 30 Tage nach Zustellung mgl.
+Speaker cable: 39.95 EUR, return within 30 days after delivery possible
 
-Silikon Ear-Tips: 7,95€, Keine Rückgabe nach Öffnung mgl. (Hygieneartikel)
+Silicone ear tips: 7.95 EUR, no return after opening (hygiene item)
 
-Ear-Cushions: 14,95€, Keine Rückgabe nach Öffnung mgl. (Hygieneartikel)
+Ear cushions: 14.95 EUR, no return after opening (hygiene item)
 
-## Begriffe
+## Terms
 
-### 
+###

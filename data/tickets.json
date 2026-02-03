@@ -5,7 +5,7 @@
       "customer": "Keller, Jana",
       "email": "jana.keller@example.com",
       "subject": "Return request for over-ear headphones (missing packaging)",
-      "description": "Hallo ich habe vor 2 wochen Over Ear Kopfhöhrer bei Ihnen bestellt, mir gefällt der Klang aber nicht, deswegen möchte ich sie zurückschicken.\n\nDie Originalverpackung und die Tragetasche finde ich leider nicht mehr.\n\nKann ich die Kopfhörer trotzdem noch zurückschicken?",
+      "description": "Hi, about two weeks ago I ordered over-ear headphones from you. I do not like the sound, so I would like to return them.\n\nI can no longer find the original packaging or the carry case.\n\nCan I still return the headphones?",
       "goldStandard": {
         "path": [
           {
@@ -18,7 +18,7 @@
           }
         ],
         "outcomeId": "return-possible",
-        "responseTemplate": "Rückgabe: In frist; 100% Preiserstattung abzgl. 25€ (Carry Case) und 10€ (Ear-Cushions wegen Benutzung); 10% Restocking Fee."
+        "responseTemplate": "Return: within window; 100% refund minus 25 EUR (carry case) and 10 EUR (ear cushions due to use); 10% restocking fee."
       },
       "scheduledAppearance": 5,
       "customerDetails": {
@@ -53,7 +53,7 @@
       "customer": "Schmidt, Tobias",
       "email": "tobias.schmidt@example.com",
       "subject": "Exchange request for in-ear headphones (DOA)",
-      "description": "Guten Tag,\n\nIch habe gestern meine  In-Ear Kopfhörer mit ANC erhalten, leider funktionieren sie scheinbar nicht richtig:\n\n- Das Ladecase lädt die Kopfhörer nicht\n- Die LED blinkt nur kurz und geht dann aus\n- Das Handy erkennt die Kopfhörer gar nicht\n\nIch würde die Kopfhörer deswegen gerne umtauschen, kein Refund.\n\nKönnen Sie mir sagen wie ich die Kopfhörer zurückzuschicken habe?",
+      "description": "Good day,\n\nI received my in-ear headphones with ANC yesterday, but they do not seem to work properly:\n\n- The charging case does not charge the headphones\n- The LED blinks briefly and then turns off\n- The phone does not detect the headphones at all\n\nI would like to exchange the headphones, not get a refund.\n\nCan you tell me how to send the headphones back?",
       "goldStandard": {
         "path": [
           {
@@ -70,7 +70,7 @@
           }
         ],
         "outcomeId": "exchange-doa",
-        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
+        "responseTemplate": "DOA: exchange with shipping covered."
       },
       "scheduledAppearance": 11,
       "customerDetails": {
@@ -97,7 +97,7 @@
       "customer": "Wagner, Lea",
       "email": "lea.wagner@example.com",
       "subject": "Repair request for anniversary over-ear headphones",
-      "description": "Hallo Support-Team,\nIch habe vor etwa 10 Monaten die anniversary Edition der Over-Ear Kopfhörer bei Ihnen gekauft. Nach einiger Zeit ist jetzt nur die linke Seite immer leiser als die Rechte. Außerdem treten gelegentlich Störgeräusche in Form von Kratzen und Rascheln in den Kopfhörern auf.\nIch habe das Gerät bereits mit verschiedenen Quellen getestet bin mir also sicher es müsste an den Kopfhörern liegen.\n\nKann ich die Kopfhörer nochmal umtauschen oder reparieren lassen?",
+      "description": "Hello support team,\nI bought the anniversary edition of the over-ear headphones from you about 10 months ago. After some time, only the left side has become quieter than the right. I also occasionally hear scratchy and rustling noises in the headphones.\nI have tested the device with multiple sources, so I am sure the issue is with the headphones.\n\nCan I exchange or repair the headphones?",
       "goldStandard": {
         "path": [
           {
@@ -114,7 +114,7 @@
           }
         ],
         "outcomeId": "repair-warranty",
-        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
+        "responseTemplate": "Repair: warranty case; document defect and forward; only repair possible due to anniversary edition."
       },
       "scheduledAppearance": 20,
       "customerDetails": {
@@ -149,7 +149,7 @@
       "customer": "Baumann, Erik",
       "email": "erik.baumann@example.com",
       "subject": "Return request for large speakers (pickup, packaging, fees)",
-      "description": "Sehr geehrte Damen und Herren,\n\nich habe vor drei Wochen ein Paar High-End Lautsprecher (Produktnummer 4.3) bei Ihnen bestellt. Leider passen sie optisch doch nicht in mein Wohnzimmer, weshalb ich gern vom Widerruf Gebrauch machen möchte.\n\nIch wohne in der Schweiz und hätte folgende Fragen:\n\nWie läuft der Rückversand bei so großen Lautsprechern ab? Organisieren Sie eine Abholung per Spedition?\n\nDer Originalkarton ist noch vorhanden – ist das ausreichend verpackt?\n\nFallen bei der Rückgabe irgendwelche Gebühren an?\n\nVielen Dank für Ihre Unterstützung.\n\nFreundliche Grüße\n[Name]",
+      "description": "Dear Sir or Madam,\n\nThree weeks ago I ordered a pair of high-end speakers (product number 4.3) from you. Unfortunately, they do not fit visually in my living room, so I would like to exercise my right of withdrawal.\n\nI live in Switzerland and have the following questions:\n\nHow does the return shipment work for such large speakers? Do you arrange a freight pickup?\n\nThe original box is still available - is that sufficient packaging?\n\nAre there any fees for the return?\n\nThank you for your support.\n\nKind regards\n[Name]",
       "goldStandard": {
         "path": [
           {
@@ -162,7 +162,7 @@
           }
         ],
         "outcomeId": "return-possible",
-        "responseTemplate": "Rückgabe: In Frist; Vollerstattung mit Originalkarton; 15% Restocking Fee."
+        "responseTemplate": "Return: within window; full refund with original box; 15% restocking fee."
       },
       "scheduledAppearance": 32,
       "customerDetails": {
@@ -197,7 +197,7 @@
       "customer": "Neumann, Pia",
       "email": "pia.neumann@example.com",
       "subject": "Return request with missing eartips (fraud suspicion)",
-      "description": "Hallo,\n\nich möchte gerne meine In-Ear Headphones Wireless mit ANC  zuruckgeben. Ich habe sie vor etwa drei Wochen erhalten.\n\nDie Kopfhörer sind im Prinzip noch neu und ungeöffnet/ungetragen, aber ich habe sie kurz ausprobiert und festgestellt, dass mir die mitgelieferten Eartips nicht passen. Ich habe deshalb andere Eartips verwendet, die ich noch zu Hause hatte.\n\nLeider sind mir beim Aufräumen die Original-Eartips abhandengekommen, ich kann sie also nicht mehr mitsenden. Das Ladecase und das USB-C-Kabel habe ich noch.\n\nIch würde gern von meinem 30-tägigen Rückgaberecht Gebrauch machen und bitte um eine volle Rückerstattung des Kaufpreises.\n\nKönnen Sie mir dafür bitte ein Rücksendelabel schicken?\n\nViele Grüße",
+      "description": "Hello,\n\nI would like to return my in-ear wireless headphones with ANC. I received them about three weeks ago.\n\nThe headphones are basically new and unopened/unworn, but I tried them briefly and noticed that the included ear tips do not fit me. I therefore used other ear tips I already had at home.\n\nUnfortunately, I misplaced the original ear tips while tidying up, so I can no longer send them back. I still have the charging case and the USB-C cable.\n\nI would like to exercise my 30-day return right and request a full refund of the purchase price.\n\nCould you please send me a return label?\n\nBest regards",
       "goldStandard": {
         "path": [
           {
@@ -214,7 +214,7 @@
           }
         ],
         "outcomeId": "escalation",
-        "responseTemplate": "Eskalation: Begründung: Betrugsverdacht aufgrund von widersprüchlichem Aussagen und falscher Bestellung."
+        "responseTemplate": "Escalation: Reason: suspected fraud due to contradictory statements and incorrect order."
       },
       "scheduledAppearance": 40,
       "customerDetails": {
@@ -250,7 +250,7 @@
       "customer": "Fischer, Daniel",
       "email": "daniel.fischer@example.com",
       "subject": "Repair request for anniversary over-ear headphones (out of return window)",
-      "description": "Sehr geehrtes Service-Team,\nich habe vor knapp vier Wochen die Over-Ear Headphones Wireless, Produktnummer 1.1 (Anniversary Edition), bei Ihnen gekauft.\nLeider habe ich nun festgestellt, dass der rechte Kopfhörer gelegentlich Aussetzer hat. Optisch sind die Kopfhörer einwandfrei, Zubehör ist vollständig vorhanden.\nDa es sich um eine limitierte Edition handelt, wollte ich fragen, ob ein Austausch möglich ist oder ob ich alternativ eine Rückerstattung erhalten kann.\nVielen Dank im Voraus.\nMit freundlichen Grüßen\n[Name]",
+      "description": "Dear service team,\nI purchased the over-ear wireless headphones, product number 1.1 (Anniversary Edition), from you just under four weeks ago.\nUnfortunately, I have now noticed that the right earcup occasionally cuts out. The headphones look perfect and all accessories are present.\nSince this is a limited edition, I wanted to ask whether an exchange is possible or whether I could alternatively receive a refund.\nThank you in advance.\nKind regards\n[Name]",
       "goldStandard": {
         "path": [
           {
@@ -267,7 +267,7 @@
           }
         ],
         "outcomeId": "repair-warranty",
-        "responseTemplate": "Reparatur: Garantiefall; Defekt dokumentieren und weiterleiten; nur Reparatur möglich wegen Anniversary."
+        "responseTemplate": "Repair: warranty case; document defect and forward; only repair possible due to anniversary edition."
       },
       "scheduledAppearance": 55,
       "customerDetails": {
@@ -295,7 +295,7 @@
       "customer": "Lenz, Marie",
       "email": "marie.lenz@example.com",
       "subject": "Missing mini-case, request for partial refund",
-      "description": "Hallo Support,\nich habe meine In-Ear Kabelkopfhörer mit Mikrofon vor etwa 10 Tagen erhalten.\nDie Kopfhörer gefallen mir grundsätzlich, allerdings fehlt mir das Mini-Case.\nIch würde die Kopfhörer gern behalten, aber einen Teil des Kaufpreises erstattet bekommen.",
+      "description": "Hello support,\nI received my in-ear wired headphones with microphone about 10 days ago.\nI like the headphones overall, but the mini-case is missing.\nI would like to keep the headphones but receive a partial refund.",
       "goldStandard": {
         "path": [
           {
@@ -308,7 +308,7 @@
           }
         ],
         "outcomeId": "return-possible",
-        "responseTemplate": "Keep & Partial: Teilrefund 5€ (wegen fehlendem Mini-Case)."
+        "responseTemplate": "Keep & Partial: partial refund of 5 EUR (missing mini-case)."
       },
       "scheduledAppearance": 66,
       "customerDetails": {
@@ -335,7 +335,7 @@
       "customer": "Kuhn, Felix",
       "email": "felix.kuhn@example.com",
       "subject": "Battery degradation on in-ear headphones (warranty)",
-      "description": "Sehr geehrtes Team,\nich habe vor 8 Monaten In-Ear Kopfhörer Wireless ohne ANC bei Ihnen gekauft.\nNun entlädt sich der Akku sehr schnell und die Laufzeit beträgt nur noch ca. 30 Minuten.\nIch würde gerne wissen, ob ich einen Austausch oder eine Rückerstattung erhalten kann.",
+      "description": "Dear team,\nI bought in-ear wireless headphones without ANC from you about 8 months ago.\nNow the battery drains very quickly and the runtime is only about 30 minutes.\nI would like to know whether I can get an exchange or a refund.",
       "goldStandard": {
         "path": [
           {
@@ -352,7 +352,7 @@
           }
         ],
         "outcomeId": "exchange-warranty",
-        "responseTemplate": "Umtausch: Garantiefall; keine Reparatur möglich. Alternativ Rückgabe: Garantiefall; Teilerstattung nach Zeitwert inkl. Versand."
+        "responseTemplate": "Exchange: warranty case; no repair possible. Alternative return: warranty case; partial refund based on time value incl. shipping."
       },
       "scheduledAppearance": 73,
       "customerDetails": {
@@ -380,7 +380,7 @@
       "customer": "Hartmann, Sabine",
       "email": "sabine.hartmann@example.com",
       "subject": "Damaged speaker on arrival (DOA)",
-      "description": "Hallo Support-Team,\nich habe vor 2 Tagen meine Standlautsprecher Signature erhalten.\nLeider ist einer der Lautsprecher beim Auspacken beschädigt gewesen.\nDas Gehäuse weist eine deutliche Delle auf.\nWie gehen wir hier weiter vor?",
+      "description": "Hello support team,\nI received my Signature floor speakers two days ago.\nUnfortunately, one of the speakers was damaged during unpacking.\nThe cabinet has a noticeable dent.\nHow should we proceed?",
       "goldStandard": {
         "path": [
           {
@@ -397,7 +397,7 @@
           }
         ],
         "outcomeId": "exchange-doa",
-        "responseTemplate": "DOA: Austausch inkl. Versandkostenübernahme."
+        "responseTemplate": "DOA: exchange with shipping covered."
       },
       "scheduledAppearance": 91,
       "customerDetails": {
@@ -432,7 +432,7 @@
       "customer": "Roth, Lukas",
       "email": "lukas.roth@example.com",
       "subject": "Return request for opened silicone ear-tips",
-      "description": "Hallo,\nich habe mir Silikon Ear-Tips bei Ihnen bestellt und die Verpackung geöffnet.\nLeider passen sie nicht und ich würde sie gern zurückschicken.\nIst das möglich?",
+      "description": "Hello,\nI ordered silicone ear tips from you and opened the packaging.\nUnfortunately, they do not fit and I would like to return them.\nIs that possible?",
       "goldStandard": {
         "path": [
           {
@@ -449,7 +449,7 @@
           }
         ],
         "outcomeId": "return-not-possible",
-        "responseTemplate": "Rückgabe: abgelehnt; Begründung dokumentieren: Hygieneartikel. Kulanz wegen geringem Warenwert: Keep & Partial, Vollerstattung."
+        "responseTemplate": "Return: declined; document reason: hygiene item. Courtesy for low value: Keep & Partial, full refund."
       },
       "scheduledAppearance": 101,
       "customerDetails": {

@@ -17,6 +17,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
   const [steps, setSteps] = useState<AIAgentStep[]>([]);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [editValue, setEditValue] = useState('');
+  const [editError, setEditError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [customerResponse, setCustomerResponse] = useState('');
   const [fieldValues, setFieldValues] = useState<Record<string, string | boolean>>({});
@@ -29,6 +30,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
     setCustomerResponse(draft);
     setFieldValues({ customerResponse: draft });
     setErrors([]);
+    setEditError('');
   }, [ticket]);
 
   const currentStep = steps[currentStepIndex];
@@ -61,7 +63,39 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
     });
   }, [outcomeNode]);
 
+  useEffect(() => {
+    if (!currentStep || isEditing) return;
+    if (currentStep.stepType !== 'decision') return;
+    if (currentStep.status !== 'rejected') return;
+    setEditValue('');
+    setEditError('Please select your own decision to proceed.');
+    setIsEditing(true);
+  }, [currentStep, isEditing]);
+
+  const decisionStepsComplete = steps
+    .filter(step => step.stepType === 'decision')
+    .every(step => step.status !== 'pending' && step.status !== 'rejected');
+
+  useEffect(() => {
+    if (!decisionStepsComplete) return;
+    const responseIndex = steps.findIndex(step => step.stepType === 'response');
+    if (responseIndex === -1) return;
+    if (steps[responseIndex].status !== 'pending') return;
+    const updatedSteps = [...steps];
+    updatedSteps[responseIndex] = {
+      ...updatedSteps[responseIndex],
+      status: 'accepted',
+    };
+    setSteps(updatedSteps);
+  }, [decisionStepsComplete, steps]);
+
   const handleAccept = () => {
+    if (currentStep.stepType === 'decision' && currentStep.status === 'rejected') {
+      setEditValue('');
+      setEditError('Please select your own decision to proceed.');
+      setIsEditing(true);
+      return;
+    }
     const updatedSteps = [...steps];
     updatedSteps[currentStepIndex].status = 'accepted';
     setSteps(updatedSteps);
@@ -80,6 +114,13 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
 
     tracking.aiStepRejected(ticket.id, currentStep.stepNumber, currentStep.stepName);
 
+    if (currentStep.stepType === 'decision') {
+      setEditValue('');
+      setEditError('Please select your own decision to proceed.');
+      setIsEditing(true);
+      return;
+    }
+
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
@@ -87,6 +128,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
 
   const handleEdit = () => {
     setIsEditing(true);
+    setEditError('');
     if (currentStep.stepType === 'decision' && currentStep.decisionOptionId) {
       setEditValue(currentStep.decisionOptionId);
     } else {
@@ -99,6 +141,10 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
     const targetStep = updatedSteps[currentStepIndex];
 
     if (targetStep.stepType === 'decision' && targetStep.decisionNodeId) {
+      if (!editValue) {
+        setEditError('Please select a decision before saving.');
+        return;
+      }
       const node = getTreeNode(targetStep.decisionNodeId);
       const option = node?.options?.find(opt => opt.id === editValue);
       targetStep.decision = option?.label || editValue;
@@ -113,6 +159,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
     tracking.aiStepEdited(ticket.id, targetStep.stepNumber, targetStep.stepName, editValue);
 
     setIsEditing(false);
+    setEditError('');
 
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
@@ -183,8 +230,24 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
     onComplete(response);
   };
 
-  const allStepsProcessed = steps.every(s => s.status !== 'pending');
-  const progress = (steps.filter(s => s.status !== 'pending').length / steps.length) * 100;
+  const allStepsProcessed = steps.every(step => {
+    if (step.status === 'pending') return false;
+    if (step.stepType === 'decision' && step.status === 'rejected') return false;
+    return true;
+  });
+  const processedStepsCount = steps.filter(step => {
+    if (step.status === 'pending') return false;
+    if (step.stepType === 'decision' && step.status === 'rejected') return false;
+    return true;
+  }).length;
+  const progress = steps.length > 0 ? (processedStepsCount / steps.length) * 100 : 0;
+  const showCurrentStep = currentStep && !isEditing && !decisionStepsComplete;
+  const visibleSteps = decisionStepsComplete
+    ? steps.filter(step => step.stepType !== 'response')
+    : steps;
+  const highlightIndex = decisionStepsComplete
+    ? Math.min(currentStepIndex, Math.max(visibleSteps.length - 1, 0))
+    : currentStepIndex;
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full flex flex-col overflow-hidden">
@@ -231,11 +294,11 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {/* Steps Overview */}
         <div className="grid grid-cols-5 gap-2">
-          {steps.map((step, index) => (
+          {visibleSteps.map((step, index) => (
             <div
               key={step.stepNumber}
               className={`text-center py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                index === currentStepIndex
+                index === highlightIndex
                   ? 'bg-purple-600 text-white ring-2 ring-purple-300'
                   : step.status === 'accepted'
                   ? 'bg-green-100 text-green-800'
@@ -252,7 +315,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
         </div>
 
         {/* Current Step */}
-        {currentStep && !isEditing && (
+        {showCurrentStep && (
           <div className="border-2 border-purple-200 rounded-lg p-6 bg-purple-50">
             <div className="flex items-start justify-between mb-4">
               <div>
@@ -266,7 +329,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
             <div className="bg-white rounded-lg p-4 border border-purple-200">
               <div className="text-sm text-gray-600 mb-2">AI Decision:</div>
               <div className="text-lg font-semibold text-gray-900">
-                {currentStep.decision}
+                {currentStep.stepType === 'response' ? customerResponse : currentStep.decision}
               </div>
             </div>
 
@@ -304,7 +367,10 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
             {currentStep.stepType === 'decision' && currentStep.decisionNodeId ? (
               <select
                 value={editValue}
-                onChange={(e) => setEditValue(e.target.value)}
+                onChange={(e) => {
+                  setEditValue(e.target.value);
+                  setEditError('');
+                }}
                 title="Edit the AI's decision for this step"
                 className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
               >
@@ -317,10 +383,19 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
               <input
                 type="text"
                 value={editValue}
-                onChange={(e) => setEditValue(e.target.value)}
+                onChange={(e) => {
+                  setEditValue(e.target.value);
+                  setEditError('');
+                }}
                 title="Edit the AI's decision for this step"
                 className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
               />
+            )}
+
+            {editError && (
+              <div className="text-sm text-red-700 mb-3">
+                {editError}
+              </div>
             )}
 
             <div className="flex space-x-3">
@@ -331,7 +406,10 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
                 Save Changes
               </button>
               <button
-                onClick={() => setIsEditing(false)}
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditError('');
+                }}
                 className="flex-1 bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors font-semibold"
               >
                 Cancel
@@ -359,7 +437,7 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
             )}
 
             <div className="space-y-3 mb-6">
-              {steps.map((step) => (
+              {visibleSteps.map((step) => (
                 <div
                   key={step.stepNumber}
                   className={`ai-step-card p-3 rounded-lg border-2 ${step.status}`}
@@ -367,7 +445,9 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <div className="font-semibold text-gray-900">{step.stepName}</div>
-                      <div className="text-sm text-gray-700">Decision: {step.decision}</div>
+                      <div className="text-sm text-gray-700">
+                        Decision: {step.stepType === 'response' ? customerResponse : step.decision}
+                      </div>
                     </div>
                     <span className="text-xs font-bold uppercase">
                       {step.status}

@@ -1,20 +1,20 @@
 # 02 Code of Conduct
 
-## Serviceprinzipien
-- Freundlich, klar, loesungsorientiert.
-- Keine Schuldzuweisungen; Verantwortung fuer den Prozess liegt beim Service.
-- Transparente Erklaerung von Entscheidungen (z. B. Abzuege, Fristen, Hygieneartikel).
+## Service Principles
+- Friendly, clear, solution-oriented.
+- No blame; ownership of the process sits with service.
+- Explain decisions transparently (e.g., deductions, windows, hygiene items).
 
-## Kulanzrahmen
-- Bis 10 EUR Erstattung sind als Kulanzspielraum des Service Agents erlaubt.
-- Kulanz nur, wenn der Fall nachvollziehbar ist und keine Richtlinie verletzt.
-- Kulanz immer im Ticket begruenden (Stichpunkte genuegen).
+## Goodwill Guidelines
+- Refunds up to 10 EUR are allowed as service agent goodwill.
+- Goodwill only when the case is reasonable and no policy is violated.
+- Always document goodwill in the ticket (bullet points are sufficient).
 
-## Kommunikation
-- Ruecksendungen immer mit klaren Anweisungen (Label, Verpackung, Frist).
-- Bei Ablehnung: kurze Begruendung + alternative Loesung anbieten (z. B. Teilrefund, Reparatur).
+## Communication
+- Returns must include clear instructions (label, packaging, window).
+- If declining: provide a brief reason and offer an alternative (e.g., partial refund, repair).
 
-## Dokumentation
-- Defekte kurz beschreiben, Fotos anfordern wenn noetig.
-- Abzuege (Zubehoer/Hygieneartikel) immer auffuehren.
-- Bei Betrugsverdacht eskalieren und nicht abschliessend zusagen.
+## Documentation
+- Describe defects briefly; request photos when needed.
+- Always list deductions (accessories/hygiene items).
+- If fraud is suspected, escalate and do not make a final commitment.

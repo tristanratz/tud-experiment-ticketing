@@ -188,9 +188,9 @@ export default function TicketDetail({ ticket, onComplete, onBack }: TicketDetai
           </p>
         </section>
 
-        {/* Decision Tree */}
+        {/* Service Workflow Tool */}
         <section>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Decision Path</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">Service Workflow Tool</h3>
 
           <div className="space-y-4">
             {decisionNodes.map((node) => (

@@ -4,88 +4,88 @@
     "request-category": {
       "id": "request-category",
       "type": "decision",
-      "prompt": "Um welche Kategorie von Request handelt es sich?",
+      "prompt": "What category does the request fall into?",
       "options": [
-        { "id": "return", "label": "Rückgabe", "next": "return-allowed" },
-        { "id": "exchange", "label": "Umtausch", "next": "exchange-allowed" },
-        { "id": "repair", "label": "Reparatur", "next": "repair-allowed" },
-        { "id": "fraud", "label": "Betrug", "next": "escalation" }
+        { "id": "return", "label": "Return", "next": "return-allowed" },
+        { "id": "exchange", "label": "Exchange", "next": "exchange-allowed" },
+        { "id": "repair", "label": "Repair", "next": "repair-allowed" },
+        { "id": "fraud", "label": "Fraud", "next": "escalation" }
       ]
     },
     "return-allowed": {
       "id": "return-allowed",
       "type": "decision",
-      "prompt": "Ist eine Rückgabe möglich/erlaubt?",
+      "prompt": "Is a return possible/allowed?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "return-possible" },
-        { "id": "no", "label": "Nein", "next": "return-fraud-check" }
+        { "id": "yes", "label": "Yes", "next": "return-possible" },
+        { "id": "no", "label": "No", "next": "return-fraud-check" }
       ]
     },
     "return-fraud-check": {
       "id": "return-fraud-check",
       "type": "decision",
-      "prompt": "Betrugsverdacht?",
+      "prompt": "Fraud suspected?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "escalation" },
-        { "id": "no", "label": "Nein", "next": "return-not-possible" }
+        { "id": "yes", "label": "Yes", "next": "escalation" },
+        { "id": "no", "label": "No", "next": "return-not-possible" }
       ]
     },
     "return-possible": {
       "id": "return-possible",
       "type": "outcome",
-      "title": "Rückgabe möglich",
-      "prompt": "Rückgabe möglich",
+      "title": "Return allowed",
+      "prompt": "Return allowed",
       "fields": [
-        { "id": "refundAmount", "label": "Erstattungssumme", "type": "text", "required": true },
-        { "id": "comment", "label": "Kommentar", "type": "textarea" },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true },
+        { "id": "refundAmount", "label": "Refund amount", "type": "text", "required": true },
+        { "id": "comment", "label": "Comment", "type": "textarea" },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true },
         { "id": "keepPartial", "label": "Keep & Partial", "type": "checkbox" }
       ]
     },
     "return-not-possible": {
       "id": "return-not-possible",
       "type": "outcome",
-      "title": "Rückgabe nicht möglich",
-      "prompt": "Rückgabe nicht möglich",
+      "title": "Return not possible",
+      "prompt": "Return not possible",
       "fields": [
-        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "internalReason", "label": "Internal reason", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "exchange-allowed": {
       "id": "exchange-allowed",
       "type": "decision",
-      "prompt": "Ist ein Umtausch möglich/erlaubt?",
+      "prompt": "Is an exchange possible/allowed?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "exchange-type" },
-        { "id": "no", "label": "Nein", "next": "exchange-repair-possible" }
+        { "id": "yes", "label": "Yes", "next": "exchange-type" },
+        { "id": "no", "label": "No", "next": "exchange-repair-possible" }
       ]
     },
     "exchange-type": {
       "id": "exchange-type",
       "type": "decision",
-      "prompt": "DOA oder Garantiefall?",
+      "prompt": "DOA or warranty case?",
       "options": [
         { "id": "doa", "label": "DOA", "next": "exchange-doa" },
-        { "id": "warranty", "label": "Garantie", "next": "exchange-warranty" }
+        { "id": "warranty", "label": "Warranty", "next": "exchange-warranty" }
       ]
     },
     "exchange-repair-possible": {
       "id": "exchange-repair-possible",
       "type": "decision",
-      "prompt": "Reparatur möglich?",
+      "prompt": "Repair possible?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "repair-warranty-check" },
-        { "id": "no", "label": "Nein", "next": "exchange-fraud-check" }
+        { "id": "yes", "label": "Yes", "next": "repair-warranty-check" },
+        { "id": "no", "label": "No", "next": "exchange-fraud-check" }
       ]
     },
     "exchange-fraud-check": {
       "id": "exchange-fraud-check",
       "type": "decision",
-      "prompt": "Betrugsverdacht?",
+      "prompt": "Fraud suspected?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "escalation" },
-        { "id": "no", "label": "Nein", "next": "exchange-not-possible" }
+        { "id": "yes", "label": "Yes", "next": "escalation" },
+        { "id": "no", "label": "No", "next": "exchange-not-possible" }
       ]
     },
     "exchange-doa": {
@@ -94,96 +94,96 @@
       "title": "DOA",
       "prompt": "DOA",
       "fields": [
-        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "defectDocumentation", "label": "Defect documentation", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "exchange-warranty": {
       "id": "exchange-warranty",
       "type": "outcome",
-      "title": "Garantie-Umtausch",
-      "prompt": "Garantie-Umtausch",
+      "title": "Warranty exchange",
+      "prompt": "Warranty exchange",
       "fields": [
-        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "defectDocumentation", "label": "Defect documentation", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "exchange-not-possible": {
       "id": "exchange-not-possible",
       "type": "outcome",
-      "title": "Umtausch nicht möglich",
-      "prompt": "Umtausch nicht möglich",
+      "title": "Exchange not possible",
+      "prompt": "Exchange not possible",
       "fields": [
-        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "internalReason", "label": "Internal reason", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "repair-allowed": {
       "id": "repair-allowed",
       "type": "decision",
-      "prompt": "Ist eine Reparatur möglich/erlaubt?",
+      "prompt": "Is a repair possible/allowed?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "repair-warranty-check" },
-        { "id": "no", "label": "Nein", "next": "repair-fraud-check" }
+        { "id": "yes", "label": "Yes", "next": "repair-warranty-check" },
+        { "id": "no", "label": "No", "next": "repair-fraud-check" }
       ]
     },
     "repair-warranty-check": {
       "id": "repair-warranty-check",
       "type": "decision",
-      "prompt": "Garantiefrist eingehalten?",
+      "prompt": "Within the warranty period?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "repair-warranty" },
-        { "id": "no", "label": "Nein", "next": "repair-paid" }
+        { "id": "yes", "label": "Yes", "next": "repair-warranty" },
+        { "id": "no", "label": "No", "next": "repair-paid" }
       ]
     },
     "repair-fraud-check": {
       "id": "repair-fraud-check",
       "type": "decision",
-      "prompt": "Betrugsverdacht?",
+      "prompt": "Fraud suspected?",
       "options": [
-        { "id": "yes", "label": "Ja", "next": "escalation" },
-        { "id": "no", "label": "Nein", "next": "repair-not-possible" }
+        { "id": "yes", "label": "Yes", "next": "escalation" },
+        { "id": "no", "label": "No", "next": "repair-not-possible" }
       ]
     },
     "repair-warranty": {
       "id": "repair-warranty",
       "type": "outcome",
-      "title": "Garantie-Reparatur",
-      "prompt": "Garantie-Reparatur",
+      "title": "Warranty repair",
+      "prompt": "Warranty repair",
       "fields": [
-        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "defectDocumentation", "label": "Defect documentation", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "repair-paid": {
       "id": "repair-paid",
       "type": "outcome",
-      "title": "Reparatur auf eigene Kosten",
-      "prompt": "Reparatur auf eigene Kosten",
+      "title": "Paid repair",
+      "prompt": "Paid repair",
       "fields": [
-        { "id": "costEstimate", "label": "Kostenvoranschlag", "type": "text", "required": true },
-        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "costEstimate", "label": "Cost estimate", "type": "text", "required": true },
+        { "id": "defectDocumentation", "label": "Defect documentation", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "repair-not-possible": {
       "id": "repair-not-possible",
       "type": "outcome",
-      "title": "Reparatur nicht möglich",
-      "prompt": "Reparatur nicht möglich",
+      "title": "Repair not possible",
+      "prompt": "Repair not possible",
       "fields": [
-        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "internalReason", "label": "Internal reason", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     },
     "escalation": {
       "id": "escalation",
       "type": "outcome",
-      "title": "Eskalation",
-      "prompt": "Eskalation",
+      "title": "Escalation",
+      "prompt": "Escalation",
       "fields": [
-        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
-        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+        { "id": "internalReason", "label": "Internal reason", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Response to customer", "type": "textarea", "required": true }
       ]
     }
   }

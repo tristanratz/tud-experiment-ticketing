@@ -27,6 +27,8 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
     const processSteps = async () => {
       const generatedSteps = aiMockService.generateAgentSteps(ticket);
       const draft = aiMockService.generateCompleteResponse(ticket);
+      const outcomeId = ticket.goldStandard.outcomeId;
+      const outcomeFields = aiMockService.generateOutcomeFields(ticket, outcomeId);
 
       const initialSelections = ticket.goldStandard.path.reduce<Record<string, string>>((acc, step) => {
         acc[step.nodeId] = step.optionId;
@@ -42,7 +44,7 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
 
       setDecisionSelections(pruneSelectionsToPath(initialSelections));
       setCustomerResponse(draft);
-      setFieldValues({ customerResponse: draft });
+      setFieldValues({ customerResponse: draft, ...outcomeFields });
       setIsProcessing(false);
     };
 
