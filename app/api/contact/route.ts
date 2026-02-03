@@ -9,9 +9,15 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
+interface ContactEntry {
+  participantId: string;
+  email: string;
+  timestamp: number;
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json() as { participantId?: string; email?: string };
     const { participantId, email } = body;
 
     if (!participantId || !email) {
@@ -24,10 +30,13 @@ export async function POST(request: NextRequest) {
     const filePath = path.join(DATA_DIR, 'contacts.json');
 
     // Read existing contacts if file exists
-    let existingContacts: any[] = [];
+    let existingContacts: ContactEntry[] = [];
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf-8');
-      existingContacts = JSON.parse(fileContent);
+      const parsed = JSON.parse(fileContent) as unknown;
+      if (Array.isArray(parsed)) {
+        existingContacts = parsed as ContactEntry[];
+      }
     }
 
     // Add new contact

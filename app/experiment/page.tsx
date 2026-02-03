@@ -6,7 +6,7 @@ import MobileLockout from '@/components/MobileLockout';
 import { isLikelyMobile } from '@/lib/device';
 import { storage } from '@/lib/storage';
 import { ticketService } from '@/lib/tickets';
-import { tracking, useMouseTracking, useGlobalTracking, trackPagePerformance } from '@/lib/tracking';
+import { tracking, setupMouseTracking, setupGlobalTracking, trackPagePerformance } from '@/lib/tracking';
 import { TicketWithStatus, TicketResponse, SessionData } from '@/types';
 import ProcessBar from '@/components/experiment/ProcessBar';
 import TicketOverview from '@/components/experiment/TicketOverview';
@@ -160,14 +160,14 @@ export default function ExperimentPage() {
   // Mouse tracking
   useEffect(() => {
     if (isMobile) return;
-    const cleanup = useMouseTracking();
+    const cleanup = setupMouseTracking();
     return cleanup;
   }, [isMobile]);
 
   // Global tracking (focus, visibility, errors)
   useEffect(() => {
     if (isMobile) return;
-    const cleanup = useGlobalTracking(currentTicketId || undefined);
+    const cleanup = setupGlobalTracking(currentTicketId || undefined);
     return cleanup;
   }, [currentTicketId, isMobile]);
 

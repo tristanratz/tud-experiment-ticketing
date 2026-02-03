@@ -3,6 +3,7 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { ticketService } from '@/lib/tickets';
+import { SurveyResponse, TraceEvent, TicketResponse } from '@/types';
 
 // Mark this route as dynamic since it uses search params
 export const dynamic = 'force-dynamic';
@@ -35,39 +36,54 @@ export async function GET(request: NextRequest) {
     }
 
     const files = fs.readdirSync(DATA_DIR);
-    const participants: any[] = [];
+    interface ParticipantData {
+      participantId: string;
+      traceEvents?: TraceEvent[];
+      survey?: SurveyResponse;
+      performance?: ReturnType<typeof ticketService.calculatePerformanceMetrics> | null;
+      ticketCount?: number;
+    }
+
+    const participants: ParticipantData[] = [];
 
     // Group files by participant
-    const participantMap: Map<string, any> = new Map();
+    const participantMap: Map<string, ParticipantData> = new Map();
 
     for (const file of files) {
       const filePath = path.join(DATA_DIR, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(fileContent);
+      const data = JSON.parse(fileContent) as unknown;
 
       if (file.endsWith('_trace.json')) {
         const participantId = file.replace('_trace.json', '');
         if (!participantMap.has(participantId)) {
           participantMap.set(participantId, { participantId });
         }
-        participantMap.get(participantId).traceEvents = data;
+        const participantEntry = participantMap.get(participantId);
+        if (participantEntry && Array.isArray(data)) {
+          participantEntry.traceEvents = data as TraceEvent[];
+        }
       } else if (file.endsWith('_survey.json')) {
         const participantId = file.replace('_survey.json', '');
         if (!participantMap.has(participantId)) {
           participantMap.set(participantId, { participantId });
         }
-        participantMap.get(participantId).survey = data;
+        const participantEntry = participantMap.get(participantId);
+        if (participantEntry && data && typeof data === 'object') {
+          participantEntry.survey = data as SurveyResponse;
+        }
       }
     }
 
     // Convert map to array and calculate metrics
     participantMap.forEach((participantData) => {
-      const { traceEvents = [], survey = {} } = participantData;
+      const traceEvents = participantData.traceEvents || [];
 
       // Extract ticket responses from trace events
       const ticketResponses = traceEvents
-        .filter((e: any) => e.type === 'ticket_closed')
-        .map((e: any) => e.data);
+        .filter((event) => event.type === 'ticket_closed')
+        .map((event) => event.data)
+        .filter((data): data is TicketResponse => typeof data === 'object' && data !== null);
 
       // Calculate performance if we have responses
       let performance = null;

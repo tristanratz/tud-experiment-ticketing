@@ -1,5 +1,5 @@
 import posthog from 'posthog-js';
-import { TraceEvent, GroupType, DecisionEvent, MouseClickEvent, MouseMoveEvent } from '@/types';
+import { TraceEvent, GroupType, DecisionEvent, MouseClickEvent, MouseMoveEvent, SurveyResponse } from '@/types';
 import { storage } from './storage';
 
 let initialized = false;
@@ -48,9 +48,11 @@ export const tracking = {
   },
 
   // Track custom event (both PostHog and local storage)
-  track(eventType: TraceEvent['type'], data: any = {}): void {
+  track(eventType: TraceEvent['type'], data: Record<string, unknown> | object = {}): void {
     const session = storage.getSession();
-    const withParticipant = { ...data };
+    const withParticipant = typeof data === 'object' && data !== null
+      ? { ...(data as Record<string, unknown>) }
+      : {};
     if (session?.participantId && !('participantId' in withParticipant)) {
       withParticipant.participantId = session.participantId;
     }
@@ -149,11 +151,11 @@ export const tracking = {
     this.track('knowledge_base_opened', { nodeId, nodeTitle });
   },
 
-  surveyCompleted(surveyData: any): void {
+  surveyCompleted(surveyData: SurveyResponse): void {
     this.track('survey_completed', surveyData);
   },
 
-  surveySubmitted(surveyData: any): void {
+  surveySubmitted(surveyData: SurveyResponse): void {
     this.track('survey_submitted', surveyData);
   },
 
@@ -190,7 +192,7 @@ export const tracking = {
   },
 
   // Survey interaction tracking (individual questions)
-  surveyQuestionAnswered(questionId: string, questionText: string, answer: any, timestamp: number): void {
+  surveyQuestionAnswered(questionId: string, questionText: string, answer: unknown, timestamp: number): void {
     this.track('survey_question_answered', {
       questionId,
       questionText,
@@ -343,7 +345,7 @@ export const tracking = {
   },
 
   // Dropdown interaction tracking
-  dropdownOpened(ticketId: string, dropdownType: 'priority' | 'category' | 'assignment'): void {
+  dropdownOpened(ticketId: string, dropdownType: string): void {
     this.track('dropdown_opened', {
       ticketId,
       dropdownType,
@@ -397,7 +399,7 @@ export const tracking = {
   },
 
   // Error and exception tracking
-  applicationError(errorMessage: string, errorStack?: string, context?: any): void {
+  applicationError(errorMessage: string, errorStack?: string, context?: Record<string, unknown>): void {
     this.track('application_error', {
       errorMessage,
       errorStack,
@@ -450,7 +452,7 @@ export const tracking = {
 };
 
 // Mouse tracking hook
-export function useMouseTracking() {
+export function setupMouseTracking() {
   if (typeof window === 'undefined') return;
 
   let lastMouseMove: MouseMoveEvent | null = null;
@@ -493,7 +495,7 @@ export function useMouseTracking() {
 }
 
 // Global tracking hooks for window/document events
-export function useGlobalTracking(currentTicketId?: string) {
+export function setupGlobalTracking(currentTicketId?: string) {
   if (typeof window === 'undefined') return;
 
   // Window focus tracking

@@ -1,5 +1,6 @@
 import { Ticket, TicketWithStatus, TicketResponse, TicketScore } from '@/types';
 import ticketsData from '@/data/tickets.json';
+import { getTreeNode } from '@/lib/decisionTree';
 
 export const ticketService = {
   // Load all tickets
@@ -87,12 +88,19 @@ export const ticketService = {
 
     const goldStandard = ticket.goldStandard;
     let errors = 0;
-    let totalDecisions = 3; // priority, category, assignment
+    const totalDecisions = goldStandard.path.length + 1; // decision nodes + outcome
 
     // Check each decision against gold standard
-    if (response.priority !== goldStandard.priority) errors++;
-    if (response.category !== goldStandard.category) errors++;
-    if (response.assignment !== goldStandard.assignment) errors++;
+    goldStandard.path.forEach(expected => {
+      const actual = response.decisions.find(d => d.nodeId === expected.nodeId);
+      if (!actual || actual.optionId !== expected.optionId) {
+        errors++;
+      }
+    });
+
+    if (response.outcomeId !== goldStandard.outcomeId) {
+      errors++;
+    }
 
     const errorRate = errors / totalDecisions;
     const distanceFromGoldStandard = errorRate; // Simple distance metric
@@ -153,9 +161,29 @@ export const ticketService = {
     const errors: string[] = [];
 
     if (!response.ticketId) errors.push('Ticket ID is required');
-    if (!response.priority) errors.push('Priority selection is required');
-    if (!response.category) errors.push('Category selection is required');
-    if (!response.assignment) errors.push('Assignment selection is required');
+    if (!response.decisions || response.decisions.length === 0) {
+      errors.push('Decision path is required');
+    }
+    if (!response.outcomeId) {
+      errors.push('Outcome selection is required');
+    }
+
+    const outcomeNode = response.outcomeId ? getTreeNode(response.outcomeId) : undefined;
+    if (outcomeNode?.type === 'outcome') {
+      const fields = outcomeNode.fields || [];
+      fields.forEach(field => {
+        if (!field.required) return;
+        const value = response.fields?.[field.id];
+        if (field.type === 'checkbox') {
+          if (value !== true) {
+            errors.push(`${field.label} is required`);
+          }
+        } else if (typeof value !== 'string' || value.trim() === '') {
+          errors.push(`${field.label} is required`);
+        }
+      });
+    }
+
     if (!response.customerResponse || response.customerResponse.trim() === '') {
       errors.push('Customer response is required');
     }

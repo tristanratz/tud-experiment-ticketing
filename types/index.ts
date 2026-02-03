@@ -27,25 +27,27 @@ export interface Ticket {
   customerDetails?: CustomerDetails;
   subject: string;
   description: string;
-  decisionPoints: {
-    priority: string[];
-    category: string[];
-    assignment: string[];
-  };
-  goldStandard: {
-    priority: string;
-    category: string;
-    assignment: string;
-    responseTemplate: string;
-  };
+  goldStandard: TicketGoldStandard;
   scheduledAppearance?: number; // seconds from start for staggered mode
+}
+
+export interface TicketDecision {
+  nodeId: string;
+  optionId: string;
+  optionLabel?: string;
+}
+
+export interface TicketGoldStandard {
+  path: TicketDecision[];
+  outcomeId: string;
+  responseTemplate: string;
 }
 
 export interface TicketResponse {
   ticketId: string;
-  priority: string;
-  category: string;
-  assignment: string;
+  decisions: TicketDecision[];
+  outcomeId: string;
+  fields: Record<string, string | boolean>;
   customerResponse: string;
   completedAt: number; // timestamp
   timeToComplete: number; // milliseconds
@@ -62,10 +64,39 @@ export interface TicketWithStatus extends Ticket {
 // Decision Tracking
 export interface DecisionEvent {
   ticketId: string;
-  decisionType: 'priority' | 'category' | 'assignment';
+  decisionType: string;
   value: string;
   timestamp: number;
   timeSinceLastDecision?: number; // milliseconds
+}
+
+export interface DecisionTreeOption {
+  id: string;
+  label: string;
+  next: string;
+}
+
+export interface DecisionTreeField {
+  id: string;
+  label: string;
+  type: 'text' | 'textarea' | 'number' | 'checkbox';
+  required?: boolean;
+  placeholder?: string;
+  helperText?: string;
+}
+
+export interface DecisionTreeNode {
+  id: string;
+  type: 'decision' | 'outcome';
+  prompt: string;
+  title?: string;
+  options?: DecisionTreeOption[];
+  fields?: DecisionTreeField[];
+}
+
+export interface DecisionTree {
+  rootId: string;
+  nodes: Record<string, DecisionTreeNode>;
 }
 
 // AI Agent
@@ -75,6 +106,9 @@ export interface AIAgentStep {
   decision: string;
   reasoning: string;
   status: 'pending' | 'accepted' | 'rejected' | 'edited';
+  stepType?: 'analysis' | 'decision' | 'field' | 'response';
+  decisionNodeId?: string;
+  decisionOptionId?: string;
 }
 
 export interface AIAgentResult {

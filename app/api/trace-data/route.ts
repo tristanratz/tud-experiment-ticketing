@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { TraceEvent } from '@/types';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -17,10 +18,10 @@ if (!fs.existsSync(DATA_DIR)) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body = await request.json() as { participantId?: string; events?: TraceEvent[] };
     const { participantId, events } = body;
 
-    if (!participantId || !events) {
+    if (!participantId || !events || !Array.isArray(events)) {
       return NextResponse.json(
         { error: 'Missing participantId or events' },
         { status: 400 }
@@ -30,10 +31,13 @@ export async function POST(request: NextRequest) {
     const filePath = path.join(DATA_DIR, `${participantId}_trace.json`);
 
     // Read existing data if file exists
-    let existingData: any[] = [];
+    let existingData: TraceEvent[] = [];
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf-8');
-      existingData = JSON.parse(fileContent);
+      const parsed = JSON.parse(fileContent) as unknown;
+      if (Array.isArray(parsed)) {
+        existingData = parsed as TraceEvent[];
+      }
     }
 
     // Append new events

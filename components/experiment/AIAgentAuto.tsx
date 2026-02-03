@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TicketWithStatus, AIAgentStep, TicketResponse } from '@/types';
+import { TicketWithStatus, TicketResponse } from '@/types';
 import { aiMockService } from '@/lib/aiMock';
 import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 import { tracking } from '@/lib/tracking';
+import { buildDecisionPath, getTreeNode, pruneSelectionsToPath } from '@/lib/decisionTree';
 
 interface AIAgentAutoProps {
   ticket: TicketWithStatus;
@@ -13,79 +14,137 @@ interface AIAgentAutoProps {
 }
 
 export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoProps) {
-  const [steps, setSteps] = useState<AIAgentStep[]>([]);
   const [customerResponse, setCustomerResponse] = useState('');
   const [isProcessing, setIsProcessing] = useState(true);
   const [editingDecisions, setEditingDecisions] = useState(false);
   const [editingResponse, setEditingResponse] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [decisionSelections, setDecisionSelections] = useState<Record<string, string>>({});
+  const [fieldValues, setFieldValues] = useState<Record<string, string | boolean>>({});
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
-    // Simulate AI processing with delay
     const processSteps = async () => {
       const generatedSteps = aiMockService.generateAgentSteps(ticket);
       const draft = aiMockService.generateCompleteResponse(ticket);
+
+      const initialSelections = ticket.goldStandard.path.reduce<Record<string, string>>((acc, step) => {
+        acc[step.nodeId] = step.optionId;
+        return acc;
+      }, {});
 
       // Simulate processing each step with animation
       for (let i = 0; i <= generatedSteps.length; i++) {
         await new Promise(resolve => setTimeout(resolve, 500));
         setProgress((i / generatedSteps.length) * 100);
 
-        if (i < generatedSteps.length) {
-          setSteps(prev => [
-            ...prev,
-            { ...generatedSteps[i], status: 'accepted' }
-          ]);
-        }
       }
 
+      setDecisionSelections(pruneSelectionsToPath(initialSelections));
       setCustomerResponse(draft);
+      setFieldValues({ customerResponse: draft });
       setIsProcessing(false);
     };
 
     processSteps();
   }, [ticket]);
 
-  const handleApproveAll = () => {
-    const priorityStep = steps.find(s => s.stepName === 'Determine Priority');
-    const categoryStep = steps.find(s => s.stepName === 'Categorize Issue');
-    const assignmentStep = steps.find(s => s.stepName === 'Assign to Team');
+  const { nodes, outcomeId } = buildDecisionPath(decisionSelections);
+  const decisionNodes = nodes.filter(node => node.type === 'decision');
+  const outcomeNode = outcomeId ? getTreeNode(outcomeId) : undefined;
 
-    if (!priorityStep || !categoryStep || !assignmentStep) {
-      alert('Processing not complete.');
+  useEffect(() => {
+    if (!outcomeNode || outcomeNode.type !== 'outcome') return;
+    const allowedFieldIds = new Set((outcomeNode.fields || []).map(field => field.id));
+    setFieldValues(prev => {
+      const next: Record<string, string | boolean> = {};
+      Object.entries(prev).forEach(([key, value]) => {
+        if (allowedFieldIds.has(key)) {
+          next[key] = value;
+        }
+      });
+      return next;
+    });
+  }, [outcomeNode]);
+
+  const handleDecisionChange = (nodeId: string, optionId: string) => {
+    setDecisionSelections(prev => {
+      const next = { ...prev, [nodeId]: optionId };
+      return pruneSelectionsToPath(next);
+    });
+    setErrors([]);
+  };
+
+  const handleFieldChange = (fieldId: string, value: string | boolean) => {
+    setFieldValues(prev => ({ ...prev, [fieldId]: value }));
+    if (fieldId === 'customerResponse' && typeof value === 'string') {
+      setCustomerResponse(value);
+    }
+    setErrors([]);
+  };
+
+  const handleApproveAll = () => {
+    const validationErrors: string[] = [];
+
+    if (!outcomeId) {
+      validationErrors.push('Please complete all decision steps');
+    }
+
+    const requiredFields = outcomeNode?.type === 'outcome' ? outcomeNode.fields || [] : [];
+    requiredFields.forEach(field => {
+      if (!field.required) return;
+      const value = fieldValues[field.id];
+      if (field.type === 'checkbox') {
+        if (value !== true) validationErrors.push(`${field.label} is required`);
+      } else if (typeof value !== 'string' || value.trim() === '') {
+        validationErrors.push(`${field.label} is required`);
+      }
+    });
+
+    const finalCustomerResponse = typeof fieldValues.customerResponse === 'string'
+      ? fieldValues.customerResponse
+      : customerResponse;
+
+    if (!finalCustomerResponse.trim()) {
+      validationErrors.push('Customer response is required');
+    }
+
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
     const completedAt = Date.now();
     const timeToComplete = completedAt - (ticket.startedAt || completedAt);
 
+    const decisions = decisionNodes.map(node => {
+      const optionId = decisionSelections[node.id];
+      const optionLabel = node.options?.find(opt => opt.id === optionId)?.label;
+      return { nodeId: node.id, optionId, optionLabel };
+    }).filter(decision => decision.optionId);
+
     const response: TicketResponse = {
       ticketId: ticket.id,
-      priority: priorityStep.decision,
-      category: categoryStep.decision,
-      assignment: assignmentStep.decision,
-      customerResponse,
+      decisions,
+      outcomeId: outcomeId || '',
+      fields: fieldValues,
+      customerResponse: finalCustomerResponse,
       completedAt,
       timeToComplete,
     };
 
-    tracking.customerResponseSent(ticket.id, customerResponse, completedAt);
+    tracking.customerResponseSent(ticket.id, finalCustomerResponse, completedAt);
     tracking.ticketClosed(ticket.id, completedAt, timeToComplete);
 
     onComplete(response);
   };
 
-  const getDecisionValue = (stepName: string): string => {
-    const step = steps.find(s => s.stepName === stepName);
-    return step?.decision || '';
-  };
+  const getDecisionValue = (nodeId: string): string => decisionSelections[nodeId] || '';
 
-  const updateDecisionValue = (stepName: string, newValue: string) => {
-    setSteps(prev => prev.map(step =>
-      step.stepName === stepName
-        ? { ...step, decision: newValue, status: 'edited' as const }
-        : step
-    ));
+  const getOptionLabel = (nodeId: string): string => {
+    const node = getTreeNode(nodeId);
+    const option = node?.options?.find(opt => opt.id === decisionSelections[nodeId]);
+    return option?.label || '';
   };
 
   return (
@@ -139,6 +198,17 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
         {/* Results */}
         {!isProcessing && (
           <>
+            {errors.length > 0 && (
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+                <h3 className="text-red-800 font-semibold">Please complete all required fields:</h3>
+                <ul className="mt-2 text-red-700 text-sm list-disc list-inside">
+                  {errors.map((error, idx) => (
+                    <li key={idx}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Customer Issue Context */}
             <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
               <h3 className="font-semibold text-gray-900 mb-2">Customer Issue:</h3>
@@ -162,74 +232,30 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
               </div>
 
               <div className="space-y-3">
-                {/* Priority */}
-                <div className="bg-white rounded-lg p-4 border border-emerald-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Priority Level
-                  </label>
-                  {editingDecisions ? (
-                    <select
-                      value={getDecisionValue('Determine Priority')}
-                      onChange={(e) => updateDecisionValue('Determine Priority', e.target.value)}
-                      title="Adjust the priority level if needed"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
-                    >
-                      {ticket.decisionPoints.priority.map(opt => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="text-lg font-semibold text-gray-900">
-                      {getDecisionValue('Determine Priority')}
-                    </div>
-                  )}
-                </div>
-
-                {/* Category */}
-                <div className="bg-white rounded-lg p-4 border border-emerald-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Issue Category
-                  </label>
-                  {editingDecisions ? (
-                    <select
-                      value={getDecisionValue('Categorize Issue')}
-                      onChange={(e) => updateDecisionValue('Categorize Issue', e.target.value)}
-                      title="Adjust the issue category if needed"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
-                    >
-                      {ticket.decisionPoints.category.map(opt => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="text-lg font-semibold text-gray-900">
-                      {getDecisionValue('Categorize Issue')}
-                    </div>
-                  )}
-                </div>
-
-                {/* Assignment */}
-                <div className="bg-white rounded-lg p-4 border border-emerald-200">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Assign To
-                  </label>
-                  {editingDecisions ? (
-                    <select
-                      value={getDecisionValue('Assign to Team')}
-                      onChange={(e) => updateDecisionValue('Assign to Team', e.target.value)}
-                      title="Adjust the assignment team if needed"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
-                    >
-                      {ticket.decisionPoints.assignment.map(opt => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
-                    </select>
-                  ) : (
-                    <div className="text-lg font-semibold text-gray-900">
-                      {getDecisionValue('Assign to Team')}
-                    </div>
-                  )}
-                </div>
+                {decisionNodes.map((node) => (
+                  <div key={node.id} className="bg-white rounded-lg p-4 border border-emerald-200">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      {node.prompt}
+                    </label>
+                    {editingDecisions ? (
+                      <select
+                        value={getDecisionValue(node.id)}
+                        onChange={(e) => handleDecisionChange(node.id, e.target.value)}
+                        title={node.prompt}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                      >
+                        <option value="">Select...</option>
+                        {node.options?.map(opt => (
+                          <option key={opt.id} value={opt.id}>{opt.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <div className="text-lg font-semibold text-gray-900">
+                        {getOptionLabel(node.id)}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
 
               {editingDecisions && (
@@ -241,6 +267,62 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                 </button>
               )}
             </div>
+
+            {/* Action Fields */}
+            {outcomeNode?.type === 'outcome' && (
+              <div className="border-2 border-emerald-200 rounded-lg p-6 bg-white">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">
+                  {outcomeNode.title || 'Action Fields'}
+                </h3>
+                <div className="space-y-4">
+                  {(outcomeNode.fields || []).filter(field => field.id !== 'customerResponse').map((field) => (
+                    <div key={field.id}>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        {field.label} {field.required && <span className="text-red-500">*</span>}
+                      </label>
+                      {field.type === 'textarea' && (
+                        <textarea
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          rows={5}
+                          title={field.label}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-sans text-sm"
+                        />
+                      )}
+                      {field.type === 'checkbox' && (
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={fieldValues[field.id] === true}
+                            onChange={(e) => handleFieldChange(field.id, e.target.checked)}
+                            className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                          />
+                          <span className="text-sm text-gray-600">{field.label}</span>
+                        </div>
+                      )}
+                      {field.type === 'text' && (
+                        <input
+                          type="text"
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          title={field.label}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                        />
+                      )}
+                      {field.type === 'number' && (
+                        <input
+                          type="number"
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          title={field.label}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Customer Response */}
             <div className="border-2 border-emerald-200 rounded-lg p-6 bg-white">
@@ -262,7 +344,10 @@ export default function AIAgentAuto({ ticket, onComplete, onBack }: AIAgentAutoP
                 <>
                   <textarea
                     value={customerResponse}
-                    onChange={(e) => setCustomerResponse(e.target.value)}
+                    onChange={(e) => {
+                      setCustomerResponse(e.target.value);
+                      handleFieldChange('customerResponse', e.target.value);
+                    }}
                     rows={8}
                     title="Edit the draft response before approval"
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 font-sans text-sm"

@@ -1,7 +1,6 @@
 'use client';
 
 import { TicketWithStatus } from '@/types';
-import { useEffect, useState } from 'react';
 
 interface ProcessBarProps {
   tickets: TicketWithStatus[];

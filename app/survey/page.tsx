@@ -14,7 +14,7 @@ export default function SurveyPage() {
   const router = useRouter();
   const [participantId, setParticipantId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [performanceData, setPerformanceData] = useState<any>(null);
+  const [performanceData, setPerformanceData] = useState<ReturnType<typeof ticketService.calculatePerformanceMetrics> | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

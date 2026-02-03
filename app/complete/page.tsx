@@ -151,7 +151,7 @@ export default function CompletePage() {
             Complete Study on Prolific →
           </a>
           <p className="text-xs text-blue-700 mt-2">
-            Note: Replace "COMPLETION_CODE_HERE" with the actual Prolific completion code
+            Note: Replace &quot;COMPLETION_CODE_HERE&quot; with the actual Prolific completion code
           </p>
         </div>
 
@@ -180,7 +180,7 @@ export default function CompletePage() {
                 />
               </label>
               <p className="text-xs text-gray-600">
-                We'll send you a summary of the study results when available.
+                We&apos;ll send you a summary of the study results when available.
               </p>
               <button
                 type="submit"
@@ -191,7 +191,7 @@ export default function CompletePage() {
             </form>
           ) : (
             <p className="text-green-600 text-sm font-medium">
-              ✓ Thank you! We'll contact you when results are available.
+              ✓ Thank you! We&apos;ll contact you when results are available.
             </p>
           )}
         </div>

@@ -1,10 +1,26 @@
 import { Ticket, AIAgentStep, ChatMessage } from '@/types';
-import { ticketService } from './tickets';
+import { getTreeNode } from '@/lib/decisionTree';
 
 export const aiMockService = {
   // Generate AI agent steps for a ticket (Group 3 & 4)
   generateAgentSteps(ticket: Ticket): AIAgentStep[] {
     const goldStandard = ticket.goldStandard;
+    const decisionSteps = goldStandard.path.map((step, index) => {
+      const node = getTreeNode(step.nodeId);
+      const option = node?.options?.find(opt => opt.id === step.optionId);
+      const stepName = node?.prompt || `Decision ${index + 1}`;
+      const decisionLabel = option?.label || step.optionId;
+      return {
+        stepNumber: index + 2,
+        stepName,
+        decision: decisionLabel,
+        reasoning: `Selected "${decisionLabel}" based on the ticket context and policy.`,
+        status: 'pending' as const,
+        stepType: 'decision' as const,
+        decisionNodeId: step.nodeId,
+        decisionOptionId: step.optionId,
+      };
+    });
 
     return [
       {
@@ -13,34 +29,16 @@ export const aiMockService = {
         decision: `Customer: ${ticket.customer} - Issue: ${ticket.subject}`,
         reasoning: `Based on the ticket description, the customer is experiencing "${ticket.subject}". This requires careful attention to ensure proper resolution.`,
         status: 'pending',
+        stepType: 'analysis',
       },
+      ...decisionSteps,
       {
-        stepNumber: 2,
-        stepName: 'Determine Priority',
-        decision: goldStandard.priority,
-        reasoning: `This issue should be classified as ${goldStandard.priority} priority because ${this.getPriorityReasoning(goldStandard.priority, ticket.description)}.`,
-        status: 'pending',
-      },
-      {
-        stepNumber: 3,
-        stepName: 'Categorize Issue',
-        decision: goldStandard.category,
-        reasoning: `This falls under the ${goldStandard.category} category as ${this.getCategoryReasoning(goldStandard.category)}.`,
-        status: 'pending',
-      },
-      {
-        stepNumber: 4,
-        stepName: 'Assign to Team',
-        decision: goldStandard.assignment,
-        reasoning: `This should be handled by ${goldStandard.assignment} because ${this.getAssignmentReasoning(goldStandard.assignment, goldStandard.category)}.`,
-        status: 'pending',
-      },
-      {
-        stepNumber: 5,
+        stepNumber: decisionSteps.length + 2,
         stepName: 'Draft Customer Response',
         decision: 'Response drafted',
         reasoning: 'I\'ve prepared a professional and empathetic response addressing the customer\'s concerns.',
         status: 'pending',
+        stepType: 'response',
       },
     ];
   },
@@ -48,38 +46,6 @@ export const aiMockService = {
   // Generate complete response for autonomous mode (Group 4)
   generateCompleteResponse(ticket: Ticket): string {
     return ticket.goldStandard.responseTemplate;
-  },
-
-  // Priority reasoning helper
-  getPriorityReasoning(priority: string, description: string): string {
-    const reasons: Record<string, string> = {
-      'Low': 'it\'s a general inquiry that doesn\'t require immediate action',
-      'Medium': 'it affects the customer experience but isn\'t time-critical',
-      'High': 'it significantly impacts the customer\'s ability to use our service',
-      'Urgent': 'it requires immediate attention to prevent customer loss or significant dissatisfaction',
-    };
-    return reasons[priority] || 'of the nature of the issue';
-  },
-
-  // Category reasoning helper
-  getCategoryReasoning(category: string): string {
-    const reasons: Record<string, string> = {
-      'Technical': 'it involves system functionality or access issues',
-      'Account': 'it relates to user account management and settings',
-      'Billing': 'it concerns payment, charges, or refund matters',
-      'Order': 'it pertains to product purchases, delivery, or returns',
-    };
-    return reasons[category] || 'it best matches this classification';
-  },
-
-  // Assignment reasoning helper
-  getAssignmentReasoning(assignment: string, category: string): string {
-    const reasons: Record<string, string> = {
-      'Tier 1': 'it can be resolved with standard procedures and doesn\'t require specialized knowledge',
-      'Tier 2': 'it requires technical expertise or account-level access beyond Tier 1 capabilities',
-      'Specialist': 'it involves complex issues that need specialized expertise or higher-level authorization',
-    };
-    return reasons[assignment] || 'of the complexity level';
   },
 
   // Chat Assistant - Answer knowledge base questions (Group 2)

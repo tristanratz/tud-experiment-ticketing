@@ -14,7 +14,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const { messages, currentTicket } = await request.json();
+    const { messages, currentTicket } = await request.json() as {
+      messages?: { role?: string; content?: string }[];
+      currentTicket?: { id?: string; subject?: string; description?: string };
+    };
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
         { error: 'Missing messages' },
@@ -27,7 +30,7 @@ export async function POST(request: Request) {
       .map((doc) => `# ${doc.title}\n${doc.content}`)
       .join('\n\n');
 
-    const ticketContext = currentTicket
+    const ticketContext = currentTicket?.id && currentTicket?.subject && currentTicket?.description
       ? `\n\nCurrent ticket context:\nID: ${currentTicket.id}\nSubject: ${currentTicket.subject}\nDescription: ${currentTicket.description}`
       : '';
 
@@ -38,10 +41,13 @@ export async function POST(request: Request) {
       'Keep responses concise and professional.',
     ].join(' ');
 
-    const recentMessages = messages.slice(-10).map((message: any) => ({
-      role: message.role,
-      content: message.content,
-    }));
+    const recentMessages = messages.slice(-10).flatMap((message) => {
+      if (!message?.role || !message?.content) return [];
+      return [{
+        role: message.role,
+        content: message.content,
+      }];
+    });
 
     const response = await fetch(OPENAI_API_URL, {
       method: 'POST',

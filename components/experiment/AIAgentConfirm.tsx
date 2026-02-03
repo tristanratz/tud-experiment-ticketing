@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { TicketWithStatus, AIAgentStep, TicketResponse } from '@/types';
 import { aiMockService } from '@/lib/aiMock';
 import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
 import { tracking } from '@/lib/tracking';
+import { buildDecisionPath, getTreeNode, pruneSelectionsToPath } from '@/lib/decisionTree';
 
 interface AIAgentConfirmProps {
   ticket: TicketWithStatus;
@@ -18,15 +19,47 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
   const [editValue, setEditValue] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [customerResponse, setCustomerResponse] = useState('');
+  const [fieldValues, setFieldValues] = useState<Record<string, string | boolean>>({});
+  const [errors, setErrors] = useState<string[]>([]);
 
   useEffect(() => {
-    // Generate AI agent steps for this ticket
     const generatedSteps = aiMockService.generateAgentSteps(ticket);
+    const draft = aiMockService.generateCompleteResponse(ticket);
     setSteps(generatedSteps);
-    setCustomerResponse(aiMockService.generateCompleteResponse(ticket));
+    setCustomerResponse(draft);
+    setFieldValues({ customerResponse: draft });
+    setErrors([]);
   }, [ticket]);
 
   const currentStep = steps[currentStepIndex];
+
+  const decisionSelections = useMemo(() => {
+    const selections: Record<string, string> = {};
+    steps.forEach(step => {
+      if (step.stepType === 'decision' && step.decisionNodeId && step.decisionOptionId) {
+        selections[step.decisionNodeId] = step.decisionOptionId;
+      }
+    });
+    return pruneSelectionsToPath(selections);
+  }, [steps]);
+
+  const { nodes, outcomeId } = buildDecisionPath(decisionSelections);
+  const decisionNodes = nodes.filter(node => node.type === 'decision');
+  const outcomeNode = outcomeId ? getTreeNode(outcomeId) : undefined;
+
+  useEffect(() => {
+    if (!outcomeNode || outcomeNode.type !== 'outcome') return;
+    const allowedFieldIds = new Set((outcomeNode.fields || []).map(field => field.id));
+    setFieldValues(prev => {
+      const next: Record<string, string | boolean> = {};
+      Object.entries(prev).forEach(([key, value]) => {
+        if (allowedFieldIds.has(key)) {
+          next[key] = value;
+        }
+      });
+      return next;
+    });
+  }, [outcomeNode]);
 
   const handleAccept = () => {
     const updatedSteps = [...steps];
@@ -35,7 +68,6 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
 
     tracking.aiStepAccepted(ticket.id, currentStep.stepNumber, currentStep.stepName);
 
-    // Move to next step
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
@@ -48,7 +80,6 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
 
     tracking.aiStepRejected(ticket.id, currentStep.stepNumber, currentStep.stepName);
 
-    // Move to next step
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
@@ -56,50 +87,97 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
 
   const handleEdit = () => {
     setIsEditing(true);
-    setEditValue(currentStep.decision);
+    if (currentStep.stepType === 'decision' && currentStep.decisionOptionId) {
+      setEditValue(currentStep.decisionOptionId);
+    } else {
+      setEditValue(currentStep.decision);
+    }
   };
 
   const handleSaveEdit = () => {
     const updatedSteps = [...steps];
-    updatedSteps[currentStepIndex].decision = editValue;
-    updatedSteps[currentStepIndex].status = 'edited';
+    const targetStep = updatedSteps[currentStepIndex];
+
+    if (targetStep.stepType === 'decision' && targetStep.decisionNodeId) {
+      const node = getTreeNode(targetStep.decisionNodeId);
+      const option = node?.options?.find(opt => opt.id === editValue);
+      targetStep.decision = option?.label || editValue;
+      targetStep.decisionOptionId = editValue;
+    } else {
+      targetStep.decision = editValue;
+    }
+
+    targetStep.status = 'edited';
     setSteps(updatedSteps);
 
-    tracking.aiStepEdited(ticket.id, currentStep.stepNumber, currentStep.stepName, editValue);
+    tracking.aiStepEdited(ticket.id, targetStep.stepNumber, targetStep.stepName, editValue);
 
     setIsEditing(false);
 
-    // Move to next step
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     }
   };
 
-  const handleComplete = () => {
-    // Extract decisions from steps
-    const priorityStep = steps.find(s => s.stepName === 'Determine Priority');
-    const categoryStep = steps.find(s => s.stepName === 'Categorize Issue');
-    const assignmentStep = steps.find(s => s.stepName === 'Assign to Team');
+  const handleFieldChange = (fieldId: string, value: string | boolean) => {
+    setFieldValues(prev => ({ ...prev, [fieldId]: value }));
+    if (fieldId === 'customerResponse' && typeof value === 'string') {
+      setCustomerResponse(value);
+    }
+    setErrors([]);
+  };
 
-    if (!priorityStep || !categoryStep || !assignmentStep) {
-      alert('Please complete all decision steps.');
+  const handleComplete = () => {
+    const validationErrors: string[] = [];
+
+    if (!outcomeId) {
+      validationErrors.push('Please complete all decision steps.');
+    }
+
+    const requiredFields = outcomeNode?.type === 'outcome' ? outcomeNode.fields || [] : [];
+    requiredFields.forEach(field => {
+      if (!field.required) return;
+      const value = fieldValues[field.id];
+      if (field.type === 'checkbox') {
+        if (value !== true) validationErrors.push(`${field.label} is required`);
+      } else if (typeof value !== 'string' || value.trim() === '') {
+        validationErrors.push(`${field.label} is required`);
+      }
+    });
+
+    const finalCustomerResponse = typeof fieldValues.customerResponse === 'string'
+      ? fieldValues.customerResponse
+      : customerResponse;
+
+    if (!finalCustomerResponse.trim()) {
+      validationErrors.push('Customer response is required');
+    }
+
+    if (validationErrors.length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
     const completedAt = Date.now();
     const timeToComplete = completedAt - (ticket.startedAt || completedAt);
 
+    const decisions = decisionNodes.map(node => {
+      const optionId = decisionSelections[node.id];
+      const optionLabel = node.options?.find(opt => opt.id === optionId)?.label;
+      return { nodeId: node.id, optionId, optionLabel };
+    }).filter(decision => decision.optionId);
+
     const response: TicketResponse = {
       ticketId: ticket.id,
-      priority: priorityStep.decision,
-      category: categoryStep.decision,
-      assignment: assignmentStep.decision,
-      customerResponse,
+      decisions,
+      outcomeId: outcomeId || '',
+      fields: fieldValues,
+      customerResponse: finalCustomerResponse,
       completedAt,
       timeToComplete,
     };
 
-    tracking.customerResponseSent(ticket.id, customerResponse, completedAt);
+    tracking.customerResponseSent(ticket.id, finalCustomerResponse, completedAt);
     tracking.ticketClosed(ticket.id, completedAt, timeToComplete);
 
     onComplete(response);
@@ -223,13 +301,27 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
               Edit Step {currentStep.stepNumber}: {currentStep.stepName}
             </h3>
 
-            <input
-              type="text"
-              value={editValue}
-              onChange={(e) => setEditValue(e.target.value)}
-              title="Edit the AI's decision for this step"
-              className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
-            />
+            {currentStep.stepType === 'decision' && currentStep.decisionNodeId ? (
+              <select
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                title="Edit the AI's decision for this step"
+                className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
+              >
+                <option value="">Select...</option>
+                {getTreeNode(currentStep.decisionNodeId)?.options?.map(opt => (
+                  <option key={opt.id} value={opt.id}>{opt.label}</option>
+                ))}
+              </select>
+            ) : (
+              <input
+                type="text"
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                title="Edit the AI's decision for this step"
+                className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 mb-4"
+              />
+            )}
 
             <div className="flex space-x-3">
               <button
@@ -255,6 +347,17 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
               All Steps Processed - Review & Complete
             </h3>
 
+            {errors.length > 0 && (
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded mb-4">
+                <h3 className="text-red-800 font-semibold">Please complete all required fields:</h3>
+                <ul className="mt-2 text-red-700 text-sm list-disc list-inside">
+                  {errors.map((error, idx) => (
+                    <li key={idx}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <div className="space-y-3 mb-6">
               {steps.map((step) => (
                 <div
@@ -274,11 +377,64 @@ export default function AIAgentConfirm({ ticket, onComplete, onBack }: AIAgentCo
               ))}
             </div>
 
+            {outcomeNode?.type === 'outcome' && (
+              <div className="bg-white rounded-lg p-4 border border-green-200 mb-4">
+                <h4 className="font-semibold text-gray-900 mb-2">{outcomeNode.title || 'Action Fields'}:</h4>
+                <div className="space-y-4">
+                  {(outcomeNode.fields || []).filter(field => field.id !== 'customerResponse').map((field) => (
+                    <div key={field.id}>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        {field.label} {field.required && <span className="text-red-500">*</span>}
+                      </label>
+                      {field.type === 'textarea' && (
+                        <textarea
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          rows={4}
+                          title={field.label}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm"
+                        />
+                      )}
+                      {field.type === 'checkbox' && (
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            checked={fieldValues[field.id] === true}
+                            onChange={(e) => handleFieldChange(field.id, e.target.checked)}
+                            className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
+                          />
+                          <span className="text-sm text-gray-600">{field.label}</span>
+                        </div>
+                      )}
+                      {field.type === 'text' && (
+                        <input
+                          type="text"
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          title={field.label}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm"
+                        />
+                      )}
+                      {field.type === 'number' && (
+                        <input
+                          type="number"
+                          value={typeof fieldValues[field.id] === 'string' ? (fieldValues[field.id] as string) : ''}
+                          onChange={(e) => handleFieldChange(field.id, e.target.value)}
+                          title={field.label}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="bg-white rounded-lg p-4 border border-green-200 mb-4">
               <h4 className="font-semibold text-gray-900 mb-2">Customer Response:</h4>
               <textarea
                 value={customerResponse}
-                onChange={(e) => setCustomerResponse(e.target.value)}
+                onChange={(e) => handleFieldChange('customerResponse', e.target.value)}
                 rows={6}
                 title="Review and edit the customer response before completing"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 text-sm"

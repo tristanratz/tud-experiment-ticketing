@@ -1,0 +1,190 @@
+{
+  "rootId": "request-category",
+  "nodes": {
+    "request-category": {
+      "id": "request-category",
+      "type": "decision",
+      "prompt": "Um welche Kategorie von Request handelt es sich?",
+      "options": [
+        { "id": "return", "label": "Rückgabe", "next": "return-allowed" },
+        { "id": "exchange", "label": "Umtausch", "next": "exchange-allowed" },
+        { "id": "repair", "label": "Reparatur", "next": "repair-allowed" },
+        { "id": "fraud", "label": "Betrug", "next": "escalation" }
+      ]
+    },
+    "return-allowed": {
+      "id": "return-allowed",
+      "type": "decision",
+      "prompt": "Ist eine Rückgabe möglich/erlaubt?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "return-possible" },
+        { "id": "no", "label": "Nein", "next": "return-fraud-check" }
+      ]
+    },
+    "return-fraud-check": {
+      "id": "return-fraud-check",
+      "type": "decision",
+      "prompt": "Betrugsverdacht?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "escalation" },
+        { "id": "no", "label": "Nein", "next": "return-not-possible" }
+      ]
+    },
+    "return-possible": {
+      "id": "return-possible",
+      "type": "outcome",
+      "title": "Rückgabe möglich",
+      "prompt": "Rückgabe möglich",
+      "fields": [
+        { "id": "refundAmount", "label": "Erstattungssumme", "type": "text", "required": true },
+        { "id": "comment", "label": "Kommentar", "type": "textarea" },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true },
+        { "id": "keepPartial", "label": "Keep & Partial", "type": "checkbox" }
+      ]
+    },
+    "return-not-possible": {
+      "id": "return-not-possible",
+      "type": "outcome",
+      "title": "Rückgabe nicht möglich",
+      "prompt": "Rückgabe nicht möglich",
+      "fields": [
+        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "exchange-allowed": {
+      "id": "exchange-allowed",
+      "type": "decision",
+      "prompt": "Ist ein Umtausch möglich/erlaubt?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "exchange-type" },
+        { "id": "no", "label": "Nein", "next": "exchange-repair-possible" }
+      ]
+    },
+    "exchange-type": {
+      "id": "exchange-type",
+      "type": "decision",
+      "prompt": "DOA oder Garantiefall?",
+      "options": [
+        { "id": "doa", "label": "DOA", "next": "exchange-doa" },
+        { "id": "warranty", "label": "Garantie", "next": "exchange-warranty" }
+      ]
+    },
+    "exchange-repair-possible": {
+      "id": "exchange-repair-possible",
+      "type": "decision",
+      "prompt": "Reparatur möglich?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "repair-warranty-check" },
+        { "id": "no", "label": "Nein", "next": "exchange-fraud-check" }
+      ]
+    },
+    "exchange-fraud-check": {
+      "id": "exchange-fraud-check",
+      "type": "decision",
+      "prompt": "Betrugsverdacht?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "escalation" },
+        { "id": "no", "label": "Nein", "next": "exchange-not-possible" }
+      ]
+    },
+    "exchange-doa": {
+      "id": "exchange-doa",
+      "type": "outcome",
+      "title": "DOA",
+      "prompt": "DOA",
+      "fields": [
+        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "exchange-warranty": {
+      "id": "exchange-warranty",
+      "type": "outcome",
+      "title": "Garantie-Umtausch",
+      "prompt": "Garantie-Umtausch",
+      "fields": [
+        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "exchange-not-possible": {
+      "id": "exchange-not-possible",
+      "type": "outcome",
+      "title": "Umtausch nicht möglich",
+      "prompt": "Umtausch nicht möglich",
+      "fields": [
+        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "repair-allowed": {
+      "id": "repair-allowed",
+      "type": "decision",
+      "prompt": "Ist eine Reparatur möglich/erlaubt?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "repair-warranty-check" },
+        { "id": "no", "label": "Nein", "next": "repair-fraud-check" }
+      ]
+    },
+    "repair-warranty-check": {
+      "id": "repair-warranty-check",
+      "type": "decision",
+      "prompt": "Garantiefrist eingehalten?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "repair-warranty" },
+        { "id": "no", "label": "Nein", "next": "repair-paid" }
+      ]
+    },
+    "repair-fraud-check": {
+      "id": "repair-fraud-check",
+      "type": "decision",
+      "prompt": "Betrugsverdacht?",
+      "options": [
+        { "id": "yes", "label": "Ja", "next": "escalation" },
+        { "id": "no", "label": "Nein", "next": "repair-not-possible" }
+      ]
+    },
+    "repair-warranty": {
+      "id": "repair-warranty",
+      "type": "outcome",
+      "title": "Garantie-Reparatur",
+      "prompt": "Garantie-Reparatur",
+      "fields": [
+        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "repair-paid": {
+      "id": "repair-paid",
+      "type": "outcome",
+      "title": "Reparatur auf eigene Kosten",
+      "prompt": "Reparatur auf eigene Kosten",
+      "fields": [
+        { "id": "costEstimate", "label": "Kostenvoranschlag", "type": "text", "required": true },
+        { "id": "defectDocumentation", "label": "Dokumentation des Defekts", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "repair-not-possible": {
+      "id": "repair-not-possible",
+      "type": "outcome",
+      "title": "Reparatur nicht möglich",
+      "prompt": "Reparatur nicht möglich",
+      "fields": [
+        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    },
+    "escalation": {
+      "id": "escalation",
+      "type": "outcome",
+      "title": "Eskalation",
+      "prompt": "Eskalation",
+      "fields": [
+        { "id": "internalReason", "label": "Begründung (intern)", "type": "textarea", "required": true },
+        { "id": "customerResponse", "label": "Antwort an Kunden", "type": "textarea", "required": true }
+      ]
+    }
+  }
+}

@@ -6,29 +6,14 @@
       "email": "jane.doe@email.com",
       "subject": "Cannot login to account",
       "description": "I've been trying to log into my account for the past 2 hours but keep getting an 'Invalid credentials' error. I'm sure my password is correct because I saved it in my password manager. This is urgent as I need to access my order history.",
-      "decisionPoints": {
-        "priority": [
-          "Low",
-          "Medium",
-          "High",
-          "Urgent"
-        ],
-        "category": [
-          "Technical",
-          "Account",
-          "Billing",
-          "Order"
-        ],
-        "assignment": [
-          "Tier 1",
-          "Tier 2",
-          "Specialist"
-        ]
-      },
       "goldStandard": {
-        "priority": "High",
-        "category": "Technical",
-        "assignment": "Tier 2",
+        "path": [
+          {
+            "nodeId": "request-category",
+            "optionId": "fraud"
+          }
+        ],
+        "outcomeId": "escalation",
         "responseTemplate": "I understand how frustrating login issues can be. I've checked your account and it appears there may be a technical issue. I'm escalating this to our technical team who will reset your credentials and send you a password reset link within the next hour. You'll receive an email at jane.doe@email.com with instructions."
       },
       "scheduledAppearance": 0,

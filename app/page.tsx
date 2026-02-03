@@ -112,8 +112,9 @@ function HomeContent() {
               <li>You have <strong>15 minutes</strong> to complete as many as possible</li>
               <li>For each ticket, you will:
                 <ul className="list-circle list-inside ml-6 mt-1 space-y-1">
-                  <li>Read the customer's issue</li>
-                  <li>Make decisions about priority, category, and assignment</li>
+                  <li>Read the customer&apos;s issue</li>
+                  <li>Follow the decision tree to classify the request</li>
+                  <li>Fill the action fields for the chosen outcome</li>
                   <li>Write a response to the customer</li>
                 </ul>
               </li>
@@ -132,7 +133,7 @@ function HomeContent() {
                 <li>Please work at a natural pace - this simulates real work conditions</li>
                 <li>Try to complete tickets accurately and professionally</li>
                 <li>You cannot pause or save progress midway</li>
-                <li>After the timed session, you'll complete a brief survey</li>
+                <li>After the timed session, you&apos;ll complete a brief survey</li>
               </ul>
             </div>
           </section>

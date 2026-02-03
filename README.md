@@ -159,7 +159,7 @@ Example with redirect:
 1. **Trace Events** (`data/collected/[participantId]_trace.json`)
    - Experiment start/end
    - Ticket opened/closed
-   - Decisions made (priority, category, assignment)
+   - Decision tree path selections and outcome fields
    - Mouse clicks and movements (sampled)
    - Customer responses sent
    - AI interaction events
@@ -205,7 +205,7 @@ The CSV export includes:
 
 ### Adding/Modifying Tickets
 
-Edit `data/tickets.json`:
+Edit `data/tree.json` to adjust the decision tree, and `data/tickets.json` to add tickets:
 
 ```json
 {
@@ -214,15 +214,12 @@ Edit `data/tickets.json`:
   "email": "customer@email.com",
   "subject": "Issue subject",
   "description": "Full issue description...",
-  "decisionPoints": {
-    "priority": ["Low", "Medium", "High", "Urgent"],
-    "category": ["Technical", "Account", "Billing", "Order"],
-    "assignment": ["Tier 1", "Tier 2", "Specialist"]
-  },
   "goldStandard": {
-    "priority": "High",
-    "category": "Technical",
-    "assignment": "Tier 2",
+    "path": [
+      { "nodeId": "request-category", "optionId": "return" },
+      { "nodeId": "return-allowed", "optionId": "yes" }
+    ],
+    "outcomeId": "return-possible",
     "responseTemplate": "Ideal customer response..."
   },
   "scheduledAppearance": 900
