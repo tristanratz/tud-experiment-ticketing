@@ -1,7 +1,8 @@
 'use client';
 
 import { TicketWithStatus } from '@/types';
-import CustomerDetailsHover from '@/components/experiment/CustomerDetailsHover';
+import { useState } from 'react';
+import CustomerDetailsCard from '@/components/experiment/CustomerDetailsCard';
 
 interface TicketOverviewProps {
   tickets: TicketWithStatus[];
@@ -11,6 +12,7 @@ interface TicketOverviewProps {
 export default function TicketOverview({ tickets, onSelectTicket }: TicketOverviewProps) {
   // Filter out locked tickets - only show available, in-progress, and completed
   const visibleTickets = tickets.filter(ticket => ticket.status !== 'locked');
+  const [openProfileId, setOpenProfileId] = useState<string | null>(null);
 
   const getStatusBadge = (status: TicketWithStatus['status']) => {
     const badges = {
@@ -84,15 +86,28 @@ export default function TicketOverview({ tickets, onSelectTicket }: TicketOvervi
 
             <h3 className="font-semibold text-gray-800 mb-1">{ticket.subject}</h3>
 
-            <div className="text-sm text-gray-600 mb-2">
-              <CustomerDetailsHover
-                ticket={ticket}
-                labelClassName="text-sm text-gray-600"
-                nameClassName="font-medium text-gray-800"
-                emailClassName="text-gray-500"
-                iconClassName="inline-flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 text-xs text-gray-500"
-              />
+            <div className="text-sm text-gray-600 mb-2 flex items-center gap-3">
+              <span>
+                Customer: <span className="font-medium text-gray-800">{ticket.customerDetails?.name ?? ticket.customer}</span>{' '}
+                <span className="text-gray-500">({ticket.customerDetails?.email ?? ticket.email})</span>
+              </span>
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  setOpenProfileId(prev => (prev === ticket.id ? null : ticket.id));
+                }}
+                className="text-xs font-semibold text-indigo-600 hover:text-indigo-700"
+              >
+                {openProfileId === ticket.id ? 'Hide profile' : 'View profile'}
+              </button>
             </div>
+
+            {openProfileId === ticket.id && (
+              <div className="mb-3 rounded-lg border border-gray-200 bg-white p-4">
+                <CustomerDetailsCard ticket={ticket} />
+              </div>
+            )}
 
             <p className="text-sm text-gray-700 line-clamp-2">
               {ticket.description}
